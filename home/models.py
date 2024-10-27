@@ -1,29 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-class Project(models.Model):
-    """
-    Modelo que representa un proyecto
-    """
-    name= models.CharField(max_length=200, help_text="Ingrese el nombre del proyecto")
-    def _str_(self) -> str:
-        return self.name 
-        
-    
-class Task (models.Model):
-    """
-    Modelo que representa un Tarea
-    """
-    
-    title =  models.CharField(max_length=200, help_text="Ingrese el titulo de la tarea")
-    descriptions =  models.TextField(help_text="Ingrese la descripcion de la tarea")
-    project =  models.ForeignKey(Project, on_delete=models.CASCADE)
-    
-    def _str_(self) -> str:
-        return self.title + "-" + self.project.name
-
-
 class Aseguradora(models.Model):
 
     """
@@ -51,6 +27,18 @@ class Tipo_Seguro(models.Model):
     def _str_(self) -> str:
         return self.nombre
 
+class Seguro(models.Model):
+
+    """
+    Modelo que representa un seguro
+    """
+
+    id = models.AutoField(primary_key = True)
+    nombre = models.CharField(max_length = 60)
+    tipo_seguro_id =  models.ForeignKey(Tipo_Seguro, on_delete=models.CASCADE)
+
+    def _str_(self) -> str:
+        return self.nombre
 
 class Cliente(models.Model):
     """
@@ -81,7 +69,7 @@ class Poliza(models.Model):
     """
 
     PRIMA = [  #creación de la enumeración de tipo de prima
-        ('TRIMESTRA', 'Trimestral'),
+        ('TRIMESTRAL', 'Trimestral'),
         ('SEMESTRAL', 'Semestral'),
         ('ANUAL', 'Anual'),
     ]
@@ -105,6 +93,30 @@ class Poliza(models.Model):
 
     def __str__ (self) -> str:
         return self.nombre
+
+class Beneficiario(models.Model):
+     """
+    Modelo que representa una beneficiario
+    """
+
+    TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
+        ('CED', 'Cédula'), 
+        ('NIT', 'NIT'),
+        ('PAS', 'Pasaporte')
+    ]
+
+    num_documento = models.IntegerField( primary_key = True)
+    nombre = models.CharField(max_length = 50)
+    tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
+
+class Poliza_Beneficiario(models.Model):
+    """
+    Modelo que representa relación entre póliza y beneficiario
+    """
+
+    id = models.AutoField(primary_key = True)
+    poliza_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
+    beneficiario_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
 
 
 class Siniestro(models.Model):
