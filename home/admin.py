@@ -1,11 +1,13 @@
 from django.contrib import admin
-from .models import Project, Task, Aseguradora, Tipo_Seguro, Cliente, Poliza, Siniestro, Usuario
+from .models import  Aseguradora, Tipo_Seguro, Seguro, Cliente, Poliza, Siniestro, Usuario, Beneficiario, Poliza_Beneficiario
 
 # Register your models here.
-admin.site.register(Project)
-admin.site.register(Task)
 admin.site.register(Aseguradora)
 admin.site.register(Tipo_Seguro)
+admin.site.register(Seguro)
 admin.site.register(Cliente)
 admin.site.register(Poliza)
+admin.site.register(Beneficiario)
+admin.site.register(Poliza_Beneficiario)
+admin.site.register(Siniestro)
 admin.site.register(Usuario)

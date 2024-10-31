@@ -1,0 +1,132 @@
+:root{
+    --color-primario: #0048B0;
+    --color-hover-button: #005eef;
+}
+section .h3-forms{
+    margin-left: 5%;
+    color: var(--color-primario);
+    font-size: calc(10px + 1vw);
+}
+
+form{
+    display: flex;
+    justify-content: space-between;   
+    margin-left: 4%;
+    margin-right: 4%;
+    padding:2em;
+    border-radius: 10px;
+    border:solid 1px var(--color-primario);
+    background-color: #e5ebee;
+    font-size: 16px;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;   
+}
+
+.info-cliente, .info-seguro{
+    display: flex;
+    flex-direction: column; 
+    width: 45%;  
+    margin-bottom: 1.5em;
+    gap:2em;
+}
+
+/*Estilos para sections con un label y un imput */
+.column{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*Estilos para el apartado de télefonos */
+.phone{
+   display: flex;
+   flex-direction: column;
+}
+.phone section{
+    display: flex;
+    gap:5px;
+}
+/* """""""""""" */
+
+.contentButton{
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin:0;
+}
+
+#botton-form{
+    padding: 0.2em 2em;
+    margin-top: 0.5em;
+    border-radius: 10px;
+    background-color: var(--color-primario);
+    color: white;
+    font-size:calc(10px + 0.2vw);
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+    height:calc(35px + 2vh);
+}
+#botton-form:hover{
+    background-color: var(--color-hover-button);
+    cursor: pointer;
+}
+
+input, select{
+    height: calc(10px + 4vh);
+    width: 100%;
+    border-radius: 3px;
+    border: solid 1px gray;  
+    padding: 0;
+    text-indent: 2px;
+
+}
+select{
+    height: 2.5em;
+    background-color: white;
+    font-size: 16px;
+}
+
+/*Estilos para los inputs de tipo date*/
+.date{
+    font-size:medium;
+    height:calc(8px + 4vh);;
+    
+}
+
+/*Estilos responsive */
+@media (max-width: 1100px){
+    form{
+        display: flex;
+        flex-direction: column;  
+        font-size: 14px;    
+    }
+    .info-cliente, .info-seguro{
+        width: 100%;
+    }   
+}
+
+@media (max-width: 480px){
+    select{
+        font-size: 13px;
+    }
+    input, select option{
+        height: 1.6em;  
+    }
+}
+
+/*estilos diferentes para el form de editar cliente*/
+#form-edit-cliente{
+    max-width:calc(400px + 6vw);
+}
+#form-edit-cliente .info-cliente{
+    width: 100%;
+}
+#formGlobal{
+    display: flex;
+    flex-direction: column;
+    width: calc(300px + 8vw);
+    gap:1.5em;
+}
+

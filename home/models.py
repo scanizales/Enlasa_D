@@ -59,7 +59,7 @@ class Cliente(models.Model):
     email = models.CharField(max_length = 50)
 
     def __str__(self) -> str:
-        return self.nomobre
+        return self.nombre
 
 
 
@@ -94,11 +94,11 @@ class Poliza(models.Model):
     def __str__ (self) -> str:
         return self.nombre
 
-class Beneficiario(models.Model):
-     """
-    Modelo que representa una beneficiario
-    """
 
+class Beneficiario(models.Model):
+    """
+    Modelo que representa un cliente
+    """
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
         ('CED', 'Cédula'), 
         ('NIT', 'NIT'),
@@ -109,6 +109,10 @@ class Beneficiario(models.Model):
     nombre = models.CharField(max_length = 50)
     tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
 
+    def __str__(self) -> str:
+        return self.nombre
+
+
 class Poliza_Beneficiario(models.Model):
     """
     Modelo que representa relación entre póliza y beneficiario
@@ -117,6 +121,9 @@ class Poliza_Beneficiario(models.Model):
     id = models.AutoField(primary_key = True)
     poliza_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
     beneficiario_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
+
+    def __str__ (self) -> str:
+        return self.id
 
 
 class Siniestro(models.Model):
@@ -138,7 +145,7 @@ class Siniestro(models.Model):
     poliza_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
 
     def __str__ (self) -> str:
-        return self.nombre
+        return self.descripcion
 
 class  Usuario(models.Model):
     """
