@@ -20,7 +20,8 @@ form{
     font-size: 16px;
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    font-style: normal;   
+    font-style: normal;  
+    margin-bottom: 2em; 
 }
 
 .info-cliente, .info-seguro{
@@ -126,7 +127,7 @@ select{
 #formGlobal{
     display: flex;
     flex-direction: column;
-    width: calc(300px + 8vw);
+    max-width: calc(300px + 8vw);
     gap:1.5em;
 }
 
