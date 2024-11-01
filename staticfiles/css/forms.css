@@ -58,7 +58,7 @@ form{
 }
 
 #botton-form{
-    padding: 0.2em 2em;
+    padding: 0 1.5em;
     margin-top: 0.5em;
     border-radius: 10px;
     background-color: var(--color-primario);
@@ -67,7 +67,7 @@ form{
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-style: normal; 
-    height:calc(35px + 2vh);
+    height:calc(30px + 2vh);
 }
 #botton-form:hover{
     background-color: var(--color-hover-button);
