@@ -4,6 +4,7 @@ from django.http import HttpResponse
 def home(request):
     return HttpResponse('Project Tecnodesarrollo: Enlasa')
 
+#vistas del apartado administrador
 def principalAdmin(request):
     return render(request, 'admin/principal.html')
 
@@ -42,3 +43,16 @@ def verTiposSeguros(request):
 
 def verSeguros(request):
     return render(request, 'admin/verSeguros.html')
+
+#vistas del apartado cliente
+def principalCliente(request):
+    return render(request, 'cliente/principal.html')
+
+def miPerfil(request):
+    return render(request, 'cliente/miPerfil.html')
+
+def misPolizas(request):
+    return render(request, 'cliente/misPolizas.html')
+
+def misBeneficiarios(request):
+    return render(request, 'cliente/misBeneficiarios.html')

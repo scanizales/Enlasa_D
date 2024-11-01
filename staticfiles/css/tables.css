@@ -24,11 +24,13 @@ button{
     width: fit-content;
     margin-right: 1em;   
     background-color: white;
+
 }
 
 #clientes h3{
     color: var(--color-primario); 
     font-size: calc(10px + 1vw);  
+ 
 }
 /*Apartado de filtrar pólizas*/
 h4{

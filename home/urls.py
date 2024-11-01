@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [  
     path('', views.home, name='home'),
+    #urls del apartado administrador
     path('adminPrincipal', views.principalAdmin, name = 'principalAdmin'),
     path('profile', views.verPerfil, name = 'verPerfil'),
     path('agregarCliente', views.agregarCliente, name = 'agregarCliente'),
@@ -16,5 +17,10 @@ urlpatterns = [
     path('agregarSeguro', views.agregarSeguro, name='agregarSeguro'),
     path('verTiposSeguros', views.verTiposSeguros, name='verTiposSeguros'),
     path('verSeguros', views.verSeguros, name='verSeguros'),
+    #urls del apartado cliente
+    path('clientePrincipal', views.principalCliente, name= 'clientePrincipal'),
+    path('miPerfil', views.miPerfil, name= 'miPerfil'),
+    path('misPolizas', views.misPolizas,  name= 'misPolizas'),
+    path('misBeneficiarios', views.misBeneficiarios,  name= 'misBeneficiarios'),
 
 ]
