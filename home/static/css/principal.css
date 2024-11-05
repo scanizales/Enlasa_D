@@ -133,6 +133,7 @@ nav .rol{
     width: 100%; 
     padding: 0 calc(6px + 0.5vw);
     background-color: white;   
+    font-size:calc(6px + 0.1vw);
 }
 .icono2 figure{
     padding-top:0.16em;

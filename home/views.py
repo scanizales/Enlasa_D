@@ -56,3 +56,22 @@ def misPolizas(request):
 
 def misBeneficiarios(request):
     return render(request, 'cliente/misBeneficiarios.html')
+
+#vistas del apartado gerente
+def principalGerente(request):
+    return render(request, 'gerente/principal.html')
+
+def verPerfilGerente(request):
+    return render(request, 'gerente/verPerfil.html')
+
+def agregarAdministrador(request):
+    return render(request, 'gerente/agregarAdministrador.html')
+
+def verAdministradores(request):
+    return render(request, 'gerente/verAdministradores.html')
+
+def verEstadisticasGenerales(request):
+    return render(request, 'gerente/verEstadisticasGenerales.html')
+
+def verEstadisticasPorAseguradora(request):
+    return render(request, 'gerente/verEstadisticasPorAseguradora.html')
