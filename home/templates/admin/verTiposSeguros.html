@@ -1,0 +1,49 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de tipos de seguros</h3>
+</section>
+<div id="general">
+    <section id="buscar">
+        <label for="buscar">Buscar:</label>
+        <input name="buscar" type="text"></input>
+    </section>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="datos">
+                <td>Seguros de vida</td>
+                <td>
+                    <div class="boton-menu">
+                        <button class="boton options"><strong>Opciones</strong></button>
+                        <ul class="menu-desplegable">
+                            <button class="icono-options options">
+                                <figure>
+                                    <img src="{% static 'assets/user-edit.png' %}" alt="icono">
+                                </figure>
+                                <p>Editar</p>
+                            </button>
+                            <button class="icono-options options">
+                                <figure>
+                                    <img src="{% static 'assets/delete.png' %}" alt="icono">
+                                </figure>
+                                <p>Eliminar</p>
+                            </button>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    document.querySelector('.boton-menu').addEventListener('click', function () {
+        document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
+    });
+</script>
+{% endblock %}

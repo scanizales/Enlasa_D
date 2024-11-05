@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    {% extends 'layouts/baseAdmin.html' %}
+    {% block content %}
+    <section>      
+        <h3 class="h3-forms">Registrar cliente</h3> 
+    </section> 
+    <form>
+        <section class="info-cliente">        
+            <section class="column">
+                <label for="name">Nombre:</label>
+                <input name="name" type="text" placeholder="Ej: Pepito Pérez" required></input>
+            </section>
+            <section class="column">
+                <label for="typeDocument">Tipo de documento:</label>
+                <select name="typeDocument" required>
+                    <option value="NIT">NIT</option>
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="document">Número de documento:</label>
+                <input name="document" type="number" placeholder="Escriba aquí" required></input> 
+            </section>
+            <section class="phone">
+                <label for="phone">Télefonos:</label>
+                <section>
+                    <input name="phone" type="number" placeholder="Célular" required></input>
+                    <input name="phone" type="number" placeholder="Télefono fijo"></input>
+                </section>
+            </section>
+            <section class="column">
+                <label for="email">Correo electrónico:</label>
+                <input name="email" type="email" placeholder="Ej: soy@gmail.com" required></input> 
+            </section>
+            <section class="column">
+                <label for="city">Ciudad:</label>
+                <input name="city" type="text" placeholder="Ej: Ibagué" required></input>
+            </section>
+            <section class="column">
+                <label for="address">Dirección de residencia:</label>
+                <input name="address" type="text" placeholder="Escriba aquí" required></input>
+            </section>
+            <section class="column">
+                <label for="typeInsurance">Estado póliza:</label>
+                <select name="typeInsurance" required>
+                    <option value="Generales">Activa</option>
+                    <option value="Hogar y copropiedad">Inactiva</option>
+                </select>
+            </section>
+        </section>
+        <section class="info-seguro">
+            <section class="column">
+                <label for="insurance">Nombre del seguro:</label>
+                <select name="insurance" required>
+                    <option value="Agropecuarios">Agropecuarios</option>
+                    <option value="Automoviles y motos">Automoviles y motos</option>
+                    <option value="Manejo">Manejo</option>
+                    <option value="Cumplimiento">Cumplimiento</option>
+                    <option value="Manejo">Manejo</option>
+                    <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="typeInsurance">Tipo de seguro:</label>
+                <select name="typeInsurance" required>
+                    <option value="Generales">Generales</option>
+                    <option value="Hogar y copropiedad">Hogar y copropiedad</option>
+                    <option value="Obligatorios">Obligatorios</option>
+                    <option value="Vida">De vida</option>
+                    <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="startDate">Fecha de inicio:</label>
+                <input class="date" name="startDate" type="date" required></input>
+            </section>
+            <section class="column">
+                <label for="expiryDate">Fecha de vencimiento:</label>
+                <input class="date" name="expiryDate" type="date"  required></input>
+            </section>
+            <section class="column">
+                <label for="typeFace">Tipo de prima:</label>
+                <select name="typeFace" required>
+                    <option value="TRIMESTRAL">Trimestral</option>
+                    <option value="SEMESTRAL">Semestral</option>
+                    <option value="ANUAL">Anual</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="valueFace">Valor prima:</label>
+                <input name="valueFace" type="number" placeholder="Escriba el precio aquí..." required></input>
+            </section>
+            <section class="column">
+                <label for="payMethod">Medio de pago:</label>
+                <select name="payMethod" required>
+                    <option value="EFECTIVO">Efectivo</option>
+                    <option value="TARJETA">Tarjeta</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="insurer">Aseguradora:</label>
+                <select name="insurer" required>
+                    <option value="SBS Seguros Colombia S.A">SBS Seguros Colombia S.A</option>
+                    <option value="BBVA Seguros">BBVA Seguros</option>
+                    <option value="CHUBB">CHUBB</option>
+                    <option value="Aurora">Aurora</option>
+                    <option value="HDI Seguros S.A">HDI Seguros S.A</option>
+                    <option value="La Previsora">La Previsora</option>
+                </select>
+            </section>
+            <section class="contentButton">
+                <button id="botton-form"><strong>Registrar</strong></button>
+            </section>
+        </section>
+    </form>
+    {% endblock %}
+</html>
