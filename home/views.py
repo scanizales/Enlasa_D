@@ -94,3 +94,7 @@ def verEstadisticasGenerales(request):
 
 def verEstadisticasPorAseguradora(request):
     return render(request, 'gerente/verEstadisticasPorAseguradora.html')
+
+
+def home(request):
+    return render(request, 'layouts/basePublic.html')

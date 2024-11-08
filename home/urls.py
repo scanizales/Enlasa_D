@@ -5,6 +5,7 @@ from . import views
 general_urls = [
     path('', views.home, name='home'),
     path('login', views.login, name='login'),
+    path('login', views.home, name='home'),
 ]
 #URLs del apartado administrador
 admin_urls = [
