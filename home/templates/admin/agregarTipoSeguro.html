@@ -3,13 +3,14 @@
 <section>
     <h3 class="h3-forms">Registrar Tipo de Seguro</h3>
 </section>
-<form action="" id="formGlobal">
+<form action="{% url 'admin_tipos_seguros_agregar'%}" method="post" id="formGlobal" >
+    {% csrf_token %}
     <section class="column">
         <label for="type">Nombre del tipo de seguro:</label>
         <input name="type" type="text">
     </section>
     <section class="contentButton">
-        <button id="botton-form"><strong>Registrar</strong></button>
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
     </section>
 </form>
 {% endblock %}
