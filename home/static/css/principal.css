@@ -117,6 +117,9 @@ nav .rol{
 }
 
 /*Segundo section del nav*/
+.confi button{
+    margin-bottom: 0.5em;
+}
 .confi p:first-child{
     padding-left:calc(6px + 0.5vw);
     padding-top: 16%;
