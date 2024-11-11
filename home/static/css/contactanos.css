@@ -1,0 +1,122 @@
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    box-sizing: border-box;
+}
+
+.banner {
+    position: relative;
+    height: 300px;
+    background: linear-gradient(rgba(67, 56, 202, 0.7), rgba(67, 56, 202, 0.7)),url('https://img.freepik.com/foto-gratis/familia-juguetona-divirtiendose-juntos-mientras-mudan-su-nueva-casa_637285-12380.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    border-radius: 0 0 10px 10px;
+}
+
+.banner h1 {
+    color: white;
+    font-size: 48px;
+    text-align: center;
+}
+
+.contact-container {
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    gap: 60px; 
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.image-section {
+    flex: 1;
+}
+
+.image-section img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.info-section {
+    flex: 1;
+}
+
+.info-section h2 {
+    font-size: 32px; 
+    margin-bottom: 30px; 
+    color: #333;
+}
+
+.info-block {
+    margin-bottom: 30px; 
+}
+
+.subtitle {
+    display: block;
+    width: 100%; 
+    background-color: #FFE817;
+    padding: 8px 20px; 
+    font-size: 18px; 
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center; 
+    border-radius: 5px;
+}
+
+.info-block p {
+    margin: 12px 0; 
+    color: #444;
+    font-size: 16px; 
+}
+
+.info-block a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.info-block a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .banner {
+        height: 200px;
+    }
+
+    .banner h1 {
+        font-size: 36px;
+    }
+
+    .info-section h2 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        padding: 6px 10px;
+        margin-bottom: 10px;
+    }
+
+    .info-block p {
+        font-size: 14px;
+        margin: 8px 0;
+    }
+}
