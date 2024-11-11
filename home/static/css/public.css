@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Afacad:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
 
-
-body{
-    min-height: 100vh;
-    background: url('assets/FondoPrincipal.png');
-    background-size: cover;
-    background-position: center;
-}
-
 header{
     position: fixed;
     top: 0;
@@ -20,7 +12,6 @@ header{
     align-items: center;
     justify-content: space-between;
     z-index: 1000;
-    
 }
 
 header .navbar ul{

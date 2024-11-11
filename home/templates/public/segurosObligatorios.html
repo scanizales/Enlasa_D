@@ -1,21 +1,16 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/public.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cuerpoP.css' %}">
-    <link rel="stylesheet" href="{% static 'css/obligatorios.css' %}">
-    <link rel="stylesheet" href="{% static 'public/segurosVida.html' %}">
-    <link rel="stylesheet" href="{% static 'contactanos.css' %}">
+    <link rel="stylesheet" href="../styles/obligatorios.css">
     <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
-    <title>Principal_Cliente</title>
+    <title>Bienvenidos</title>
 </head>
 <body>
     <header>
         <a href="#" class="logo-encabezado">
-            <img src="{% static 'assets/beni.png' %}" alt="Logo" width="100" height="80">
+            <img src="../assets/beni.png" alt="Logo" width="100" height="80">
         </a>
         <input type="checkbox" id="menu-hamburguesa" class="menu-hamburguesa-checkbox">
         <label for="menu-hamburguesa" class="menu-icon">
@@ -25,26 +20,29 @@
             <ul>
                 <li><a href="#">Productos</a>
                     <ul>
-                        <li><a href="">Seguros generales</a></li>
-                        <li><a href="">Seguros de hogar y copropiedad</a></li>
+                        <li><a href="#">Seguros generales</a></li>
+                        <li><a href="#">Seguros de hogar y copropiedad</a></li>
                         <li><a href="{% static 'segurosObligatorios' %}">Seguros obligatorios</a></li>
                         <li><a href="{% static 'segurosVida' %}">Seguros de vida</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Contáctanos</a></li>
                 <li><a href="#">Nosotros</a></li>
-                <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                <li><a href="#">Iniciar sesión</a></li>
             </ul>
         </nav>
-    </header> <div class="hero">
-        <div class="hero-content">
-            <h1>Bienvenidos </h1>
-            <p>Su tranquilidad y protección son nuestra prioridad.</p>
+    </header>
+    <section class="hero5">
+        <div class="hero-content5">
+            <h1>Seguros obligatorios</h1>
+            <p>En Enlasa, te ofrecemos seguros obligatorios para cumplir con las regulaciones gubernamentales. Con nosotros, garantizas tu cumplimiento legal y la protección de terceros de manera confiable y accesible. ¡Contáctanos hoy mismo y asegura tu tranquilidad con Enlasa!</p>
         </div>
-    </div>
+        <div class="img5-content">
+            <img src="https://img.freepik.com/foto-gratis/concepto-relacion-vista-lateral-mesa-madera-mano-que-sostiene-cubo-madera-icono-corazon_176474-9495.jpg?t=st=1730046330~exp=1730049930~hmac=06b5be2a99fd45a34225452b9f51bfde9978c1fcfae25e02eeb34443567aa5a1&w=740" alt="fondo derecha">
+        </div>
+    </section>
 
-
-    <div class="container-bar2">
+    <div class="container-bar">
         <input type="checkbox" id="btn-social">
         <label for="btn-social" class="fa fa-play"></label>
         <div class="icon-social">
@@ -59,66 +57,26 @@
             </a>
         </div>
     </div>
-    <div class="container">
-        <div class="hero-section">
-            <h1>Planifica tu futuro y vive tu vida ahora</h1>
-            <p class="description">Consectetur adipiscing elit amet non suspendisse molestie dolore eget blandit sed. Fusce velit porttitor etiam me in lectus pulvinar egestas sem volutpat est.</p>
-        </div>
-        
-        <div class="cards">
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/hija-feliz-divirtiendose-sus-padres-mientras-muda-apartamento-nuevo_637285-12378.jpg');">
-                    <div class="card-title">Seguros generales</div>
-                </div>
-                <div class="card-content">
-                    <h3>Seguros generales</h3>
-                    <p>Protege a tus seres queridos y asegura su futuro financiero.</p>
-                    <a href="{% static 'generales.html' %}" class="card-link">Más información</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/concepto-proteccion-antivirus-familiar_493343-30185.jpg');">
-                    <div class="card-title">Seguros de Hogar</div>
-                </div>
-                <div class="card-content">
-                    <h3>Seguros de Hogar</h3>
-                    <p>Protege tu hogar contra daños y robos inesperados.</p>
-                    <a href="{% static 'hogar.html' %}" class="card-link">Más información</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/mujer-feliz-mirando-ventana-mostrando-llaves-coche-nuevo-compro-nuevo-automovil_197531-22648.jpg');">
-                    <div class="card-title">Seguros obligatorios</div>
-                </div>
-                <div class="card-content">
-                    <h3>Seguros obligatorios</h3>
-                    <p>Protege tu seguirdad y el bienestar de los demas.</p>
-                    <a href="{% static 'obligatorios.html' %}" class="card-link">Más información</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="contenedor-principal">
-        <div class="contenedor-imagen">
-            <img src="https://img.freepik.com/foto-gratis/arreglo-plano-lindo-concepto-familia_23-2148485829.jpg" alt="Manos sosteniendo figuras de papel representando una familia" class="imagen-personalizada">
-        </div>
-        <div class="contenedor-texto">
-            <span class="etiqueta-destacada">La vida es bella</span>
-            <h1 class="titulo-personalizado">Asegurate con Enlasa</h1>
-            <p class="texto-personalizado">Protege lo que más amas con nuestra amplia gama de seguros personalizados. En Enlasa, te ofrecemos tranquilidad y seguridad, adaptándonos a tus necesidades. Confía en nosotros para cuidar de tu futuro y el de tu familia, porque cada momento cuenta.</p>
-        </div>
-    </div>
-    <main>
-        {% block content %}
 
-        {% endblock %}
-    </main> 
+    <div class="container-productos">
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/mujer-conduciendo-coche-bailando_1303-31678.jpg?t=st=1730038061~exp=1730041661~hmac=438a7da7ed75db3788b7aa612324caf3ac68a53de0cb673640d0d36da1410405&w=900">
+            <div class="overlay">Seguros soat</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/vista-frontal-personas-sonrientes-que-viajan-juntas_23-2149437533.jpg?t=st=1730038188~exp=1730041788~hmac=fa6a7f4df02c647e5d6c6a62e2d42ee2e7c7a31cfd7507e02de30527cc81c2f0&w=900">
+            <div class="overlay">Seguro pasajeros</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/tarjeta-explotacion-mujer-tiro-medio_23-2148989576.jpg?t=st=1730038366~exp=1730041966~hmac=e1c0bf68973f0a5a149a812f30bd5c12962299bdd3c7122e83187e949fb5b951&w=900" alt="Seguros de Automóviles y Motos">
+            <div class="overlay">Seguro transporte publico</div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <img src="{% static 'assets/beni.png' %}" alt="Logo de la empresa" class="footer-logo">
+                <img src="../assets/beni.png" alt="Logo de la empresa" class="footer-logo">
                 <p class="footer-description">Protegemos lo que más valoras con seguros adaptados a tus necesidades. Confianza y experiencia a tu servicio.</p>
             </div>
             <div class="footer-section footer-links">
@@ -140,7 +98,7 @@
         <div class="footer-bottom">
             <p>Copyright © 2024- diseñado por tecnodesarrollo</p>
         </div>
-    </footer> 
+    </footer>
     <script>
         const _items = document.getElementById('_items');
         const _toggle = document.getElementById('_toggle');

@@ -1,16 +1,11 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/public.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cuerpoP.css' %}">
-    <link rel="stylesheet" href="{% static 'css/obligatorios.css' %}">
-    <link rel="stylesheet" href="{% static 'public/segurosVida.html' %}">
-    <link rel="stylesheet" href="{% static 'contactanos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vida.css' %}">
     <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
-    <title>Principal_Cliente</title>
+    <title>Bienvenidos</title>
 </head>
 <body>
     <header>
@@ -25,26 +20,29 @@
             <ul>
                 <li><a href="#">Productos</a>
                     <ul>
-                        <li><a href="">Seguros generales</a></li>
-                        <li><a href="">Seguros de hogar y copropiedad</a></li>
+                        <li><a href="#">Seguros generales</a></li>
+                        <li><a href="#">Seguros de hogar y copropiedad</a></li>
                         <li><a href="{% static 'segurosObligatorios' %}">Seguros obligatorios</a></li>
                         <li><a href="{% static 'segurosVida' %}">Seguros de vida</a></li>
                     </ul>
                 </li>
                 <li><a href="#">Contáctanos</a></li>
                 <li><a href="#">Nosotros</a></li>
-                <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                <li><a href="#">Iniciar sesión</a></li>
             </ul>
         </nav>
-    </header> <div class="hero">
-        <div class="hero-content">
-            <h1>Bienvenidos </h1>
-            <p>Su tranquilidad y protección son nuestra prioridad.</p>
+    </header>
+    <section class="hero6">
+        <div class="hero-content6">
+            <h1>Seguros de vida</h1>
+            <p>En Enlasa, ofrecemos seguros de vida para proteger a tus seres queridos en caso de lo inesperado. Con opciones flexibles y cobertura confiable, garantizamos tu tranquilidad y su seguridad financiera. Contáctanos ahora para obtener más información.</p>
         </div>
-    </div>
+        <div class="img6-content">
+            <img src="https://img.freepik.com/foto-gratis/vista-frontal-persona-tenencia-manos-lindo-papel-familia_23-2148485848.jpg?t=st=1730564067~exp=1730567667~hmac=7c1c5c48d0e9e3a74471dc90854e329b7b6a519ffa01533fa41f29fb557aced3&w=740" alt="fondo derecha">
+        </div>
+    </section>
 
-
-    <div class="container-bar2">
+    <div class="container-bar">
         <input type="checkbox" id="btn-social">
         <label for="btn-social" class="fa fa-play"></label>
         <div class="icon-social">
@@ -59,66 +57,33 @@
             </a>
         </div>
     </div>
-    <div class="container">
-        <div class="hero-section">
-            <h1>Planifica tu futuro y vive tu vida ahora</h1>
-            <p class="description">Consectetur adipiscing elit amet non suspendisse molestie dolore eget blandit sed. Fusce velit porttitor etiam me in lectus pulvinar egestas sem volutpat est.</p>
+    <div class="container-productos">
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/familia-joven-sus-hijos-casa-divirtiendose_1303-20999.jpg?t=st=1730038717~exp=1730042317~hmac=0183985210168726346908c83a85f67c11716297d2398352bd7664e4fe670e0d&w=900">
+            <div class="overlay">Seguro de vida individual</div>
         </div>
-        
-        <div class="cards">
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/hija-feliz-divirtiendose-sus-padres-mientras-muda-apartamento-nuevo_637285-12378.jpg');">
-                    <div class="card-title">Seguros generales</div>
-                </div>
-                <div class="card-content">
-                    <h3>Seguros generales</h3>
-                    <p>Protege a tus seres queridos y asegura su futuro financiero.</p>
-                    <a href="{% static 'generales.html' %}" class="card-link">Más información</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/concepto-proteccion-antivirus-familiar_493343-30185.jpg');">
-                    <div class="card-title">Seguros de Hogar</div>
-                </div>
-                <div class="card-content">
-                    <h3>Seguros de Hogar</h3>
-                    <p>Protege tu hogar contra daños y robos inesperados.</p>
-                    <a href="{% static 'hogar.html' %}" class="card-link">Más información</a>
-                </div>
-            </div>
-            
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/mujer-feliz-mirando-ventana-mostrando-llaves-coche-nuevo-compro-nuevo-automovil_197531-22648.jpg');">
-                    <div class="card-title">Seguros obligatorios</div>
-                </div>
-                <div class="card-content">
-                    <h3>Seguros obligatorios</h3>
-                    <p>Protege tu seguirdad y el bienestar de los demas.</p>
-                    <a href="{% static 'obligatorios.html' %}" class="card-link">Más información</a>
-                </div>
-            </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/hombre-vista-lateral-que-trabaja-como-agente-bienes-raices_23-2151065015.jpg?t=st=1730039421~exp=1730043021~hmac=ff876bc0ee993c95348d2daae511594c5c7e6c43cad99ce3edc81ca843af1e82&w=900">
+            <div class="overlay">Seguro de renta</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/todos-estudiantes-leccion_329181-14230.jpg?t=st=1730038970~exp=1730042570~hmac=2880ca528b023e084334521e99b41734552c46213323ee044f6d6dc698340eb7&w=900">
+            <div class="overlay">Seguro educativo</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/concepto-control-calidad-estandar-m_23-2150041841.jpg?t=st=1730039227~exp=1730042827~hmac=f22296b8ba65b7ef5e633376b4db61087bf55f8e5e8fee22b9a81e2bdbabf7e6&w=900">
+            <div class="overlay">Seguro todo riesgo</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/cerrar-gente-feliz-posando-juntos_23-2149008997.jpg?t=st=1730039356~exp=1730042956~hmac=940f799fe8e877beaceb83704478955f2167e7dbcf9bc3dfbe7a333742ffc810&w=900">
+            <div class="overlay">Seguro de vida de grupo</div>
         </div>
     </div>
-    <div class="contenedor-principal">
-        <div class="contenedor-imagen">
-            <img src="https://img.freepik.com/foto-gratis/arreglo-plano-lindo-concepto-familia_23-2148485829.jpg" alt="Manos sosteniendo figuras de papel representando una familia" class="imagen-personalizada">
-        </div>
-        <div class="contenedor-texto">
-            <span class="etiqueta-destacada">La vida es bella</span>
-            <h1 class="titulo-personalizado">Asegurate con Enlasa</h1>
-            <p class="texto-personalizado">Protege lo que más amas con nuestra amplia gama de seguros personalizados. En Enlasa, te ofrecemos tranquilidad y seguridad, adaptándonos a tus necesidades. Confía en nosotros para cuidar de tu futuro y el de tu familia, porque cada momento cuenta.</p>
-        </div>
-    </div>
-    <main>
-        {% block content %}
 
-        {% endblock %}
-    </main> 
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <img src="{% static 'assets/beni.png' %}" alt="Logo de la empresa" class="footer-logo">
+                <img src="../assets/beni.png" alt="Logo de la empresa" class="footer-logo">
                 <p class="footer-description">Protegemos lo que más valoras con seguros adaptados a tus necesidades. Confianza y experiencia a tu servicio.</p>
             </div>
             <div class="footer-section footer-links">
@@ -140,7 +105,7 @@
         <div class="footer-bottom">
             <p>Copyright © 2024- diseñado por tecnodesarrollo</p>
         </div>
-    </footer> 
+    </footer>
     <script>
         const _items = document.getElementById('_items');
         const _toggle = document.getElementById('_toggle');
