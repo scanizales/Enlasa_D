@@ -1,0 +1,99 @@
+{% extends 'layouts/baseGerente.html' %}
+{% block content %}
+<div id="estadisticas">
+    <article>
+        <section>
+            <h4>Pólizas por estado</h4> 
+            <canvas id="diagrama-po-estado" class="chartjs-no-styling"></canvas>
+        </section>
+        <section>
+            <h4>Pólizas por tipo de seguros</h4> 
+            <canvas id="diagrama-seguros" class="chartjs-no-styling"></canvas>
+        </section>
+    </article>
+</div>
+<script>
+const ctx2 = document.getElementById('diagrama-po-estado').getContext('2d');
+const chart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['Activas', 'Inactivas'],
+        datasets: [{
+            label: 'Pólizas por estado',
+            data: [100, 50], // Datos de ejemplo
+            backgroundColor: [
+                'rgba(0, 255, 0, 0.2)', // Verde para activas
+                'rgba(255, 165, 0, 0.2)', // Naranja para vencidas
+                'rgba(255, 0, 0, 0.2)'   // Rojo para inactivas
+            ],
+            borderColor: [
+                'rgba(0, 255, 0, 1)',
+                'rgba(255, 165, 0, 1)',
+                'rgba(255, 0, 0, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+<script>
+const ctx3 = document.getElementById('diagrama-seguros').getContext('2d');
+const chart3 = new Chart(ctx3, {      
+type: 'pie',
+data: {
+    labels: ['Vida', 'Automóvil', 'Hogar', 'Salud', 'Otros'],
+    datasets: [{
+    label: 'Tipos de seguros',
+    data: [30, 25, 20, 15, 10], // Valores que suman 100
+    backgroundColor: [
+        'rgba(0, 255, 0, 0.2)',
+        'rgba(255, 165, 0, 0.2)',
+        'rgba(0, 0, 255, 0.2)',
+        'rgba(255, 0, 255, 0.2)',
+        'rgba(128, 0, 0, 0.2)'
+    ],
+    borderColor: [
+        'rgba(0, 255, 0, 1)',
+        'rgba(255, 165, 0, 1)',
+        'rgba(0, 0, 255, 1)',
+        'rgba(255, 0, 255, 1)',
+        'rgba(128, 0, 0, 1)'
+    ],
+    borderWidth: 1
+    }]
+},
+options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+    legend: {
+        display: true,
+        position: 'bottom'
+    },
+    tooltip: {
+        callbacks: {
+        label: (context) => {
+            const value = context.formattedValue;
+            const percentage = context.dataset.data[context.dataIndex];
+            return `${value} (${percentage}%)`;
+        }
+        }
+    }
+    }
+}
+});
+</script>
+{% endblock %}

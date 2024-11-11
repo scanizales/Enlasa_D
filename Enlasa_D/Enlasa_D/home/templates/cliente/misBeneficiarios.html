@@ -1,0 +1,34 @@
+{% extends 'layouts/baseCliente.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de beneficiarios</h3>
+</section>
+<div id="general">
+    <section id="buscar">
+        <label for="buscar">Buscar:</label>
+        <input name="buscar" type="text"></input>
+    </section>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo Documento</th>
+                <th class="space">Identificación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="datos">
+                <td>Sofía Canizales Lezama</td>
+                <td class="space">CC</td>
+                <td>1106773193</td>                   
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    document.querySelector('.boton-menu').addEventListener('click', function () {
+        document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
+    });
+</script>
+{% endblock %}
