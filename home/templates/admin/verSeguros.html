@@ -17,9 +17,10 @@
             </tr>
         </thead>
         <tbody>
+            {% for seguro in seguros %}
             <tr id="datos">
-                <td>Seguro individual</td>
-                <td>Seguros de vida</td>
+                <td>{{ seguro.nombre }}</td>
+                <td>{{ seguro.tipo_seguro_id.nombre }}</td>
                 <td>
                     <div class="boton-menu">
                         <button class="boton options"><strong>Opciones</strong></button>
@@ -40,12 +41,15 @@
                     </div>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
-<script>
-    document.querySelector('.boton-menu').addEventListener('click', function () {
-        document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-    });
+<script>  
+    const botonesMenu = document.querySelectorAll('.boton');
+     botonesMenu.forEach(boton => { 
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;     
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
 </script>
 {% endblock %}

@@ -70,18 +70,23 @@
             </tr>
         </thead>
         <tbody class="polizas">
+            {% for poliza in polizas %}
             <tr id="datos">
-                <td>Sofía Canizales Lezama</td>
-                <td class="space">29076</td>
-                <td>Seguros Bolivar</td>
-                <td>Seguro de vida</td>
-                <td>Individual</td>
-                <td>20/06/24</td>
-                <td>20/06/32</td>
-                <td>Mensual</td>
-                <td>1.200.000</td>
-                <td>Tarjeta</td>
+                <td>{{ poliza.cliente_id.nombre }}</td>
+                <td class="space">{{ poliza.id }}</td>
+                <td>{{ poliza.aseguradora_id.nombre }}</td>
+                <td>{{ poliza.seguro_id.tipo_seguro_id.nombre }}</td>
+                <td>{{ poliza.seguro_id.nombre }}</td>
+                <td>{{ poliza.fecha_inicio }}</td>
+                <td>{{ poliza.fecha_vencimiento }}</td>
+                <td>{{ poliza.prima }}</td>
+                <td>{{ poliza.valor }}</td>
+                <td>{{ poliza.medio_pago }}</td>
+                {% if poliza.estado == True %}
                 <td>Activa</td>
+                {% else %}
+                <td>Inactiva</td>
+                {% endif %}
                 <td>
                     <div class="boton-menu">
                         <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
@@ -111,16 +116,19 @@
                                 <p>Eliminar</p>
                             </button>
                         </ul>
-                    </div>
-                    <script>
-                        document.querySelector('.boton-menu').addEventListener('click', function () {
-                            document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-                        });
-                    </script>
+                    </div>               
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
+<script>  
+const botonesMenu = document.querySelectorAll('.boton');
+botonesMenu.forEach(boton => { 
+    boton.addEventListener('click', function () {
+        const menuDesplegable = boton.nextElementSibling;     
+        menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
+</script>
 {% endblock %}
 

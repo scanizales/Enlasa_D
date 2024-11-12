@@ -10,7 +10,8 @@
     <section>      
         <h3 class="h3-forms">Registrar cliente</h3> 
     </section> 
-    <form>
+    <form method="post">
+        {% csrf_token %}
         <section class="info-cliente">        
             <section class="column">
                 <label for="name">Nombre:</label>
@@ -32,7 +33,7 @@
                 <label for="phone">Télefonos:</label>
                 <section>
                     <input name="phone" type="number" placeholder="Célular" required></input>
-                    <input name="phone" type="number" placeholder="Télefono fijo"></input>
+                    <input name="phone2" type="number" placeholder="Télefono fijo"></input>
                 </section>
             </section>
             <section class="column">
@@ -48,10 +49,10 @@
                 <input name="address" type="text" placeholder="Escriba aquí" required></input>
             </section>
             <section class="column">
-                <label for="typeInsurance">Estado póliza:</label>
-                <select name="typeInsurance" required>
-                    <option value="Generales">Activa</option>
-                    <option value="Hogar y copropiedad">Inactiva</option>
+                <label for="state">Estado póliza:</label>
+                <select name="state" required>
+                    <option value="True">Activa</option>
+                    <option value="False">Inactiva</option>
                 </select>
             </section>
         </section>
@@ -59,22 +60,9 @@
             <section class="column">
                 <label for="insurance">Nombre del seguro:</label>
                 <select name="insurance" required>
-                    <option value="Agropecuarios">Agropecuarios</option>
-                    <option value="Automoviles y motos">Automoviles y motos</option>
-                    <option value="Manejo">Manejo</option>
-                    <option value="Cumplimiento">Cumplimiento</option>
-                    <option value="Manejo">Manejo</option>
-                    <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
-                </select>
-            </section>
-            <section class="column">
-                <label for="typeInsurance">Tipo de seguro:</label>
-                <select name="typeInsurance" required>
-                    <option value="Generales">Generales</option>
-                    <option value="Hogar y copropiedad">Hogar y copropiedad</option>
-                    <option value="Obligatorios">Obligatorios</option>
-                    <option value="Vida">De vida</option>
-                    <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
+                    {% for seguro in context.seguros %}
+                    <option value={{seguro.id}}>{{ seguro.nombre }}</option>
+                    {% endfor %}
                 </select>
             </section>
             <section class="column">
@@ -107,16 +95,13 @@
             <section class="column">
                 <label for="insurer">Aseguradora:</label>
                 <select name="insurer" required>
-                    <option value="SBS Seguros Colombia S.A">SBS Seguros Colombia S.A</option>
-                    <option value="BBVA Seguros">BBVA Seguros</option>
-                    <option value="CHUBB">CHUBB</option>
-                    <option value="Aurora">Aurora</option>
-                    <option value="HDI Seguros S.A">HDI Seguros S.A</option>
-                    <option value="La Previsora">La Previsora</option>
+                    {% for aseguradora in context.aseguradoras %}
+                    <option value={{aseguradora.id}}>{{ aseguradora.nombre }}</option>
+                    {% endfor %}
                 </select>
             </section>
             <section class="contentButton">
-                <button id="botton-form"><strong>Registrar</strong></button>
+                <button id="botton-form" type="submit"><strong>Registrar</strong></button>
             </section>
         </section>
     </form>

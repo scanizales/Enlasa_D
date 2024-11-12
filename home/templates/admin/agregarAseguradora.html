@@ -4,7 +4,8 @@
 <section>
     <h3 class="h3-forms">Registrar Aseguradora</h3>
 </section>
-<form id="formGlobal">
+<form id="formGlobal" method="post">
+    {% csrf_token %}
     <section>
         <label for="name">Nombre:</label>
         <input id="name" name="name" type="text">
@@ -18,7 +19,7 @@
         <input id="address" name="address" type="text">
     </section>
     <section class="contentButton">
-        <button id="botton-form"><strong>Registrar</strong></button>
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
     </section>
 </form>
 {% endblock %}

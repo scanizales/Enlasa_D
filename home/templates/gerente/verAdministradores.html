@@ -16,16 +16,15 @@
                 <th>Tipo de documento</th>
                 <th>Documento</th>
                 <th>Correo</th>
-                <th>Contraseña</th>
             </tr>
         </thead>
         <tbody class="polizas">
+            {% for administrador in administradores %}
             <tr id="datos">
-                <td>Sofía Canizales Lezama</td>
-                <td>CC</td>
-                <td>1106773193</td>
-                <td>clsofi64@gmail.com</td>
-                <td>*********</td>
+                <td>{{ administrador.nombre }}</td>
+                <td>{{ administrador.tipo_documento }}</td>
+                <td>{{ administrador.num_documento }}</td>
+                <td>{{ administrador.email }}</td>
                 <td>
                     <div class="boton-menu">
                         <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
@@ -43,16 +42,19 @@
                                 <p>Eliminar</p>
                             </button>
                         </ul>
-                    </div>
-                    <script>
-                        document.querySelector('.boton-menu').addEventListener('click', function () {
-                            document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-                        });
-                    </script>
+                    </div>              
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
+<script>  
+    const botonesMenu = document.querySelectorAll('.boton');
+     botonesMenu.forEach(boton => { 
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;     
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
+</script>
 
 {% endblock %}

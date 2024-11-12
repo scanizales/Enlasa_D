@@ -16,20 +16,23 @@
                 <th>Tipo Documento</th>
                 <th class="space">Identificación</th>
                 <th>Télefono</th>
+                <th>Celular</th>
                 <th>Ciudad</th>
                 <th>Dirección</th>
                 <th>Correo</th>
             </tr>
         </thead>
         <tbody>
+            {% for cliente in clientes %}
             <tr id="datos">
-                <td>Sofía Canizales Lezama</td>
-                <td class="space">CC</td>
-                <td>1106773193</td>
-                <td>3212410879</td>
-                <td>Ibagué</td>
-                <td>Comfenalco, Etapa 2, Manzana 36</td>
-                <td>clsofi64@gmail.com</td>
+                <td>{{ cliente.nombre }}</td>
+                <td class="space">{{ cliente.tipo_documento }}</td>
+                <td>{{ cliente.num_documento }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.celular }}</td>
+                <td>{{ cliente.ciudad }}</td>
+                <td>{{ cliente.direccion }}</td>
+                <td>{{ cliente.email }}</td>
                 <td>
                     <div class="boton-menu">
                         <button class="boton options"><strong>Opciones</strong></button>
@@ -50,12 +53,15 @@
                     </div>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
-<script>
-    document.querySelector('.boton-menu').addEventListener('click', function () {
-        document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-    });
+<script>  
+    const botonesMenu = document.querySelectorAll('.boton');
+     botonesMenu.forEach(boton => { 
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;     
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
 </script>
 {% endblock %}

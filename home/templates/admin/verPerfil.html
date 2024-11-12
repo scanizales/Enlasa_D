@@ -5,10 +5,10 @@
     </section>
     <div class="perfil-informacion">
         <div class="perfil-datos">
-          <p><strong>Nombre:</strong> Juan Pérez</p>
-          <p><strong>Tipo de documento:</strong> CC</p>
-          <p><strong>Documento:</strong> 1106773193</p>
-          <p><strong>Correo electrónico:</strong> juanperez@example.com</p>
+          <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+          <p><strong>Tipo de documento:</strong> {{ user.tipo_documento }}</p>
+          <p><strong>Documento:</strong> {{ user.num_documento }}</p>
+          <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
         </div>
         <section class="contentButton">
            <button id="botton-form"><strong>Editar perfil</strong></button>

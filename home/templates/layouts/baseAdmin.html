@@ -24,10 +24,15 @@
             </figure>
             <h1>Enlasa</h1>
         </section>
-        <figure class="icono1">      
-            <img src="{% static 'assets/icono1.png' %}" >           
-            <span><strong>Camilo Andres</strong></span>
-        </figure>       
+        <button id="miBoton" class="icono1">               
+            <img src="{% static 'assets/icono1.png' %}"  alt="icono">  
+            <span><strong>{{ user.nombre }}</strong></span>
+        </button>
+        <script>
+             document.getElementById("miBoton").onclick = function() {
+                location.href = "{% url 'admin_perfil' %}"
+             };
+        </script>      
     </header>
 
     <div class="lyout">
@@ -38,17 +43,6 @@
             </section>
             <section class="confi">
                 <p class="p" >Configuración</p>
-                <button id="miBoton" class="icono2">               
-                        <figure>
-                            <img src="{% static 'assets/profile.png' %}"  alt="icono">
-                        </figure>   
-                        <p>Mi perfil</p>
-                </button>
-                <script>
-                    document.getElementById("miBoton").onclick = function() {
-                        location.href = "{% url 'admin_perfil' %}"
-                    };
-                </script>
                 <button class="icono2">                
                     <figure>
                         <img src="{% static 'assets/out.png' %}"  alt="icono">
@@ -68,8 +62,6 @@
                         <li class="list_inside">
                             <a href="{% url 'admin_cliente_agregar' %}" class="nav_link nav_link--inside">Agregar cliente</a>
                         </li>           
-                            <a href="{% url 'admin_siniestros_agregar' %}" class="nav_link nav_link--inside">Agregar siniestro</a>
-                        </li>
                         <li class="list_inside">
                             <a href="{% url 'admin_clientes_list' %}" class="nav_link nav_link--inside">Ver clientes</a>
                         </li>
