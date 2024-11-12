@@ -1,0 +1,24 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Registrar Seguro</h3>
+</section>
+<form method='post' action="{% url 'admin_seguros_agregar'%}" id="formGlobal">
+    {% csrf_token %}
+    <section class="column">
+        <label for="type">Nombre del seguro:</label>
+        <input name="type" type="text">
+    </section>
+    <section class="column">
+        <label for="typeInsurance">Tipo de seguro al que pertenecerá:</label>
+        <select name="typeInsurance" required>
+            {% for tipo_seguro in tipos_seguros %}
+            <option value={{tipo_seguro.id}}>{{tipo_seguro.nombre}}</option>
+            {% endfor %}
+        </select>
+    </section>
+    <section class="contentButton">
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+    </section>
+</form>
+{% endblock %}

@@ -1,0 +1,256 @@
+/*variables globales*/
+:root{
+    --color-primario: #0048B0;
+    --color-text1:white;
+    --background1: #e5ebee;
+    --background2: #004ee1;
+    --color-hover-button: #005eef;
+}
+button{
+    width: fit-content;
+    padding: 0.5em;
+    border:none;
+    border-radius: 4px;
+    background-color: white;
+    font-size:calc(6px + 0.4vw);
+    text-align: center;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+}
+
+
+#general{ 
+    width: fit-content;
+    margin-right: 1em;   
+    background-color: white;
+
+}
+
+#clientes h3{
+    color: var(--color-primario); 
+    font-size: calc(10px + 1vw);  
+ 
+}
+/*Apartado de filtrar pólizas*/
+h4{
+    margin:0;
+    font-size: calc(12px + 0.4vw); 
+}
+.filtrar{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1em;
+    font-size: calc(9px + 0.4vw); 
+    gap:1em;   
+}
+
+.filtrar-items section{
+    gap:calc(9px + 0.4vw);
+}
+.filtrar div{
+    display: flex;
+    gap:calc(10px + 0.4vw);
+}
+.filtrar div section{
+    display: flex;
+    flex-direction: column;
+}
+#general select, #general input{
+    width: calc(120px + 2vw);
+    height: 2em;
+    border: solid 1px gray;
+    border-radius: 5px;
+    font-size: calc(8px + 0.4vw);
+    background-color: white; 
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+    cursor: pointer;
+}
+.filtrar input{
+    font-size:calc(9px + 0.3vw) ;
+}
+.filtrar button:hover{
+    background-color: var(--color-hover-button);
+    cursor: pointer;
+}
+#button-color-other{
+    background-color: #efd203;
+}
+#button-color-other:hover{
+    background-color: #fff943;
+}
+/*.............end filtrar................*/
+
+.sec-buscar{
+    border-top:solid 1px gray;
+}
+
+#buscar{
+    padding: 1em;
+    font-size: calc(10px + 0.3vw);
+    text-align: right;
+    border-bottom: solid 1px gray;
+}
+#buscar input{
+    height: 1.5em;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td{
+    padding: calc(5px + 0.2vw);
+    font-size: calc(6px + 0.5vw);
+    text-align: center;
+}
+.polizas th, .polizas td{  
+    padding-left: 1em;
+}
+.options figure{
+    width: calc(8px + 1vw);
+}
+.options p{
+    font-size: calc(7px + 0.4vw);  
+    text-align: left;
+}
+#diferent{
+    width:calc(12px + 1.5vw) ;
+}
+
+table #datos:hover{
+    background-color: var(--background1);
+}
+.space{
+    width: 5%;
+}
+
+/*Menú desplegable*/
+.boton-menu {
+    display: inline-block;
+    position: relative;
+}
+  
+.boton, .filtrar button{
+    height: fit-content;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    background-color:var(--color-primario);
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-desplegable {
+    display: none;
+    position:absolute;
+    width: fit-content;
+    padding: 0;
+    right: 0;
+    top:100%;
+    background-color: white;  
+    border-radius: 15px;
+}
+.menu-desplegable.visible{
+    display: block;
+}
+p{
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+/*end*/
+
+button:active{
+    background-color: var(--background1);
+}
+figure{
+    margin:0;
+    width: calc(8px + 1.2vw);
+}
+figure img{
+    width:100%;
+}
+.icono-options{
+    display: flex;
+    width: 100%;
+    padding: 0 calc(6px + 0.5vw); 
+    border:none;
+    background-color: white;  
+    align-content: center;
+    align-items: center;
+    gap:0.2rem;   
+}
+.icono-options:hover{
+    background-color: var(--background1);
+    cursor: pointer;
+}
+.icono-options figure{
+    padding-top:0.16em;
+}
+.icono-options p{
+    margin: 0;
+}
+.modal{
+    display: none;
+    position: fixed;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    padding: 1em 2em;
+    background-color: white;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+.modal.show{
+    display: block;
+}
+
+
+/*Responsive para las tablas*/
+@media (max-width: 680px){
+    /*General*/
+    thead th:not(:first-child){
+        display: none;
+    }
+    tbody td:not(:first-child, :last-child){
+        display: none;
+    } 
+}
+/*Personalizado para el apartado pólizas*/
+@media (max-width: 1000px){
+    .polizas th:nth-child(7){
+        display: none;
+    }
+    .polizas td:nth-child(7){
+        display: none;
+    }
+}
+@media (max-width: 920px){
+    .filtrar-items{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 800px){
+    .polizas th:nth-child(6){
+        display: none;
+    }
+    .polizas td:nth-child(6){
+        display: none;
+    }
+}
+
+
+
+
+  
+
+   

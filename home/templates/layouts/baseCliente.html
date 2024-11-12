@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/principal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tables.css' %}">
+    <link rel="stylesheet" href="{% static 'css/verPerfil.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Principal_Cliente</title>
+</head>
+<body>
+    <header>
+        <section>
+            <button id="boton-nav">     
+                <img src= "{% static 'assets/menu.png' %}" alt="logo">        
+            </button>
+            <figure>
+                <img src="{% static 'assets/iconoLogo.png' %}" alt="logo">
+            </figure>
+            <h1>Enlasa</h1>
+        </section>
+        <figure class="icono1">      
+            <img src="{% static 'assets/icono1.png' %}" >           
+            <span><strong>Camilo Andres</strong></span>
+        </figure>       
+    </header>
+
+    <div class="lyout">
+        <nav id="nav" class="cerrado">
+            <section class="rol">
+                <h3>Bienvenido(a)</h3>
+                <p>Cliente</p>
+            </section>
+            <section class="confi">
+                <p class="p" >Configuración</p>
+                <button id="miBoton" class="icono2">               
+                    <figure>
+                        <img src="{% static 'assets/profile.png' %}"  alt="icono">
+                    </figure>   
+                    <p>Mi perfil</p>
+                </button>
+                <script>
+                    document.getElementById("miBoton").onclick = function() {
+                        location.href = "{% url 'cliente_mi_perfil' %}";
+                    };
+                </script>
+                <button class="icono2">                
+                    <figure>
+                        <img src="{% static 'assets/out.png' %}" alt="icono">
+                    </figure>               
+                    <p>Salir</p>
+                </button>        
+            </section>
+            <section class="confi" id="confi">
+                <p class="p" >Modulos</p>
+                <button id="miBoton2" class="icono2">               
+                    <figure>
+                        <img src="{% static 'assets/insurance.png' %}" alt="icono">
+                    </figure>   
+                    <p>Mis pólizas</p>
+                </button>
+                <script>
+                    document.getElementById("miBoton2").onclick = function() {
+                        location.href = "{% url 'cliente_mis_polizas' %}";
+                    };
+                </script>      
+            </section>     
+        </nav>
+        <script>
+            const botonNav = document.getElementById('boton-nav');
+            const nav = document.getElementById('nav');
+            botonNav.addEventListener('click',()=>{
+                nav.classList.toggle('abierto');
+                nav.classList.toggle('cerrado');
+            })
+        </script>
+        <main>
+            {% block content %}
+
+            {% endblock %}
+        </main>
+    </div>   
+</body>
+</html>

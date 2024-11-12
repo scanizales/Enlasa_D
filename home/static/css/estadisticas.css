@@ -1,0 +1,40 @@
+canvas{
+    margin-left: 0;
+  }
+  #estadisticas{
+    display: flex;
+    flex-direction: column;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 3em;
+    margin-left: 3%;
+  }
+  #estadisticas h4{
+    color: #0048B0;
+  }
+  #estadisticas article{
+    display: flex;
+    gap:calc(20px + 2vw);
+  }
+  #estadisticas section{
+    font-size:calc(10px + 0.6vw);
+    width: 600px  !important;
+    height: 400px  !important;
+  }
+  #estadisticas h4{
+    text-align: center;
+  }
+  @media (max-width: 1200px){
+    #estadisticas article{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @media (max-width: 600px){
+    #estadisticas section{
+      align-items: center;
+      width: 300px  !important;
+      height: 200px  !important;
+    }
+  }
