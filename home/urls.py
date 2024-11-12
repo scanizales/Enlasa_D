@@ -5,6 +5,9 @@ from . import views
 general_urls = [
     path('', views.home, name='home'),
     path('login', views.iniciar_sesion, name='login'),
+    path( 'public/nosotros/', views.nosotros, name='nosotros'),
+    path('public/segurosGenerales/', views.segurosGenerales, name='segurosGenerales'),
+    path('public/segurosHogar/', views.segurosHogar, name='segurosHogar'),
 ]
 #URLs del apartado administrador
 admin_urls = [
@@ -38,4 +41,6 @@ gerente_urls = [
     path('gerente/administradores/', views.verAdministradores, name='gerente_administradores_list'),
     path('gerente/agregar-admi/', views.agregarAdministrador, name='gerente_administradores_agregar'),
 ]
+
+
 urlpatterns = general_urls + admin_urls + cliente_urls + gerente_urls

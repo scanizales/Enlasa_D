@@ -1,0 +1,140 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenidos</title>
+
+    <!-- Cargar archivo CSS estático -->
+    <link rel="stylesheet" href="{% static 'css/segurosGenerales.css' %}">
+
+    <!-- Cargar iconos de Font Awesome -->
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-encabezado">
+            <img src="{% static 'assets/logoBlanco.png' %}" alt="Logo" width="100" height="80">
+        </a>
+        <input type="checkbox" id="menu-hamburguesa" class="menu-hamburguesa-checkbox">
+        <label for="menu-hamburguesa" class="menu-icon">
+            &#9776; <!-- Símbolo del menú hamburguesa -->
+        </label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">Productos</a>
+                    <ul>
+                        <li><a href="#">Seguros generales</a></li>
+                        <li><a href="#">Seguros de hogar y copropiedad</a></li>
+                        <li><a href="#">Seguros obligatorios</a></li>
+                        <li><a href="#">Seguros de vida</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Contáctanos</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero3">
+        <div class="hero-content3">
+            <h1>Seguros Generales</h1>
+            <p>Nuestro propósito es ofrecerte soluciones de protección integral para tus necesidades de seguro generales. Entendemos que la vida está llena de imprevistos y desafíos, por lo que estamos aquí para brindarte la tranquilidad y seguridad que mereces en cada etapa de tu vida.</p>
+        </div>
+        <div class="hero2-content">
+            <img src="https://img.freepik.com/foto-gratis/vista-frontal-mujer-llenando-documentos_23-2149986638.jpg?t=st=1729520646~exp=1729524246~hmac=9be5f33e9c9baa77378021fa5a90b72aaef188491a9df6c6a1db8a6141942074&w=740" alt="fondo derecha">
+        </div>
+    </section>
+
+    <div class="container-bar">
+        <input type="checkbox" id="btn-social">
+        <label for="btn-social" class="fa fa-play"></label>
+        <div class="icon-social">
+            <a href="https://web.facebook.com/enlasaseguro/?_rdc=1&_rdr" class="fa fa-facebook">
+                <span class="title">Facebook</span>
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=%2B573163210085&text&type=phone_number&app_absent=0" class="fa fa-whatsapp">
+                <span class="title">WhatsApp</span>
+            </a>
+            <a href="https://www.instagram.com/enlasaseguros?igsh=aWZlOTRlZGtreXFx&utm_source=qr" class="fa fa-instagram">
+                <span class="title">Instagram</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container-productos">
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/vista-angulo-hombre-inspeccionando-lata_23-2148233420.jpg?t=st=1730079572~exp=1730083172~hmac=5d1ddd1fa17b65a5940286812d8c9874b9f46c19c26d234985b3e7de82f204e2&w=740">
+            <div class="overlay">Seguros Agropecuarios</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/mujeres-estan-envolviendo-manos-hombres-sentados-pacientes-sillas-ruedas-vendas_1150-4309.jpg?ga=GA1.1.1275808336.1727211925&semt=ais_hybrid">
+            <div class="overlay">Seguros Accidentes Personales</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/pareja-feliz-concesionario-coches_23-2148130153.jpg?t=st=1730079665~exp=1730083265~hmac=c09ffa341bb261e3af0380ee3295f0ec1d0ed9841218b98f2c7e91e11c62d026&w=740">
+            <div class="overlay">Seguros Automóviles y Motos</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/hombre-haciendo-su-proximo-movimiento_53876-64862.jpg?t=st=1730079714~exp=1730083314~hmac=dff4d762247c6dae352ba175ef874a72b951164e5d8312e52d8d2f997d73e6c2&w=740">
+            <div class="overlay">Seguros de Disposiciones Legales</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/vendedor-mujer-busca-automovil-sala-exposicion-automoviles_1303-13620.jpg?t=st=1730079773~exp=1730083373~hmac=5fd9a624243d35c204763ea779c87eeda5fb43200e80e087245cefdb796d448a&w=740">
+            <div class="overlay">Seguro Manejo</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/mano-sujetando-hucha-tabla-crecimiento-monedas_23-2148780588.jpg?t=st=1730079764~exp=1730083364~hmac=896c29255fbfc93dc713bcbaf7073be5bf569adf830b9b4700e18808838e8588&w=740">
+            <div class="overlay">Seguros de Infidelidades y Riesgos Financieros</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/hombre-negocios-primer-plano-comprobando-portapapeles_23-2148479569.jpg?t=st=1730034937~exp=1730038537~hmac=26697f200879ad4761b4f2b59e3144bf42860d8a474110b0205299dad4ac1e81&w=900">
+            <div class="overlay">Seguro de Cumplimiento</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/pareja-romantica-labrador-golden-retriver-sentado-bosque-otono_496169-981.jpg?t=st=1730035337~exp=1730038937~hmac=2c7c9b598d5208d6c98a96c0fba6076ffa62a47398cb8c5a2d99d43b25b31454&w=900">
+            <div class="overlay">Seguro de Mascotas</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/familia-feliz-tiro-medio-aeropuerto_23-2149272153.jpg?t=st=1730035711~exp=1730039311~hmac=daa7c97a0fd606dbeb6fae12c725f8404b89acc7cf07513574630ee93abef72d&w=900">
+            <div class="overlay">Seguros de Viaje</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/grafico-vista-frontal-hecho-monedas_23-2148793760.jpg?t=st=1730036023~exp=1730039623~hmac=fb467f41b7c53501b7cc70f4956604bb23a45949c6bdf4cda070d11f997f9947&w=740">
+            <div class="overlay">Seguros para Empresas</div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src= "{% static 'assets/logoBlanco.png' %}" alt="Logo de la empresa" class="footer-logo">
+                <p class="footer-description">Protegemos lo que más valoras con seguros adaptados a tus necesidades. Confianza y experiencia a tu servicio.</p>
+            </div>
+            <div class="footer-section footer-links">
+                <h3>Enlaces rapidos</h3>
+                <ul>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#contactanos">Contacto</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-contact">
+                <h3>Informacion de contacto</h3>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'/%3E%3C/svg%3E" alt="Ubicación"> Ubicacion: Bogota-cerete-ibague</p>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'/%3E%3C/svg%3E" alt="Teléfono"> Tel: 316-3210-085</p>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'/%3E%3C/svg%3E" alt="Teléfono"> Tel: 321-2371-637</p>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'/%3E%3C/svg%3E" alt="Correo"> Correo: gerencia@enlasaseguros.com.co</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2024- diseñado por tecnodesarrollo</p>
+        </div>
+    </footer>
+
+</body>
+</html>

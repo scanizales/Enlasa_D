@@ -194,3 +194,19 @@ def verEstadisticasGenerales(request):
 
 def verEstadisticasPorAseguradora(request):
     return render(request, 'gerente/verEstadisticasPorAseguradora.html')
+
+
+def home(request):
+    return render(request, 'layouts/basePublic.html')
+
+
+#Public
+
+def nosotros(request):
+    return render(request, 'public/nosotros.html')
+
+def segurosGenerales(request):
+    return render(request, 'public/segurosGenerales.html')
+
+def segurosHogar(request):
+    return render(request, 'public/segurosHogar.html')

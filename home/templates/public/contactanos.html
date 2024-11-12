@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/public.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contactanos.css' %}">
+    <title>Contactos</title>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo-encabezado">
+            <img src="{% static 'assets/beni.png' %}" alt="Logo" width="100" height="80">
+        </a>
+        <input type="checkbox" id="menu-hamburguesa" class="menu-hamburguesa-checkbox">
+        <label for="menu-hamburguesa" class="menu-icon">
+            &#9776; <!-- Este es el símbolo del menú hamburguesa -->
+        </label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">Productos</a>
+                    <ul>
+                        <li><a href="#">Seguros generales</a></li>
+                        <li><a href="#">Seguros de hogar y copropiedad</a></li>
+                        <li><a href="{% static 'segurosObligatorios' %}">Seguros obligatorios</a></li>
+                        <li><a href="{% static 'segurosVida' %}">Seguros de vida</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Contáctanos</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="banner">
+        <h1>Contactanos</h1>
+    </div>
+
+    <div class="contact-container">
+        <div class="image-section">
+            <img src="{% static 'assets/atencion al cliente.jpg' %}" alt="Equipo de servicio al cliente" />
+        </div>
+        <div class="info-section">
+            <h2>Nuestras oficinas</h2>
+            
+            <div class="info-block">
+                <div class="subtitle">Ubicaciones</div>
+                <p>Bogotá: <a href="https://www.google.com/maps/place/Cl.+6c+%2382a-91,+Bogot%C3%A1" target="_blank" rel="noopener noreferrer">Calle 6 c # 82a -91</a></p>
+                <p>Ibagué: <a href="https://www.google.com/maps/place/Conjunto+Residencial+Terra+-+Hacienda+Santa+Cruz/@4.4216524,-75.1741705,17z/data=!3m1!4b1!4m6!3m5!1s0x8e38c52842669c13:0x92310199661c4b99!8m2!3d4.4216524!4d-75.1715956!16s%2Fg%2F11q367p19z?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Calle 99 # 13a sur-120</a></p>
+                <p>Cereté: <a href="https://www.google.com/maps/place/Cra+12+%2311-8,+Ceret%C3%A9,+C%C3%B3rdoba" target="_blank" rel="noopener noreferrer">Carrera 12 # 11-08</a></p>
+            </div>
+
+            <div class="info-block">
+                <div class="subtitle">Horario de atención</div>
+                <p>Lunes a viernes de 8:00 am a 5:00 pm.</p>
+            </div>
+
+            <div class="info-block">
+                <div class="subtitle">Contáctate con nosotros </div>
+                <p>Bogota: <a href="tel:3163210085">316 321 0085</a></p>
+                <p>Ibagué: <a href="tel:3174877650">317 487 7650</a></p>
+                <p>Cerete: <a href="tel:3212371636">321 237 1636</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

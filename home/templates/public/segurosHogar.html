@@ -1,0 +1,106 @@
+{% load static %}  
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/segurosHogar.css' %}">
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+    <title>Bienvenidos</title>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-encabezado">
+            <img src="{% static 'assets/logoBlanco.png' %}" alt="Logo" width="100" height="80">
+        </a>
+        <input type="checkbox" id="menu-hamburguesa" class="menu-hamburguesa-checkbox">
+        <label for="menu-hamburguesa" class="menu-icon">
+            &#9776; <
+        </label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#">Productos</a>
+                    <ul>
+                        <li><a href="#">Seguros generales</a></li>
+                        <li><a href="#">Seguros de hogar y copropiedad</a></li>
+                        <li><a href="#">Seguros obligatorios</a></li>
+                        <li><a href="#">Seguros de vida</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Contáctanos</a></li>
+                <li><a href="#">Nosotros</a></li>
+                <li><a href="#">Iniciar sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero4">
+        <div class="hero-content4">
+            <h1>Seguros de hogar y copropiedad</h1>
+            <p>En Enlasa Seguros, comprendemos la importancia de proteger tu hogar, tu refugio y el corazón de tu familia. Como parte de nuestro compromiso contigo, queremos resaltar la relevancia de contar con un seguro de hogar adecuado para salvaguardar tus bienes y tu tranquilidad.
+            El seguro de hogar es una herramienta fundamental para proteger tu vivienda y tus pertenencias contra una variedad de riesgos, como incendios, robos, inundaciones y daños accidentales.</p>
+        </div>
+
+        <div class="container-bar">
+            <input type="checkbox" id="btn-social">
+            <label for="btn-social" class="fa fa-play"></label>
+            <div class="icon-social">
+                <a href="https://web.facebook.com/enlasaseguro/?_rdc=1&_rdr" class="fa fa-facebook">
+                    <span class="title">Facebook</span>
+                </a>
+                <a href="https://api.whatsapp.com/send/?phone=%2B573163210085&text&type=phone_number&app_absent=0" class="fa fa-whatsapp">
+                    <span class="title">WhatsApp</span>
+                </a>
+                <a href="https://www.instagram.com/enlasaseguros?igsh=aWZlOTRlZGtreXFx&utm_source=qr" class="fa fa-instagram">
+                    <span class="title">Instagram</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero2-content">
+            <img src="https://img.freepik.com/foto-gratis/hombre-cultivos-casa-papel-azul_23-2147694198.jpg?t=st=1730081499~exp=1730085099~hmac=ed343af892f9d55f38b1c61cff42afa8f9119e95bf6bb38c1777d745ffe7ed74&w=740" alt="fondo derecha">
+        </div>
+    </section>
+
+    <div class="container-productos">
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/co-trabajando-personas-trabajando-juntas_23-2149328320.jpg?t=st=1730036579~exp=1730040179~hmac=4d44e10c1732539a6a4325c1c24e8c345a8d2c00f36398a1b8a9881bdb49522e&w=900">
+            <div class="overlay">Seguros hogar colectivo</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/agente-inmobiliario-masculino-dando-llaves-casa-nueva-compradora_23-2150164694.jpg?t=st=1730037074~exp=1730040674~hmac=ce04d096b5efefe0dfd4bf7c3078d3d830a9aa9843a99de0e016244a3d639a5b&w=900">
+            <div class="overlay">Seguros de arrendamiento individual y colectivo</div>
+        </div>
+        <div class="card-productos">
+            <img src="https://img.freepik.com/foto-gratis/familia-moviendose-usando-cajas_1157-35481.jpg?t=st=1730037275~exp=1730040875~hmac=6b6b12afdf43d3c3673b72cb9971544140195fd768ec32193f3bb44e9c262e7c&w=900">
+            <div class="overlay">Hogar individual</div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="{% static 'assets/logoBlanco.png' %}" alt="Logo de la empresa" class="footer-logo">
+                <p class="footer-description">Protegemos lo que más valoras con seguros adaptados a tus necesidades. Confianza y experiencia a tu servicio.</p>
+            </div>
+            <div class="footer-section footer-links">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#contactanos">Contacto</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-contact">
+                <h3>Información de contacto</h3>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z'/%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 11a3 3 0 11-6 0 3 3 0 016 0z'/%3E%3C/svg%3E" alt="Ubicación"> Ubicación: Bogotá-Cereté-Ibagué</p>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 5h18M3 19h18'/%3E%3C/svg%3E" alt="Teléfono"> Teléfono: 123456789</p>
+                <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 7l4 4m0 0l-4 4m4-4H3'/%3E%3C/svg%3E" alt="Correo"> Correo: contacto@segurosexample.com</p>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
