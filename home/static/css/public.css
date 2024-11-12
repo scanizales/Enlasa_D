@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Afacad:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
+:root{
+  --color-primario: #01193B;
+  --color-secundario: #0048B0;
+  --color-terceario: #004EE1;
 
+}
 header{
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: #030378;
+    background: var(--color-primario);
     box-shadow: 0 5px 10px rgba(0,0,0,.1);
     padding: 2px 7%;
     display: flex;
@@ -34,7 +39,7 @@ header .navbar ul li a{
 }
 
 header .navbar ul li a:hover{
-    background: #073a86;
+    background: var(--color-secundario);
     color:#fff;
     
 }
@@ -43,7 +48,7 @@ header .navbar ul li ul{
     position:absolute;
     left: 0;
     width:200px;
-    background:#030378;
+    background: var(--color-primario);
     display: none;
     margin:0;
     padding:0;
@@ -73,7 +78,7 @@ header .navbar ul li:hover > ul{
         top: 100%;
         left: 0;
         right: 0;
-        background:#030378;
+        background: var(--color-primario);
         border-top: 1px solid rgba(0,0,0,.1);
     }
 
@@ -87,7 +92,7 @@ header .navbar ul li:hover > ul{
     }
 
     header .navbar ul li ul li{
-        background:#2e77e4;
+        background: var(--color-terceario);
     }
 }
 
@@ -156,7 +161,7 @@ header .navbar ul li:hover > ul{
   
         /* Redes Sociales */
         .container-bar2 {
-          width: 50px;
+          width: 60px;
           position: fixed;
           left: 0;
           top: 40%;
@@ -189,7 +194,7 @@ header .navbar ul li:hover > ul{
         .title {
           font-family: Roboto, sans-serif;
           position: absolute;
-          background: #020248;
+          background: var(--color-primario);
           padding: 0px 8px;
           height: 30px;
           line-height: 30px;
@@ -262,7 +267,7 @@ header .navbar ul li:hover > ul{
 
 
 .footer {
-  background-color: #0a3d62;
+  background-color: var(--color-primario);
   color: white;
   padding: 40px 20px;
   margin-top: 30px; /* Agrega espacio encima del pie de página */
