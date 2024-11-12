@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Tipo_Seguro, Seguro
 
-def home(request):
-    return HttpResponse('Project Tecnodesarrollo: Enlasa')
-
 #vistas del apartado administrador
 def principalAdmin(request):
     return render(request, 'admin/principal.html')
@@ -95,6 +92,13 @@ def verEstadisticasGenerales(request):
 def verEstadisticasPorAseguradora(request):
     return render(request, 'gerente/verEstadisticasPorAseguradora.html')
 
+# Apartado usuario
 
 def home(request):
-    return render(request, 'layouts/basePublic.html')
+    return render(request,'public/home.html')
+def segurosObligatorios(request):
+    return render(request,'public/segurosObligatorios.html')
+def segurosVida(request):
+    return render(request,'public/segurosVida.html')
+def contactanos(request):
+    return render(request,'public/contactanos.html')

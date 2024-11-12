@@ -20,6 +20,7 @@ body {
     justify-content: center;
     margin-bottom: 40px;
     border-radius: 0 0 10px 10px;
+    padding-top: 150px;
 }
 
 .banner h1 {
@@ -41,11 +42,12 @@ body {
 
 .image-section {
     flex: 1;
+    
 }
 
 .image-section img {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 8px;
 }
 

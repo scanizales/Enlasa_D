@@ -1,11 +1,14 @@
 from django.urls import path
 from . import views
 
-#URLs generales*
+#URLs usuario*
 general_urls = [
     path('', views.home, name='home'),
     path('login', views.login, name='login'),
-    path('login', views.home, name='home'),
+    path('home', views.home, name='home'),
+    path('segurosObligatorios', views.segurosObligatorios, name='obligatorios'),
+    path('segurosVida', views.segurosVida, name='vida'),
+    path('contactanos', views.contactanos, name='contactanos'),
 ]
 #URLs del apartado administrador
 admin_urls = [
