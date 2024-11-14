@@ -5,9 +5,10 @@ from . import views
 general_urls = [
     path('', views.home, name='home'),
     path('login', views.iniciar_sesion, name='login'),
-    path( 'public/nosotros/', views.nosotros, name='nosotros'),
+    path('public/nosotros/', views.nosotros, name='nosotros'),
     path('public/segurosGenerales/', views.segurosGenerales, name='segurosGenerales'),
     path('public/segurosHogar/', views.segurosHogar, name='segurosHogar'),
+    path('logout/', views.exit, name='exit'),
 ]
 #URLs del apartado administrador
 admin_urls = [

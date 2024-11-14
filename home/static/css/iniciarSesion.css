@@ -3,7 +3,7 @@
   --color-hover-button: #005eef;
 }
 body {
-  background-image: url(../assets/fondoIniciar.jpg);
+  background-image: url('../assets/fondoIniciar.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -18,6 +18,10 @@ body header {
   align-items: center;
   font-size: calc(12px + 0.5vw);
   padding: 1em 2em;
+}
+.icono_house{
+  width: calc(20px + 1vw);
+  margin: 0;
 }
 body header figure {
   width: calc(70px + 2.5vw);
@@ -72,7 +76,7 @@ body form {
   border-radius: 27px;
   width: fit-content;
   padding: 2% 3%;
-  margin-top: 2em;
+  margin-top: 1em;
   margin-left: 5%;
 }
 body form h1 {
@@ -110,8 +114,18 @@ body form button:hover{
 body form label {
   font-size: calc(10px + 0.5vw);
 }
-body form a {
-  font-size: calc(10px + 0.3vw);
-  margin: 0;
-  text-decoration: none;
+body form input{
+  font-size: calc(12px + 0.5vw);
+}
+.show_password{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap:0.5em; 
+}
+.show_password input{
+  width: 15px;
+}
+.show_password label{
+  font-size: calc(11px + 0.3vw);
 }

@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Principal_Admin</title>
+    <title>Administrador</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/icono1.png' %}" >
 </head>
 <body>
     <header>
@@ -43,11 +44,16 @@
             </section>
             <section class="confi">
                 <p class="p" >Configuración</p>
-                <button class="icono2">                
+                <button class="icono2" id="boton-logout">                
                     <figure>
                         <img src="{% static 'assets/out.png' %}"  alt="icono">
                     </figure>               
                     <p>Salir</p>
+                    <script>
+                        document.getElementById("boton-logout").onclick = function() {
+                           location.href = "{% url 'exit' %}"
+                        };
+                   </script>
                 </button>        
             </section>
             <ul class="list">
@@ -66,7 +72,7 @@
                             <a href="{% url 'admin_clientes_list' %}" class="nav_link nav_link--inside">Ver clientes</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_polizas_list' %}"  class="nav_link nav_link--inside">Ver pólilzas</a>
+                            <a href="{% url 'admin_polizas_list' %}"  class="nav_link nav_link--inside">Ver pólizas</a>
                         </li>
                         <li class="list_inside">
                             <a href="{% url 'admin_siniestros_list' %}"  class="nav_link nav_link--inside">Ver siniestros</a>

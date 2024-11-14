@@ -3,7 +3,6 @@
     --color-hover-button: #005eef;
 }
 section .h3-forms{
-    margin-left: 5%;
     color: var(--color-primario);
     font-size: calc(10px + 1vw);
 }
@@ -11,7 +10,6 @@ section .h3-forms{
 form{
     display: flex;
     justify-content: space-between;   
-    margin-left: 4%;
     margin-right: 4%;
     padding:2em;
     border-radius: 10px;

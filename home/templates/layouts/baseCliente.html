@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Principal_Cliente</title>
+    <title>Cliente</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/icono1.png' %}" >
 </head>
 <body>
     <header>
@@ -24,10 +25,15 @@
             </figure>
             <h1>Enlasa</h1>
         </section>
-        <figure class="icono1">      
-            <img src="{% static 'assets/icono1.png' %}" >           
-            <span><strong>Camilo Andres</strong></span>
-        </figure>       
+        <button id="miBoton" class="icono1">               
+            <img src="{% static 'assets/icono1.png' %}"  alt="icono">  
+            <span><strong>{{ user.nombre }}</strong></span>
+        </button>
+        <script>
+             document.getElementById("miBoton").onclick = function() {
+                location.href = "{% url 'cliente_mi_perfil' %}"
+             };
+        </script>      
     </header>
 
     <div class="lyout">
@@ -37,24 +43,18 @@
                 <p>Cliente</p>
             </section>
             <section class="confi">
-                <p class="p" >Configuración</p>
-                <button id="miBoton" class="icono2">               
+                <p class="p" >Configuración</p>               
+                <button class="icono2" id="boton-logout">                
                     <figure>
-                        <img src="{% static 'assets/profile.png' %}"  alt="icono">
-                    </figure>   
-                    <p>Mi perfil</p>
-                </button>
-                <script>
-                    document.getElementById("miBoton").onclick = function() {
-                        location.href = "{% url 'cliente_mi_perfil' %}";
-                    };
-                </script>
-                <button class="icono2">                
-                    <figure>
-                        <img src="{% static 'assets/out.png' %}" alt="icono">
+                        <img src="{% static 'assets/out.png' %}"  alt="icono">
                     </figure>               
                     <p>Salir</p>
-                </button>        
+                    <script>
+                        document.getElementById("boton-logout").onclick = function() {
+                           location.href = "{% url 'exit' %}"
+                        };
+                   </script>
+                </button>           
             </section>
             <section class="confi" id="confi">
                 <p class="p" >Modulos</p>

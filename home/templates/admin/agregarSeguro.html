@@ -12,7 +12,7 @@
     <section class="column">
         <label for="typeInsurance">Tipo de seguro al que pertenecerá:</label>
         <select name="typeInsurance" required>
-            {% for tipo_seguro in tipos_seguros %}
+            {% for tipo_seguro in context.tipos_seguros %}
             <option value={{tipo_seguro.id}}>{{tipo_seguro.nombre}}</option>
             {% endfor %}
         </select>
@@ -21,4 +21,17 @@
         <button id="botton-form" type="submit"><strong>Registrar</strong></button>
     </section>
 </form>
+{% if context.modal %}
+<div id="modal" class="modal">
+    <p>{{ context.mensaje }}</p>
+    <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+</div>
+{% endif %} 
+<script>
+const cerrrarModal2 = document.getElementById('cerrar-modal2');
+const modal = document.getElementById('modal');
+cerrrarModal2.addEventListener('click', () =>{
+modal.style.display = 'none';
+})
+</script> 
 {% endblock %}

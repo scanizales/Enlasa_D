@@ -55,22 +55,26 @@ header section figure{
     margin: 0;
     padding: 0.5em 1.5em;
 }
-header section figure img{
+header button img{
     width: 100%;
 }
 header .icono1 {
     display: flex;
-    background-color: var(--background2);
+    background-color: #efd203;
     align-items: center;
+    justify-content: center;
     width: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 10px;  
+    padding: 0.2em 0.5em;
+    border-radius: 10px; 
+    gap:0.2em;
 }
-header figure img{
-    width: calc(20px + 1.2vw)
+header .icono1:hover{
+    background-color: #f7f250;
 }
-header figure span{
+header button img{
+    width: calc(20px + 0.8vw)
+}
+header button span{
     color: white;
     text-align: center;
     border-radius: 10px;
@@ -242,6 +246,7 @@ main{
     font-size: calc(9px + 0.3vw); 
     position: relative;
     height: 100%;
+    margin-left: 2%;
 }
 .bienvenida{
     width: 80%;
@@ -280,6 +285,37 @@ main{
     #nav.abierto{
         display: flex;
     }    
+}
+.modal{
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    padding: 1em 2em;
+    background-color: white;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+.show{
+    display: block;
+}
+.modal1{
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    padding: 1em 2em;
+    background-color: white;
+    z-index: 1;
+    transform: translate(-50%, -50%);
 }
 
 

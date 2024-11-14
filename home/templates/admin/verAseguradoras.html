@@ -41,10 +41,12 @@
                             </button>
                         </ul>
                     </div>
-                    <div id="modal" class="modal">
-                        <p>¿Estas seguro de eliminarla?</p>
-                        <button class="boton options" id="cerrar-modal2"><strong>Cancelar</strong></button>
-                        <button class="boton options" id="cerrar-modal"><strong>Si, eliminar</strong></button>                              
+                    <div id="modal" class="modal1">
+                        <p>¿Estas seguro de eliminar la aseguradora {{ aseguradora.nombre }}?</p>
+                        <section class="style">
+                            <button class="boton options" id="cerrar-modal2"><strong>Cancelar</strong></button>
+                            <button class="boton options" id="cerrar-modal"><strong>Si, eliminar</strong></button>
+                        </section>                              
                     </div>
                     <script src="{% static 'js/showModal.js' %}"></script>                   
                 </td>
@@ -52,11 +54,12 @@
             {% endfor %}
         </tbody>
     </table>
-    <script>  const botonesMenu = document.querySelectorAll('.boton');
-     botonesMenu.forEach(boton => { 
-       boton.addEventListener('click', function () {
-              const menuDesplegable = boton.nextElementSibling;     
-               menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
+    <script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+      boton.addEventListener('click', function () {
+        const menuDesplegable = boton.nextElementSibling;
+        menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';}); });
     </script>
 </div>
 {% endblock %}

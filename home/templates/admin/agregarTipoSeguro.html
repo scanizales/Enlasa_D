@@ -1,5 +1,18 @@
 {% extends 'layouts/baseAdmin.html' %}
 {% block content %}
+{% if context.modal %}
+<div id="modal" class="modal">
+    <p>{{ context.mensaje }}</p>
+    <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+</div>
+{% endif %} 
+<script>
+const cerrrarModal2 = document.getElementById('cerrar-modal2');
+const modal = document.getElementById('modal');
+cerrrarModal2.addEventListener('click', () =>{
+modal.style.display = 'none';
+})
+</script> 
 <section>
     <h3 class="h3-forms">Registrar Tipo de Seguro</h3>
 </section>

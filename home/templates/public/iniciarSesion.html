@@ -13,11 +13,11 @@
             <img src="{% static 'assets/logo.png' %}" >
         </figure>
         <nav>
-            <ul>
-                <li>
-                    <a href="googlr.com"><h4>Inicio</h4></a>
-                </li>           
-            </ul>
+            <a href="{% url 'home' %}">
+                <figure class="icono_house">
+                    <img src="{% static 'assets/house_blue.png' %}" >
+                </figure>
+            </a>
         </nav>
         <article id="miBoton" class="icono1">               
             <img src="{% static 'assets/icono1.png' %}"  alt="icono">  
@@ -36,10 +36,19 @@
         <label for="numDocument">Número de documento:</label>
         <input name="numDocument" type="number"></input>
         <label for="password">Contraseña:</label>
-        <input name ='password' type="password"></input>             
-        
+        <input name ='password' type="password" id="passwordInput"></input>
+        <section class="show_password">           
+            <input type="checkbox" id="verContraseña">
+            <label for="verContraseña">Ver contraseña</label>
+        </section>  
         <button type="submit"><strong>Iniciar sesión</strong></button>
-        <a href="google.com">¿No tienes cuenta, pero si póliza? Da click aquí</a> 
     </form>
+    <script>
+        document.getElementById('verContraseña').addEventListener('change', function() {
+        var passwordInput = document.getElementById('passwordInput');
+        if (this.checked) {
+          passwordInput.type = 'text'; }
+        else {passwordInput.type = 'password'; }});
+    </script>
 </body>
 </html>

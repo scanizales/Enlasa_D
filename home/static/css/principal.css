@@ -62,9 +62,9 @@ header .icono1 {
     display: flex;
     background-color: #efd203;
     align-items: center;
+    justify-content: center;
     width: auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 0.2em 0.5em;
     border-radius: 10px; 
     gap:0.2em;
 }
@@ -246,7 +246,7 @@ main{
     font-size: calc(9px + 0.3vw); 
     position: relative;
     height: 100%;
-    margin-left: 4%;
+    margin-left: 2%;
 }
 .bienvenida{
     width: 80%;
@@ -285,6 +285,45 @@ main{
     #nav.abierto{
         display: flex;
     }    
+}
+.modal{
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size:calc(10px + 0.5vw);
+    top: 50%;
+    left: 50%;
+    padding: 1em 2em;
+    background-color: white;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+.show{
+    display: block;
+}
+.modal1{
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    padding: 1em 2em;
+    background-color: white;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+.style{
+    display: flex;
+    gap:1em;
+}
+.show{
+    display: flex;
 }
 
 
