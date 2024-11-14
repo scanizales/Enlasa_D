@@ -12,7 +12,6 @@
     <section class="column">
         <label for="typeDocument">Tipo de documento:</label>
         <select name="typeDocument" required>
-            <option value="NIT">NIT</option>
             <option value="CC">CC</option>
             <option value="CE">CE</option>
         </select>
@@ -33,4 +32,17 @@
         <button id="botton-form" type="submit"><strong>Registrar</strong></button>
     </section>
 </form>
+{% if context.modal %}
+<div id="modal" class="modal">
+    <p>{{ context.mensaje }}</p>
+    <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+</div>
+{% endif %} 
+<script>
+const cerrrarModal2 = document.getElementById('cerrar-modal2');
+const modal = document.getElementById('modal');
+cerrrarModal2.addEventListener('click', () =>{
+modal.style.display = 'none';
+})
+</script> 
 {% endblock %}

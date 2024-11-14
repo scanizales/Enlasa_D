@@ -255,7 +255,7 @@ def misBeneficiarios(request):
     return render(request, 'cliente/misBeneficiarios.html')
 
 #vistas del apartado gerente
-@login_required
+
 def principalGerente(request):
     return render(request, 'gerente/principal.html')
 
@@ -263,6 +263,8 @@ def verPerfilGerente(request):
     return render(request, 'gerente/verPerfil.html')
 
 def agregarAdministrador(request):
+    modal = False
+    mensaje = ''
     if request.method == 'POST':
         nombre = request.POST.get('name')
         tipo_documento = request.POST.get('typeDocument')
@@ -270,9 +272,17 @@ def agregarAdministrador(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         Usuario.objects.create(num_documento= documento, tipo_documento =tipo_documento, rol = 'ADMINISTRADOR',  nombre = nombre, email= email, password = make_password(password))       
-        return redirect('admin_principal')
+        modal = True
+        mensaje = f'Se ha agregado a {nombre} como administrador.'
+    
+    context = {
+    'modal': modal,
+    'mensaje': mensaje,
+    } 
 
-    return render(request, 'gerente/agregarAdministrador.html')
+    return render(request, 'gerente/agregarAdministrador.html',{
+         'context': context       
+    })
 
 def verAdministradores(request):
     usuarios = Usuario.objects.all()
