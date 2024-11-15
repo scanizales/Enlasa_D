@@ -56,14 +56,16 @@ header .icono1 {
   background-color: var(--color-primario);
   align-items: center;
   width: auto;
-  padding: 0.2em;
+  padding: 0.3em;
+  padding-right: 0.5em;
   border-radius: 10px; 
   gap:0.2em;
   color: white;
   font-size: calc(10px + 0.3vw);
 }
+
 header article img{
-  width: calc(23px + 1vw)
+  width: calc(23px + 1vw);
 }
 body form {
   background-color: rgba(255, 255, 255, 0.8);

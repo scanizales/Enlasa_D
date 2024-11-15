@@ -167,12 +167,6 @@ class  Usuario(AbstractBaseUser, PermissionsMixin):
     Modelo que representa un Usuario
     """
 
-    TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CC', 'Cédula'), 
-        ('NIT', 'NIT'),
-        ('CE', 'Cédula extranjera')
-    ]
-
     ROL = [ #creación de la enumeración de tipo de rol
         ('CLIENTE', 'Cliente'),
         ('GERENTE', 'Gerente'),
@@ -180,7 +174,6 @@ class  Usuario(AbstractBaseUser, PermissionsMixin):
     ]
     
     num_documento = models.IntegerField( primary_key = True, unique=True)
-    tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
     rol = models.CharField(max_length = 14, choices = ROL)
     nombre = models.CharField(max_length = 50)
     email = models.EmailField(max_length = 50)

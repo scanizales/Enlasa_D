@@ -9,6 +9,7 @@ import secrets
 from django.core.mail import send_mail
 from django.conf import settings
 
+import random
 
 
 def exit(request):
@@ -79,7 +80,7 @@ def agregarCliente(request):
             send_mail(asunto, mensaje, remitente, destinatario)
 
             #creación de el usuario para el inicio de sesión  
-            Usuario.objects.create(num_documento= documento, tipo_documento =tipo_documento, rol = 'CLIENTE',  nombre = nombre, email= email, password = make_password(contraseña))           
+            Usuario.objects.create(num_documento= documento, rol = 'CLIENTE',  nombre = nombre, email= email, password = make_password(contraseña))           
         
                 
         #crear póliza
@@ -169,10 +170,9 @@ def agregarTipoSeguro(request):
 
 def iniciar_sesion(request):
     if request.method == 'POST':
-        tipo_documento = request.POST.get('typeDocument')
         documento = request.POST.get('numDocument')
         contraseña = request.POST.get('password')
-        usuario = authenticate(tipo_documento = tipo_documento, num_documento = documento, password = contraseña)
+        usuario = authenticate(num_documento = documento, password = contraseña)
         if usuario is not None:
             login(request, usuario)
             if usuario.rol == settings.ROLE_CLIENTE:
@@ -267,11 +267,16 @@ def agregarAdministrador(request):
     mensaje = ''
     if request.method == 'POST':
         nombre = request.POST.get('name')
-        tipo_documento = request.POST.get('typeDocument')
-        documento = request.POST.get('document')
+
+        def generar_usuario():
+            return random.sample(range(10), 8)   
+
+        numero = generar_usuario()
+        usuario = int("".join(map(str, numero)))
+      
         email = request.POST.get('email')
         password = request.POST.get('password')
-        Usuario.objects.create(num_documento= documento, tipo_documento =tipo_documento, rol = 'ADMINISTRADOR',  nombre = nombre, email= email, password = make_password(password))       
+        Usuario.objects.create(num_documento= usuario, rol = 'ADMINISTRADOR',  nombre = nombre, email= email, password = make_password(password))       
         modal = True
         mensaje = f'Se ha agregado a {nombre} como administrador.'
     

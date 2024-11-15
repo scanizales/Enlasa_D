@@ -46,22 +46,29 @@ h4{
     font-size: calc(9px + 0.4vw); 
     gap:1em;   
 }
+.filtrar-items{
+    display: flex;
+    flex-wrap: wrap;
+}
 
 .filtrar-items section{
     gap:calc(9px + 0.4vw);
 }
 .filtrar div{
-    display: flex;
-    gap:calc(10px + 0.4vw);
+    gap:calc(10px + 1vw);
 }
 .filtrar div section{
     display: flex;
     flex-direction: column;
 }
+.buttons{
+    display: flex;
+    gap:1em;
+}
 #general select, #general input{
-    width: calc(120px + 2vw);
+    width: calc(130px + 2vw);
     height: 2em;
-    border: solid 1px gray;
+    border: solid 0.12em var(--color-primario);
     border-radius: 5px;
     font-size: calc(8px + 0.4vw);
     background-color: white; 
@@ -70,8 +77,11 @@ h4{
     font-style: normal; 
     cursor: pointer;
 }
+#general select{
+    height: 2.35em !important;
+}
 .filtrar input{
-    font-size:calc(9px + 0.3vw) ;
+    font-size:calc(9px + 0.3vw);
 }
 .filtrar button:hover{
     background-color: var(--color-hover-button);
@@ -85,18 +95,16 @@ h4{
 }
 /*.............end filtrar................*/
 
-.sec-buscar{
-    border-top:solid 1px gray;
-}
-
 #buscar{
     padding: 1em;
     font-size: calc(10px + 0.3vw);
     text-align: right;
-    border-bottom: solid 1px gray;
+    border-bottom: solid 0.12em var(--color-primario);
+    border-top:solid 0.12em var(--color-primario);
 }
 #buscar input{
     height: 1.5em;
+    border: solid 0.12em var(--color-primario);
 }
 
 table{
@@ -108,11 +116,15 @@ th, td{
     font-size: calc(6px + 0.5vw);
     text-align: center;
 }
+
 .polizas th, .polizas td{  
     padding-left: 1em;
 }
-.options figure{
+.options figure, .icon{
     width: calc(8px + 1vw);
+}
+.icon{
+    height: calc(8px + 1vh);
 }
 .options p{
     font-size: calc(7px + 0.4vw);  
@@ -199,42 +211,52 @@ figure img{
 .icono-options p{
     margin: 0;
 }
-
+.button-icon{
+    padding: 0;
+}
 
 /*Responsive para las tablas*/
 @media (max-width: 680px){
     /*General*/
-    thead th:not(:first-child){
+    thead th:not(:first-child, :nth-child(3)), .second th:nth-child(3){
         display: none;
     }
-    tbody td:not(:first-child, :last-child){
+    tbody td:not(:first-child, :nth-child(3), :last-child), .second td:nth-child(3){
         display: none;
-    } 
+    }  
+    .second2 th:nth-child(2),  .second2 td:nth-child(2){
+        display: block;
+    }
 }
 /*Personalizado para el apartado pólizas*/
-@media (max-width: 1000px){
+@media (max-width: 1300px){
     .polizas th:nth-child(7){
         display: none;
     }
     .polizas td:nth-child(7){
         display: none;
     }
-}
-@media (max-width: 920px){
-    .filtrar-items{
-        display: flex;
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 800px){
     .polizas th:nth-child(6){
         display: none;
     }
     .polizas td:nth-child(6){
         display: none;
     }
+    .polizas th:nth-child(5){
+        display: none;
+    }
+    .polizas td:nth-child(5){
+        display: none;
+    }
+    .polizas th:nth-child(4){
+        display: none;
+    }
+    .polizas td:nth-child(4){
+        display: none;
+    }
 }
+
+
 
 
 

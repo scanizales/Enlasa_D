@@ -10,35 +10,23 @@
         <input name="buscar" type="text"></input>
     </section>
     <table>
-        <thead>
+        <thead class="second2">
             <tr>
                 <th>Nombre</th>
                 <th>Tipo de seguro</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="second2">
             {% for seguro in seguros %}
             <tr id="datos">
                 <td>{{ seguro.nombre }}</td>
                 <td>{{ seguro.tipo_seguro_id.nombre }}</td>
                 <td>
-                    <div class="boton-menu">
-                        <button class="boton options"><strong>Opciones</strong></button>
-                        <ul class="menu-desplegable">
-                            <button class="icono-options options">
-                                <figure>
-                                    <img src="{% static 'assets/user-edit.png' %}" alt="icono">
-                                </figure>
-                                <p>Editar</p>
-                            </button>
-                            <button class="icono-options options">
-                                <figure>
-                                    <img src="{% static 'assets/delete.png' %}" alt="icono">
-                                </figure>
-                                <p>Eliminar</p>
-                            </button>
-                        </ul>
-                    </div>
+                    <button class="button-icon">
+                        <figure>
+                            <img src="{% static 'assets/edit.png' %}" alt="icono">
+                        </figure>
+                    </button> 
                 </td>
             </tr>
             {% endfor %}

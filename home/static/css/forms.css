@@ -129,4 +129,17 @@ select{
     max-width: calc(300px + 8vw);
     gap:1.5em;
 }
+.show_password{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    gap:0.5em; 
+  }
+  .show_password input{
+    width: 15px;
+  }
+  .show_password label{
+    font-size: calc(11px + 0.3vw);
+  }
 

@@ -28,13 +28,7 @@
     <form class='small'action="" method="post">
         {% csrf_token %}
         <h1>Iniciar Sesión</h1>
-        <label for="typeDocument">Tipo de documento:</label>
-        <select name="typeDocument" required>
-            <option value="NIT">NIT</option>
-            <option value="CC">CC</option>
-            <option value="CE">CE</option>
-        </select>
-        <label for="numDocument">Número de documento:</label>
+        <label for="numDocument">Usuario:</label>
         <input name="numDocument" type="number"></input>
         <label for="password">Contraseña:</label>
         <input name ='password' type="password" id="passwordInput"></input>

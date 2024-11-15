@@ -10,7 +10,17 @@
             <h4>Filtrar pólizas</h4>
         </section>
         <div class="filtrar-items">
-            <div>
+            
+                <section>
+                    <label for="startDate">Fecha de inicio:</label>
+                    <input class="date" name="startDate" type="date"></input>
+                </section>
+                <section>
+                    <label for="expiryDate">Fecha de vencimiento:</label>
+                    <input class="date" name="expiryDate" type="date"></input>
+                </section>
+            
+            
                 <section>
                     <label for="insurer">Aseguradora:</label>
                     <select name="insurer">
@@ -32,29 +42,26 @@
                         <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
                     </select>
                 </section>
-            </div>
-            <div>
+            
                 <section>
-                    <label for="startDate">Fecha de inicio:</label>
-                    <input class="date" name="startDate" type="date"></input>
-                </section>
-                <section>
-                    <label for="expiryDate">Fecha de vencimiento:</label>
-                    <input class="date" name="expiryDate" type="date"></input>
-                </section>
-            </div>    
+                    <label for="typeInsurance">Estado:</label>
+                     <select name="typeInsurance">
+                        <option value="Generales">Activo</option>
+                        <option value="Hogar y copropiedad">Inactivo</option>
+                    </select>
+                </section>   
         </div>
-        <div class="butons">
+        <section class="buttons">
             <button><strong>Filtrar</strong></button>
             <button id="button-color-other"><strong>Limpiar</strong></button>
-        </div>   
+        </section>   
     </div>
     <section id="buscar" class="sec-buscar">
         <label for="buscar">Buscar:</label>
         <input name="buscar" type="text"></input>
     </section>
     <table>
-        <thead class="polizas">
+        <thead class="polizas second">
             <tr>
                 <th>Cliente</th>
                 <th>Número</th>
@@ -69,7 +76,7 @@
                 <th>Estado</th>
             </tr>
         </thead>
-        <tbody class="polizas">
+        <tbody class="polizas second">
             {% for poliza in polizas %}
             <tr id="datos">
                 <td>{{ poliza.cliente_id.nombre }}</td>
@@ -89,7 +96,9 @@
                 {% endif %}
                 <td>
                     <div class="boton-menu">
-                        <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
+                        <button class="boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
                         <ul class="menu-desplegable">
                             <button class="icono-options options">
                                 <figure>
@@ -108,6 +117,12 @@
                                     <img src="{% static 'assets/people.png' %}" alt="icono">
                                 </figure>
                                 <p>Agregar beneficiario</p>
+                            </button>
+                            <button class="icono-options options">
+                                <figure id="diferent">
+                                    <img class="img-small" src="{% static 'assets/sinester.png' %}" alt="icono">
+                                </figure>
+                                <p>Agregar siniestro</p>
                             </button>
                             <button class="icono-options options">
                                 <figure>

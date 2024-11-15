@@ -10,7 +10,7 @@
         <input name="buscar" type="text"></input>
     </section>
     <table>
-        <thead>
+        <thead class="polizas">
             <tr>
                 <th>Nombre</th>
                 <th>Tipo Documento</th>
@@ -22,7 +22,7 @@
                 <th>Correo</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="polizas">
             {% for cliente in clientes %}
             <tr id="datos">
                 <td>{{ cliente.nombre }}</td>
@@ -35,7 +35,9 @@
                 <td>{{ cliente.email }}</td>
                 <td>
                     <div class="boton-menu">
-                        <button class="boton options"><strong>Opciones</strong></button>
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
                         <ul class="menu-desplegable">
                             <button class="icono-options options">
                                 <figure>

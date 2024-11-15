@@ -10,7 +10,7 @@
             <h4>Filtrar siniestros</h4>
         </section>
         <div class="filtrar-items">
-            <div>
+           
                 <section>
                     <label for="insurer">Aseguradora:</label>
                     <select name="insurer">
@@ -32,8 +32,7 @@
                         <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
                     </select>
                 </section>
-            </div>
-            <div>
+            
                 <section class="column">
                     <label for="state">Estado:</label>
                     <select class="size"  name="state" required>
@@ -46,9 +45,9 @@
                     <label for="expiryDate">Fecha:</label>
                     <input class="date" name="expiryDate" type="date"></input>
                 </section>
-            </div>    
         </div>
-        <div class="butons">
+          
+        <div class="buttons">
             <button><strong>Filtrar</strong></button>
             <button id="button-color-other"><strong>Limpiar</strong></button>
         </div>   
@@ -84,7 +83,9 @@
                 <td>En proceso</td>
                 <td>
                     <div class="boton-menu">
-                        <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
                         <ul class="menu-desplegable">
                             <button class="icono-options options">
                                 <figure>

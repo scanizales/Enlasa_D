@@ -13,8 +13,7 @@
         <thead class="polizas">
             <tr>
                 <th>Nombre</th>
-                <th>Tipo de documento</th>
-                <th>Documento</th>
+                <th>Usuario</th>
                 <th>Correo</th>
             </tr>
         </thead>
@@ -22,12 +21,13 @@
             {% for administrador in administradores %}
             <tr id="datos">
                 <td>{{ administrador.nombre }}</td>
-                <td>{{ administrador.tipo_documento }}</td>
                 <td>{{ administrador.num_documento }}</td>
                 <td>{{ administrador.email }}</td>
                 <td>
                     <div class="boton-menu">
-                        <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
                         <ul class="menu-desplegable">
                             <button class="icono-options options">
                                 <figure>
