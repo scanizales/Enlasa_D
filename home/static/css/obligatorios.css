@@ -14,6 +14,8 @@ body {
     align-items: center;
     width: 100%; /* Ocupa todo el ancho */
     padding: 2rem;
+    box-sizing: border-box;
+    margin-left: 39px;
 }
 
 .hero-content5 {
@@ -22,7 +24,7 @@ body {
 }
 
 .hero-content5 h1 {
-    font-size: 2.5rem;
+    font-size: 2.4rem;
     margin-bottom: 1.5rem;
     color: #01193b;
 }
@@ -31,16 +33,17 @@ body {
     font-size: 1.2rem;
     line-height: 1.6;
     color: #333;
+    text-align: justify;
 }
 
 .img5-content {
-    width: 50%; /* La imagen ocupa la mitad derecha */
+    width: 40%; /* La imagen ocupa la mitad derecha */
     border: 15px;
     padding-top: 85px;
 }
 
 .img5-content img {
-    width: 100%; /* Imagen ocupa todo el espacio del contenedor */
+    width: 85%; /* Imagen ocupa todo el espacio del contenedor */
     height: auto; /* Mantener proporción */
     border: 15px;
 }
@@ -50,10 +53,12 @@ body {
     .hero5 {
         flex-direction: column;
         text-align: center;
+        width: 90%;
     }
 
     .hero-content5, .img5-content {
         width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        padding-top: 0;
     }
 
     .hero-content5{
