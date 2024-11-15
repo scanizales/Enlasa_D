@@ -95,7 +95,7 @@ header .navbar ul li:hover > ul{
     }
 
     header .navbar ul li ul li{
-        background: var(--color-terceario);
+        background: var(--color-primario);
     }
 }
 
@@ -165,7 +165,7 @@ header .navbar ul li:hover > ul{
 
 /* Redes Sociales */
 .container-bar2 {
-  width: 50px;
+  width: 52px;
   position: fixed;
   left: 0;
   top: 40%;

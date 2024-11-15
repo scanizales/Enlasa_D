@@ -3,7 +3,6 @@
 *{
     margin:0;
     padding:0;
-    box-sizing: border-box;
     font-family: "Afacad Flux", sans-serif;
     text-decoration: none;
 }
@@ -11,18 +10,24 @@ body {
     background-color: #f0f0f0; /* Fondo gris claro */
     background-size: cover;
     background-position: center;
+    overflow-x: hidden;
 }
+
+
+/* Estilo para la sección de seguros generales */
 .hero6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%; /* Ocupa todo el ancho */
     padding: 2rem;
+    box-sizing: border-box;
 }
 
 .hero-content6 {
     width: 50%; /* El texto ocupa la mitad izquierda */
     padding-right: 2rem; /* Espacio a la derecha del texto */
+    padding: 0 10px; 
 }
 
 .hero-content6 h1 {
@@ -62,15 +67,15 @@ body {
 
     .hero-content6{
         padding-right: 0;
-        margin-bottom: 2rem;
         padding-top: 28%;
     }
     .hero-content6 p{
         text-align: justify;
     }
-
+    .img6-content{
+        padding-top: 28px;
+    }
 }
-
 
 .container-productos {
     display: grid;
@@ -79,14 +84,14 @@ body {
     max-width: 900px;
   }
   
-  .card-productos {
+.card-productos {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
     flex-direction: column;
   }
   
-  .card-productos img {
+.card-productos img {
     width: 100%;
     height: auto;
     display: block;
@@ -94,11 +99,11 @@ body {
     transition: transform 0.3s ease;
   }
   
-  .card-productos:hover img {
+.card-productos:hover img {
     transform: scale(1.05); /* Efecto de zoom al pasar el cursor */
   }
   
-  .overlay {
+.overlay {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -145,4 +150,3 @@ body {
         font-size: 0.9em;
     }
 }
-
