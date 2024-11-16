@@ -39,13 +39,13 @@ body {
 .img5-content {
     width: 40%; /* La imagen ocupa la mitad derecha */
     border: 15px;
-    padding-top: 85px;
 }
 
 .img5-content img {
-    width: 85%; /* Imagen ocupa todo el espacio del contenedor */
-    height: auto; /* Mantener proporción */
+    width: 87%;
+    height: 300px; 
     border: 15px;
+    padding-top: 78px;
 }
 
 /* Responsivo */
@@ -58,7 +58,6 @@ body {
 
     .hero-content5, .img5-content {
         width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
-        padding-top: 0;
     }
 
     .hero-content5{
@@ -71,6 +70,12 @@ body {
     }
     .img-content{
         padding-right: 34px;
+    }
+    .img5-content img {
+        width: 96%;
+        height: 220px;
+        padding-top:0;
+        padding-right: 50px;
     }
 
 }

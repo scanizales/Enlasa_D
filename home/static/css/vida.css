@@ -51,9 +51,10 @@ body {
 }
 
 .img6-content img {
-    width: 85%; /* Imagen ocupa todo el espacio del contenedor */
-    height: auto; /* Mantener proporción */
+    width: 90%; /* Imagen ocupa todo el espacio del contenedor */
+    height: 300px; /* Mantener proporción */
     border: 15px;
+    padding-top: 78px;
 }
 
 /* Responsivo */
@@ -77,6 +78,12 @@ body {
     }
     .img6-content{
         padding-top: 28px;
+        padding-right: 18px;
+    }
+    .img6-content img{
+        width: 94%;
+        height:220px;
+        padding-top:0;
     }
 }
 
