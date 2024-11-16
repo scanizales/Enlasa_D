@@ -69,6 +69,9 @@ body {
     .hero-content5 p{
         text-align: justify;
     }
+    .img-content{
+        padding-right: 34px;
+    }
 
 }
 
@@ -116,7 +119,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
     gap: 20px;
-    max-width: 1300px;
+    max-width: 1252pxpx;
     margin: 0 auto; /* Centra el contenedor */
     justify-content: center; /* Centra las columnas dentro del contenedor */
 }
@@ -125,7 +128,7 @@ body {
 @media (max-width: 768px) {
     .container-productos {
         grid-template-columns: 1fr; /* Una sola columna en dispositivos móviles */
-        max-width: 100%; /* Ocupa todo el ancho del dispositivo */
+        max-width: 80%; /* Ocupa todo el ancho del dispositivo */
         gap: 15px;
         padding: 0 10px;
         justify-items: center; /* Centra cada tarjeta dentro del contenedor */

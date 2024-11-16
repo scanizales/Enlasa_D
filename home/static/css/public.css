@@ -270,7 +270,7 @@ header .navbar ul li:hover > ul{
 .footer {
   background-color: var(--color-primario);
   color: white;
-  padding: 40px 20px;
+  padding: 40px 60px;
   margin-top: 30px; /* Agrega espacio encima del pie de página */
 }
 .footer-content {

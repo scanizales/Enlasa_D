@@ -45,13 +45,13 @@ body {
 }
 
 .img6-content {
-    width: 50%; /* La imagen ocupa la mitad derecha */
+    width: 40%; /* La imagen ocupa la mitad derecha */
     border: 15px;
-    padding-top: 85px;
+    padding-top: 1px;
 }
 
 .img6-content img {
-    width: 100%; /* Imagen ocupa todo el espacio del contenedor */
+    width: 85%; /* Imagen ocupa todo el espacio del contenedor */
     height: auto; /* Mantener proporción */
     border: 15px;
 }
@@ -124,7 +124,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
     gap: 20px;
-    max-width: 1300px;
+    max-width: 1252px;
     margin: 0 auto; /* Centra el contenedor */
     justify-content: center; /* Centra las columnas dentro del contenedor */
 }
@@ -133,7 +133,7 @@ body {
 @media (max-width: 768px) {
     .container-productos {
         grid-template-columns: 1fr; /* Una sola columna en dispositivos móviles */
-        max-width: 100%; /* Ocupa todo el ancho del dispositivo */
+        max-width: 80%; /* Ocupa todo el ancho del dispositivo */
         gap: 15px;
         padding: 0 10px;
         justify-items: center; /* Centra cada tarjeta dentro del contenedor */
