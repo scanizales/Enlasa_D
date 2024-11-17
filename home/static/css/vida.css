@@ -29,6 +29,7 @@ body {
     width: 50%; /* El texto ocupa la mitad izquierda */
     padding-right: 2rem; /* Espacio a la derecha del texto */
     padding: 0 10px; 
+    padding-top: 70px;
 }
 
 .hero-content6 h1 {
@@ -51,8 +52,8 @@ body {
 }
 
 .img6-content img {
-    width: 98%; /* Imagen ocupa todo el espacio del contenedor */
-    height: 350px; /* Mantener proporción */
+    width: 90%; /* Imagen ocupa todo el espacio del contenedor */
+    height: 300px; /* Mantener proporción */
     border: 15px;
     padding-top: 78px;
 }

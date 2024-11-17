@@ -21,6 +21,7 @@ body {
 .hero-content5 {
     width: 50%; /* El texto ocupa la mitad izquierda */
     padding-right: 2rem; /* Espacio a la derecha del texto */
+    padding-top: 70px;
 }
 
 .hero-content5 h1 {
