@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/public.css' %}">
     <link rel="stylesheet" href="{% static 'css/cuerpoP.css' %}">
+    <link rel="stylesheet" href="{% static 'css/generales.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hogar.css' %}">
     <link rel="stylesheet" href="{% static 'css/obligatorios.css' %}">
     <link rel="stylesheet" href="{% static 'css/vida.css' %}">
     <link rel="stylesheet" href="{% static 'css/contactanos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
     <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
     <title>Principal_Cliente</title>
 </head>
@@ -25,14 +28,14 @@
             <ul>
                 <li><a href="#">Productos</a>
                     <ul>
-                        <li><a href="">Seguros generales</a></li>
-                        <li><a href="">Seguros de hogar y copropiedad</a></li>
+                        <li><a href="{% url 'generales' %}">Seguros generales</a></li>
+                        <li><a href="{% url 'hogar' %}">Seguros de hogar y copropiedad</a></li>
                         <li><a href="{% url 'obligatorios' %}">Seguros obligatorios</a></li>
                         <li><a href="{% url 'vida' %}">Seguros de vida</a></li>
                     </ul>
                 </li>
                 <li><a href="{% url 'contactanos' %}">Contáctanos</a></li>
-                <li><a href="#">Nosotros</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
                 <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
             </ul>
         </nav>

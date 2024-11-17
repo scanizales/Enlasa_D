@@ -96,9 +96,15 @@ def verEstadisticasPorAseguradora(request):
 
 def home(request):
     return render(request,'public/home.html')
+def segurosGenerales(request):
+    return render(request,'public/segurosGenerales.html')
+def segurosHogar(request):
+    return render(request,'public/segurosHogar.html')
 def segurosObligatorios(request):
     return render(request,'public/segurosObligatorios.html')
 def segurosVida(request):
     return render(request,'public/segurosVida.html')
 def contactanos(request):
     return render(request,'public/contactanos.html')
+def nosotros(request):
+    return render(request,'public/nosotros.html')

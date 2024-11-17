@@ -6,9 +6,12 @@ general_urls = [
     path('', views.home, name='home'),
     path('login', views.login, name='login'),
     path('home', views.home, name='home'),
+    path('segurosGenerales', views.segurosGenerales, name='generales'),
+    path('segurosHogar', views.segurosHogar, name='hogar'),
     path('segurosObligatorios', views.segurosObligatorios, name='obligatorios'),
     path('segurosVida', views.segurosVida, name='vida'),
     path('contactanos', views.contactanos, name='contactanos'),
+    path('nosotros', views.nosotros, name='nosotros'),
 ]
 #URLs del apartado administrador
 admin_urls = [
