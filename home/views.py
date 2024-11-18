@@ -109,19 +109,68 @@ def agregarSiniestro(request):
     return render(request, 'admin/agregarSiniestros.html')
 
 def verClientes(request):
-    clientes = Cliente.objects.all()
+    clients = Cliente.objects.all()
+    if request.method == 'POST':
+        type_document = request.POST.get('typeDocument')
+        
+        if type_document:
+            clients = Cliente.objects.filter(tipo_documento = type_document)
+            
     return render(request, 'admin/verClientes.html', {
-        'clientes': clientes
+        'clientes': clients
     })
 
 def verPolizas(request):
-    polizas = Poliza.objects.all()
-    return render(request, 'admin/verPolizas.html', {
-        'polizas': polizas
+    policys = Poliza.objects.all()
+    context = {
+        'insurances': Seguro.objects.all(),
+        'insurers': Aseguradora.objects.all(),
+        'type_insurance': Tipo_Seguro.objects.all(),
+        'policys': policys,
+    }  
+    if request.method == 'POST':
+        date_star = request.POST.get('startDate')
+        date_end = request.POST.get('expiryDate')
+        insurer = request.POST.get('insurer')
+        insurance = request.POST.get('insurance')
+        type_insurance = request.POST.get('type_insurance')
+        state = request.POST.get('state')
+        filters = {}
+        if date_star:
+            filters['fecha_inicio'] = date_star
+
+        if date_end:
+            filters['fecha_vencimiento'] = date_end
+
+        if insurer and not "":
+            filters['aseguradora_id'] = insurer
+
+        if insurance and not "":
+            filters['seguro_id'] = insurance
+
+        if type_insurance and not "":
+            filters['seguro_id__tipo_seguro_id'] = type_insurance
+
+        if state and not "":
+            filters['estado'] = state
+            
+        policys = Poliza.objects.filter(**filters)
+        context['policys'] = policys
+
+    return render(request, 'admin/verPolizas.html',{
+         'context': context       
     })
 
 def verSiniestros(request):
-    return render(request, 'admin/verSiniestros.html')
+    context = {
+        'insurers': Aseguradora.objects.all(),
+        'insurances': Seguro.objects.all(),
+        'type_insurance': Tipo_Seguro.objects.all(),
+    } 
+
+    return render(request, 'admin/verSiniestros.html',{
+        'context': context       
+    })
 
 def agregarAseguradora(request):
     modal = False
@@ -243,13 +292,46 @@ def miPerfil(request):
 def misPolizas(request):
     documento = request.user.num_documento
     cliente = Cliente.objects.get(num_documento = documento)
-    polizas = Poliza.objects.filter(cliente_id = cliente)
+    policys_all = Poliza.objects.filter(cliente_id = cliente)
+    context = {
+        'insurers': Aseguradora.objects.all(),
+        'insurances': Seguro.objects.all(),
+        'type_insurance': Tipo_Seguro.objects.all(),
+        'policys': policys_all,
+    } 
+    if request.method == 'POST':
+        date_star = request.POST.get('startDate')
+        date_end = request.POST.get('expiryDate')
+        insurer = request.POST.get('insurer')
+        insurance = request.POST.get('insurance')
+        type_insurance = request.POST.get('type_insurance')
+        state = request.POST.get('state')
+        filters = {}
+        if date_star:
+            filters['fecha_inicio'] = date_star
 
-    return render(request, 'cliente/misPolizas.html', {
-        'polizas': polizas
+        if date_end:
+            filters['fecha_vencimiento'] = date_end
+
+        if insurer and not "":
+            filters['aseguradora_id'] = insurer
+
+        if insurance and not "":
+            filters['seguro_id'] = insurance
+
+        if type_insurance and not "":
+            filters['seguro_id__tipo_seguro_id'] = type_insurance
+
+        if state and not "":
+            filters['estado'] = state
+            
+        policys = policys_all.filter(**filters)
+        context['policys'] = policys
+
+    return render(request, 'cliente/misPolizas.html',{
+        'context': context       
     })
-    
-    return render(request, 'cliente/misPolizas.html')
+
 
 def misBeneficiarios(request):
     return render(request, 'cliente/misBeneficiarios.html')
@@ -306,6 +388,8 @@ def verEstadisticasGenerales(request):
 def verEstadisticasPorAseguradora(request):
     return render(request, 'gerente/verEstadisticasPorAseguradora.html')
 
+def edit_insurer(request, insurer_id):
+    return HttpResponse('No se encuentra su usuario') 
 
 #Public
 

@@ -41,10 +41,13 @@ h4{
 .filtrar{
     display: flex;
     flex-direction: column;
-    width: 100%;
     padding: 1em;
     font-size: calc(9px + 0.4vw); 
-    gap:1em;   
+    gap:1em; 
+    border:none;
+    border-radius: 0;
+    background-color: white;
+    margin-bottom: 0;  
 }
 .filtrar-items{
     display: flex;
@@ -96,15 +99,29 @@ h4{
 /*.............end filtrar................*/
 
 #buscar{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
     padding: 1em;
     font-size: calc(10px + 0.3vw);
     text-align: right;
     border-bottom: solid 0.12em var(--color-primario);
     border-top:solid 0.12em var(--color-primario);
 }
+#buscar section{
+    display: flex;
+    align-items: center;
+    gap:0.5em;
+}
+#buscar p{
+    font-size: calc(9px + 0.3vw);
+}
 #buscar input{
     height: 1.5em;
     border: solid 0.12em var(--color-primario);
+}
+.space-num{
+    margin-right: calc(10px + 1vw);
 }
 
 table{

@@ -6,8 +6,11 @@
 </section>
 <div id="general">
     <section id="buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <p id="count" class="space-num">{{ tipos_seguros.count }}</p>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
     </section>
     <table>
         <thead>
@@ -38,4 +41,5 @@
             const menuDesplegable = boton.nextElementSibling;     
             menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
 </script>
+<script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

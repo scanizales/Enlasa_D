@@ -6,8 +6,14 @@
 </section>
 <div id="general">
     <section id="buscar" class="sec-buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <section>
+            <p>Administradores:</p>
+            <p id="count">{{ administradores|length }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
     </section>
     <table>
         <thead class="polizas">
@@ -56,5 +62,6 @@
             const menuDesplegable = boton.nextElementSibling;     
             menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
 </script>
+<script src="{% static 'js/buscar.js' %}"></script>
 
 {% endblock %}

@@ -5,33 +5,39 @@
     <h3>Mis pólizas</h3>
 </section>
 <div id="general">
-    <div class="filtrar">
+    <form class="filtrar" method="post">
+        {% csrf_token %}
         <section>
-            <p>{{ polizas.aseguradora.nombre }}</p>
             <h4>Filtrar pólizas</h4>
         </section>
         <div class="filtrar-items">
                 <section>
                     <label for="insurer">Aseguradora:</label>
                     <select name="insurer">
-                        <option value="SBS Seguros Colombia S.A">SBS Seguros Colombia S.A</option>
-                        <option value="BBVA Seguros">BBVA Seguros</option>
-                        <option value="CHUBB">CHUBB</option>
-                        <option value="Aurora">Aurora</option>
-                        <option value="HDI Seguros S.A">HDI Seguros S.A</option>
-                        <option value="La Previsora">La Previsora</option>
+                        <option value="">Despliegue</option>
+                        {% for insurer in context.insurers %}
+                        <option value={{insurer.id}}>{{ insurer.nombre }}</option>
+                        {% endfor %}
                     </select>
                 </section>
                 <section>
-                    <label for="typeInsurance">Tipo de seguro:</label>
-                    <select name="typeInsurance">
-                        <option value="Generales">Generales</option>
-                        <option value="Hogar y copropiedad">Hogar y copropiedad</option>
-                        <option value="Obligatorios">Obligatorios</option>
-                        <option value="Vida">De vida</option>
-                        <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
+                    <label for="type_insurance">Tipo seguro:</label>                   
+                    <select name="type_insurance">
+                        <option value="">Despliegue</option>
+                        {% for type_insurance in context.type_insurance %}
+                        <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
+                        {% endfor %}                 
                     </select>
                 </section>
+                <section>
+                    <label for="insurance">Seguro:</label>                   
+                    <select name="insurance">
+                        <option value="">Despliegue</option>
+                        {% for insurance in context.insurances %}
+                        <option value={{insurance.id}}>{{insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section> 
                 <section>
                     <label for="startDate">Fecha de inicio:</label>
                     <input class="date" name="startDate" type="date"></input>
@@ -39,16 +45,30 @@
                 <section>
                     <label for="expiryDate">Fecha de vencimiento:</label>
                     <input class="date" name="expiryDate" type="date"></input>
-                </section>  
+                </section> 
+                <section>
+                    <label for="state">Estado:</label>
+                     <select name="state">
+                        <option value="">Despliegue</option>
+                        <option value="True">Activo</option>
+                        <option value="False">Inactivo</option>
+                    </select>
+                </section> 
         </div>
         <div class="butons">
-            <button><strong>Filtrar</strong></button>
+            <button type="submit"><strong>Filtrar</strong></button>
             <button id="button-color-other"><strong>Limpiar</strong></button>
         </div>   
-    </div>
+    </form>
     <section id="buscar" class="sec-buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <section>
+            <p>Pólizas:</p>
+            <p id="count">{{ context.policys.count }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Ingrese el número..."></input>
+        </section>
     </section>
     <table>
         <thead class="polizas">
@@ -66,18 +86,18 @@
             </tr>
         </thead>
         <tbody class="polizas">
-            {% for poliza in polizas %}
+            {% for policy in context.policys %}
             <tr id="datos">
-                <td class="space">{{ poliza.id }}</td>
-                <td>{{ poliza.aseguradora_id.nombre }}</td>
-                <td>{{ poliza.seguro_id.tipo_seguro_id.nombre }}</td>
-                <td>{{ poliza.seguro_id.nombre }}</td>
-                <td>{{ poliza.fecha_inicio }}</td>
-                <td>{{ poliza.fecha_vencimiento }}</td>
-                <td>{{ poliza.prima }}</td>
-                <td>{{ poliza.valor }}</td>
-                <td>{{ poliza.medio_pago }}</td>
-                {% if poliza.estado == True %}
+                <td class="space">{{ policy.id }}</td>
+                <td>{{ policy.aseguradora_id.nombre }}</td>
+                <td>{{ policy.seguro_id.tipo_seguro_id.nombre }}</td>
+                <td>{{ policy.seguro_id.nombre }}</td>
+                <td>{{ policy.fecha_inicio }}</td>
+                <td>{{ policy.fecha_vencimiento }}</td>
+                <td>{{ policy.prima }}</td>
+                <td>{{ policy.valor }}</td>
+                <td>{{ policy.medio_pago }}</td>
+                {% if policy.estado == True %}
                 <td>Activa</td>
                 {% else %}
                 <td>Inactiva</td>
@@ -99,4 +119,5 @@
         </tbody>
     </table>
 </div>
+<script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

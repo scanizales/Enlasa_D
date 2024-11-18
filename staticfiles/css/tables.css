@@ -41,10 +41,13 @@ h4{
 .filtrar{
     display: flex;
     flex-direction: column;
-    width: 100%;
     padding: 1em;
     font-size: calc(9px + 0.4vw); 
-    gap:1em;   
+    gap:1em; 
+    border:none;
+    border-radius: 0;
+    background-color: white;
+    margin-bottom: 0;  
 }
 .filtrar-items{
     display: flex;
@@ -96,6 +99,9 @@ h4{
 /*.............end filtrar................*/
 
 #buscar{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
     padding: 1em;
     font-size: calc(10px + 0.3vw);
     text-align: right;
@@ -124,14 +130,19 @@ th, td{
     width: calc(8px + 1vw);
 }
 .icon{
-    height: calc(8px + 1vh);
+    height: calc(10px + 0.7vh);
 }
 .options p{
     font-size: calc(7px + 0.4vw);  
     text-align: left;
 }
+
 #diferent{
     width:calc(12px + 1.5vw) ;
+}
+.img-small{
+    height: calc(8px + 1.2vh);
+    width: calc(8px + 1vw);
 }
 
 table #datos:hover{

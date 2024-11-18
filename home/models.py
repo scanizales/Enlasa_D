@@ -48,9 +48,10 @@ class Cliente(models.Model):
     Modelo que representa un cliente
     """
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CED', 'Cédula'), 
+        ('CC', 'Cédula'), 
         ('NIT', 'NIT'),
-        ('PAS', 'Pasaporte')
+        ('PAS', 'Pasaporte'),
+        ('CE', 'Cédula de extranjería'),
     ]
 
     num_documento = models.IntegerField( primary_key = True)

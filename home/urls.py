@@ -24,7 +24,10 @@ admin_urls = [
     path('administrador/agregar-tipo-seguro/', views.agregarTipoSeguro, name='admin_tipos_seguros_agregar'),
     path('administrador/seguros/', views.verSeguros, name='admin_seguros_list'),
     path('administrador/agregar-seguro/', views.agregarSeguro, name='admin_seguros_agregar'),
-    path('administrador/polizas/', views.verPolizas, name = 'admin_polizas_list')
+    path('administrador/polizas/', views.verPolizas, name = 'admin_polizas_list'),
+
+    #editar
+    path('edit/<int:insurer_id>/', views.edit_insurer, name='edit')
 ]
 #URLs del apartado cliente*
 cliente_urls = [

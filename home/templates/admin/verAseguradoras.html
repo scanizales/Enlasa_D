@@ -6,8 +6,11 @@
 </section>
 <div id="general">
     <section id="buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <p id="count" class="space-num">{{ aseguradoras.count }}</p>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
     </section>
     <table>
         <thead>
@@ -35,4 +38,5 @@
         </tbody>
     </table>
 </div>
+<script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

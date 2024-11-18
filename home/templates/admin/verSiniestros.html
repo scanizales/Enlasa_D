@@ -5,34 +5,39 @@
     <h3>Listado de Siniestros</h3>
 </section>
 <div id="general">
-    <div class="filtrar">
+    <form class="filtrar" method="post">
+        {% csrf_token %}
         <section>
             <h4>Filtrar siniestros</h4>
         </section>
-        <div class="filtrar-items">
-           
+        <div class="filtrar-items">          
                 <section>
                     <label for="insurer">Aseguradora:</label>
                     <select name="insurer">
-                        <option value="SBS Seguros Colombia S.A">SBS Seguros Colombia S.A</option>
-                        <option value="BBVA Seguros">BBVA Seguros</option>
-                        <option value="CHUBB">CHUBB</option>
-                        <option value="Aurora">Aurora</option>
-                        <option value="HDI Seguros S.A">HDI Seguros S.A</option>
-                        <option value="La Previsora">La Previsora</option>
+                        <option value="">Despliegue</option>
+                        {% for insurer in context.insurers %}
+                        <option value={{insurer.id}}>{{ insurer.nombre }}</option>
+                        {% endfor %}
                     </select>
                 </section>
                 <section>
-                    <label for="typeInsurance">Tipo de seguro:</label>
-                    <select name="typeInsurance">
-                        <option value="Generales">Generales</option>
-                        <option value="Hogar y copropiedad">Hogar y copropiedad</option>
-                        <option value="Obligatorios">Obligatorios</option>
-                        <option value="Vida">De vida</option>
-                        <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
+                    <label for="type_insurance">Tipo seguro:</label>                   
+                    <select name="type_insurance">
+                        <option value="">Despliegue</option>
+                        {% for type_insurance in context.type_insurance %}
+                        <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
+                        {% endfor %}                 
                     </select>
                 </section>
-            
+                <section>
+                    <label for="insurance">Seguro:</label>                   
+                    <select name="insurance">
+                        <option value="">Despliegue</option>
+                        {% for insurance in context.insurances %}
+                        <option value={{insurance.id}}>{{insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section>           
                 <section class="column">
                     <label for="state">Estado:</label>
                     <select class="size"  name="state" required>
@@ -45,16 +50,21 @@
                     <label for="expiryDate">Fecha:</label>
                     <input class="date" name="expiryDate" type="date"></input>
                 </section>
-        </div>
-          
-        <div class="buttons">
-            <button><strong>Filtrar</strong></button>
+        </div>          
+        <section class="buttons">
+            <button type="submit"><strong>Filtrar</strong></button>
             <button id="button-color-other"><strong>Limpiar</strong></button>
-        </div>   
-    </div>
+        </section>   
+    </form>
     <section id="buscar" class="sec-buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <section>
+            <p>Siniestros:</p>
+            <p id="count">número</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre del cliente..."></input>
+        </section>
     </section>
     <table>
         <thead class="polizas">
@@ -63,8 +73,8 @@
                 <th>Número de póliza</th>
                 <th>Número de siniestro</th>
                 <th>Aseguradora</th>
-                <th>Tipo de póliza</th>
-                <th class="space">Póliza</th>
+                <th>Tipo de seguro</th>
+                <th class="space">Seguro</th>
                 <th>Fecha</th>                  
                 <th>Descripción</th>
                 <th>Estado</th>
@@ -111,4 +121,5 @@
         </tbody>
     </table>
 </div>
+<script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}
