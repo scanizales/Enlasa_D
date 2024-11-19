@@ -1,0 +1,44 @@
+<div role="document">
+            <form id="formGlobal" method="post" action="{% url 'edit' context.insurer.id %}">
+                {% csrf_token %}
+                <article>
+                    <button class='exit' onclick="document.getElementById('edit').style.display = 'none'">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </article>
+                <section>
+                    <label for="name">Nombre:</label>
+                    <input id="name" value="{{ context.insurer.nombre }}" name="name" type="text">
+                </section>
+                <section>
+                    <label for="phone">Teléfono:</label>
+                    <input id="phone" value="{{ context.insurer.telefono }}" name="phone" type="text">
+                </section>
+                <section>
+                    <label for="address">Dirección:</label>
+                    <input id="address" value="{{ context.insurer.direccion }}" name="address" type="text">
+                </section>
+                <section class="contentButton">
+                    <button type="submit" id="botton-form" ><strong>Guardar cambios</strong></button>
+                </section>
+            </form>
+            {% if context.modal %}
+            <div id="modal" class="modal">
+                <p>{{ context.message }}</p>
+                <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+            </div>
+            {% endif %} 
+            <script>
+            const cerrrarModal2 = document.getElementById('cerrar-modal2');
+            const modal = document.getElementById('modal');
+            cerrrarModal2.addEventListener('click', () =>{
+            modal.style.display = 'none';
+            })
+            </script> 
+</div>
+ 
+
+
+
+
+    

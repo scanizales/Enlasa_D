@@ -36,10 +36,10 @@
 </div>
 <script>  
     const botonesMenu = document.querySelectorAll('.boton');
-     botonesMenu.forEach(boton => { 
+     botonesMenu.forEach(boton => {
         boton.addEventListener('click', function () {
-            const menuDesplegable = boton.nextElementSibling;     
-            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; });  });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

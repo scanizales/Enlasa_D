@@ -27,7 +27,8 @@ admin_urls = [
     path('administrador/polizas/', views.verPolizas, name = 'admin_polizas_list'),
 
     #editar
-    path('edit/<int:insurer_id>/', views.edit_insurer, name='edit')
+    path('aseguradoras/<int:insurer_id>/', views.edit_insurer, name='edit'),
+    path('add_beneficiary/<int:policy_id>/', views.add_beneficiary, name='add_beneficiary'),
 ]
 #URLs del apartado cliente*
 cliente_urls = [

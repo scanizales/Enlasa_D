@@ -108,9 +108,20 @@ h4{
     border-bottom: solid 0.12em var(--color-primario);
     border-top:solid 0.12em var(--color-primario);
 }
+#buscar section{
+    display: flex;
+    align-items: center;
+    gap:0.5em;
+}
+#buscar p{
+    font-size: calc(9px + 0.3vw);
+}
 #buscar input{
     height: 1.5em;
     border: solid 0.12em var(--color-primario);
+}
+.space-num{
+    margin-right: calc(10px + 1vw);
 }
 
 table{
@@ -225,7 +236,16 @@ figure img{
 .button-icon{
     padding: 0;
 }
-
+.dialog{
+    position:absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+.dialog .exit{
+    float: right;
+}
 /*Responsive para las tablas*/
 @media (max-width: 680px){
     /*General*/

@@ -122,12 +122,18 @@
                                 </figure>
                                 <p>Beneficiarios</p>
                             </button>
-                            <button class="icono-options options">
+                            {% url 'add_beneficiary' policy.id as url_add_beneficiary %} 
+                            <button onclick="window.location.href='{{url_add_beneficiary}}'" class="icono-options options">
                                 <figure id="diferent">
                                     <img src="{% static 'assets/people.png' %}" alt="icono">
                                 </figure>
                                 <p>Agregar beneficiario</p>
                             </button>
+                            <script>
+                                document.getElementById("add-beneficiary").onclick = function() {
+                                   location.href = "{% url 'add_beneficiary' policy.id %}"
+                                };
+                           </script> 
                             <button class="icono-options options">
                                 <figure id="diferent">
                                     <img class="img-small" src="{% static 'assets/sinester.png' %}" alt="icono">

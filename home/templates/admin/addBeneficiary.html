@@ -1,0 +1,42 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+{% if context.modal %}
+<div id="modal" class="modal">
+    <p>{{ context.mensaje }}</p>
+    <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+</div>
+{% endif %} 
+<script>
+const cerrrarModal2 = document.getElementById('cerrar-modal2');
+const modal = document.getElementById('modal');
+cerrrarModal2.addEventListener('click', () =>{
+modal.style.display = 'none';
+})
+</script> 
+<section>
+    <h3 class="h3-forms">Registrar beneficiario</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section class="column">
+            <label for="name">Nombre:</label>
+            <input name="name" type="text" placeholder="Ej: Pepito Pérez" required></input>
+        </section>
+        <section class="column">
+            <label for="typeDocument">Tipo de documento:</label>
+            <select name="typeDocument" required>
+                <option value="CE">TI</option>
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+            </select>
+        </section>
+        <section class="column">
+            <label for="document">Número de documento:</label>
+            <input name="document" type="number" placeholder="Escriba aquí" required></input> 
+        </section>
+        <section class="contentButton">
+            <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+        </section>
+    </form>
+{% endblock %}

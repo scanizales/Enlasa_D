@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Tipo_Seguro, Seguro, Usuario, Aseguradora, Usuario, Cliente, Poliza
+from .models import Tipo_Seguro, Seguro, Usuario, Aseguradora, Usuario, Cliente, Poliza, Beneficiario, Poliza_Beneficiario
 from django.contrib.auth.hashers import make_password
 import secrets
 # configuración para enviar correo
 from django.core.mail import send_mail
 from django.conf import settings
+
+from django.contrib import messages
 
 import random
 
@@ -389,7 +391,61 @@ def verEstadisticasPorAseguradora(request):
     return render(request, 'gerente/verEstadisticasPorAseguradora.html')
 
 def edit_insurer(request, insurer_id):
-    return HttpResponse('No se encuentra su usuario') 
+    insurer = Aseguradora.objects.get(id = insurer_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+
+        insurer.nombre = name
+        insurer.telefono = phone
+        insurer.direccion = address
+        insurer.save()
+        modal = True
+        message = 'Se realizaron los cambios exitosamente.'
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+ 
+    context = {
+    'modal': modal,
+    'message': message,
+    'insurer': insurer
+    } 
+
+    return render(request, 'admin/editInsurer.html',{
+         'context': context       
+    }) 
+
+def add_beneficiary(request, policy_id):
+    
+    policy = Poliza.objects.get(id = policy_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        type_document = request.POST.get('typeDocument')
+        document = request.POST.get('document')
+
+        Beneficiario.objects.create(num_documento= document, nombre = name, tipo_documento = type_document)
+        beneficiary = Beneficiario.objects.get(num_documento = document)
+        if beneficiary:
+           Poliza_Beneficiario.create(poliza_id = policy, beneficiario_id = beneficiary) 
+           message = f'La persona {name} fue agregado como beneficario a la póliza {policy.seguro_id.nombre} a cargo de señor(a) {policy.cliente_id.nombre}'
+        
+        else:
+            message = 'No se pudo agregar el beneficiario'
+   
+    context = {
+    'modal': modal,
+    'message': message,
+    } 
+
+    return render(request, 'admin/addBeneficiary.html',{
+         'context': context       
+    })
 
 #Public
 
