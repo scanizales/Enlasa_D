@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Afacad:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
 
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: "Afacad Flux", sans-serif;
+    text-decoration: none;
 }
 
 body {
-    background-color: #f0f0f0;
+    background-color: #f0f0f0; 
 }
 
-header {
+header{
     position: fixed;
     top: 0;
     left: 0;
@@ -25,70 +27,71 @@ header {
     z-index: 1000;
 }
 
-header .navbar ul {
+header .navbar ul{
     list-style: none;
 }
 
-header .navbar ul li {
+header .navbar ul li{
     position: relative;
     float: left;
 }
 
-header .navbar ul li a {
+header .navbar ul li a{
     font-size: 17px;
     padding: 20px;
     color: #fff;
     display: block;
 }
 
-header .navbar ul li a:hover {
+header .navbar ul li a:hover{
     background: #073a86;
-    color: #fff;
+    color:#fff;
 }
 
-header .navbar ul li ul {
-    position: absolute;
+header .navbar ul li ul{
+    position:absolute;
     left: 0;
-    width: 200px;
-    background: #2e77e4;
+    width:200px;
+    background:#2e77e4;
     display: none;
 }
 
-header .navbar ul li ul li {
+header .navbar ul li ul li{
     width: 100%;
     border-top: 1px solid rgba(0,0,0,.1);
 }
 
 header .navbar ul li:focus-within > ul,
-header .navbar ul li:hover > ul {
+header .navbar ul li:hover > ul{
     display: initial;
 }
 
-@media(max-width:791px) {
-    header {
+
+@media(max-width:791px){
+    header{
         padding: 10px;
     }
 
-    header .navbar {
+    header .navbar{
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: #0e54bd;
+        background:#0e54bd;
         border-top: 1px solid rgba(0,0,0,.1);
     }
 
-    header .navbar ul li {
-        width: 100%;
+    header .navbar ul li{
+        width:100%;
     }
 
-    header .navbar ul li ul {
+    header .navbar ul li ul{
         position: relative;
         width: 100%;
     }
 
-    header .navbar ul li ul li {
-        background: #2e77e4;
+    header .navbar ul li ul li{
+        background:#2e77e4;
     }
 }
 
@@ -207,69 +210,83 @@ header .navbar ul li:hover > ul {
 .hero4 {
     display: flex;
     justify-content: space-between;
-    text-align: justify;
     align-items: center;
-    width: 100%; /* Ocupa todo el ancho */
-    padding: 2rem;
-    flex-direction: row-reverse; /* Cambia la dirección para invertir imagen y texto */
-    margin-top: 70px; /* Agrega un margen superior para que no se superponga con el header */
+    width: 100%; 
+    padding: 3rem; 
+    margin-top: 70px;
+    margin-right: 20px;
+    flex-direction: row-reverse; 
 }
 
 .hero-content4 {
-    width: 50%; /* El texto ocupa la mitad derecha ahora */
-    padding-left: 2rem; /* Espacio a la izquierda del texto */
-    text-align: left; /* Alinea el texto a la izquierda */
+    width: 60%; 
+    padding-right: 4rem; 
+    margin-left: 50px; 
 }
 
 .hero-content4 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.8rem; 
+    margin-bottom: 1.5rem; 
     color: #01193b;
 }
 
 .hero-content4 p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1.1rem; 
     color: #333;
 }
 
 .hero2-content {
-    width: 50%; /* La imagen ocupa la mitad izquierda */
-    display: flex;
-    justify-content: flex-start; /* Coloca la imagen a la izquierda */
+    width: 60%;
+    border: 15px;
+    margin-left: 100px; 
 }
 
 .hero2-content img {
-    width: 100%; /* Imagen ocupa todo el espacio del contenedor */
-    height: auto; /* Mantener proporción */
+    width: 90%;
+    height: auto; 
+    border: 15px;
+    padding: 5px;
 }
+
 
 /* Responsivo */
 @media screen and (max-width: 768px) {
     .hero4 {
         flex-direction: column;
         text-align: center;
-        margin-top: 70px;
+        padding: 2rem; 
     }
 
     .hero-content4, .hero2-content {
-        width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        width: 100%; 
+        padding: 0; 
     }
 
-    .hero-content4 h1{
-        font-size: 2rem;
+    .hero-content4 h1 {
+        font-size: 2rem; 
         margin-top: 20px;
-        text-align: center;
+        margin-bottom: 10px; 
     }
 
-    .hero-content4 p{
+    .hero-content4 p {
+        font-size: 1rem; 
         text-align: justify;
-        font-size: 1rem;
+        margin: 0 15px; 
     }
 
+    .hero2-content {
+        margin-top: 1rem; 
+    }
+
+    .hero2-content img {
+        width: 80%; 
+        height: auto; 
+        margin-top: 15px; 
+    }
+
+    
     .hero-content4 {
-        padding-left: 0;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem; 
     }
 }
 
@@ -296,7 +313,7 @@ header .navbar ul li:hover > ul {
 }
 
 .card-productos:hover img {
-    transform: scale(1.05); /* Efecto de zoom al pasar el cursor */
+    transform: scale(1.05); 
 }
 
 .overlay {
@@ -315,25 +332,25 @@ header .navbar ul li:hover > ul {
 
 .container-productos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
     max-width: 1300px;
-    margin: 0 auto; /* Centra el contenedor */
-    justify-content: center; /* Centra las columnas dentro del contenedor */
+    margin: 0 auto; 
+    justify-content: center; 
 }
 
 /* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
     .container-productos {
-        grid-template-columns: 1fr; /* Una sola columna en dispositivos móviles */
-        max-width: 100%; /* Ocupa todo el ancho del dispositivo */
+        grid-template-columns: 1fr; 
+        max-width: 100%; 
         gap: 15px;
         padding: 0 10px;
-        justify-items: center; /* Centra cada tarjeta dentro del contenedor */
+        justify-items: center; 
     }
 
     .card-productos {
-        transform: scale(0.9); /* Reduce el tamaño de cada tarjeta */
+        transform: scale(0.9); 
         border-radius: 8px;
     }
 
@@ -351,7 +368,7 @@ header .navbar ul li:hover > ul {
     background-color: #0a3d62;
     color: white;
     padding: 40px 20px;
-    margin-top: 30px; /* Agrega espacio encima del pie de página */
+    margin-top: 30px; 
 }
 .footer-content {
     max-width: 1200px;
