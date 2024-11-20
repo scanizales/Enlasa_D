@@ -1,0 +1,41 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+{% if context.modal %}
+<div id="modal" class="modal">
+    <p>{{ context.message }}</p>
+    <button class="boton options" id="close"><strong>OK</strong></button>  
+    <script>
+        document.getElementById("close").onclick = function() {
+           location.href = "{% url 'admin_polizas_list' %}"
+        };
+   </script>                           
+</div>
+{% endif %} 
+<section>
+    <h3 class="h3-forms">Registrar Siniestro</h3>
+</section>
+<form id="formGlobal" method="post">
+    {% csrf_token %}
+    <section class="column">
+        <label for="date">Fecha del siniestro:</label>
+        <input  class="date" name="date" type="date"  required></input>
+    </section>
+    <section class="column">
+        <label for="description">Descripción:</label>
+        <input name="description" type="text" placeholder="Escriba aquí" required></input>
+    </section>
+    <section class="column">
+        <label for="state">Estado:</label>
+        <select class="size"  name="state" required>
+            <option value="REPORTADO">Reportado</option>
+            <option value="EN_PROCESO">En proceso</option>
+            <option value="RECHAZADO">Rechazado</option>
+            <option value="RESUELTO">Resuelto</option>
+        </select>
+    </section>
+    <section class="contentButton">
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+    </section>
+</form>
+{% endblock %}

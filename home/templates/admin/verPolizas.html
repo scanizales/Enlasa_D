@@ -116,7 +116,8 @@
                                 </figure>
                                 <p>Editar</p>
                             </button>
-                            <button class="icono-options options">
+                            {% url 'show_beneficiarys' policy.id as url_show_beneficiarys %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_show_beneficiarys}}'">
                                 <figure>
                                     <img src="{% static 'assets/people.png' %}" alt="icono">
                                 </figure>
@@ -134,7 +135,8 @@
                                    location.href = "{% url 'add_beneficiary' policy.id %}"
                                 };
                            </script> 
-                            <button class="icono-options options">
+                           {% url 'add_claim' policy.id as url_add_claim %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_add_claim}}'">
                                 <figure id="diferent">
                                     <img class="img-small" src="{% static 'assets/sinester.png' %}" alt="icono">
                                 </figure>
@@ -156,10 +158,10 @@
 </div>
 <script>  
 const botonesMenu = document.querySelectorAll('.boton');
-botonesMenu.forEach(boton => { 
+botonesMenu.forEach(boton => {
     boton.addEventListener('click', function () {
-        const menuDesplegable = boton.nextElementSibling;     
-        menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
+        const menuDesplegable = boton.nextElementSibling
+        menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

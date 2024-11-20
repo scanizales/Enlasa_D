@@ -148,7 +148,7 @@ ROLE_GERENTE = 'GERENTE'
 
 # Roles y URLs de redirección
 ROLE_REDIRECT_URLS = {
-     ROLE_ADMINISTRADOR: '/administrador/',
+     ROLE_ADMINISTRADOR: '/admin_dashboard/',
      ROLE_CLIENTE: '/cliente/',
      ROLE_GERENTE: '/gerente/',
 }

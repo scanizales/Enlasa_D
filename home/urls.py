@@ -12,10 +12,10 @@ general_urls = [
 ]
 #URLs del apartado administrador
 admin_urls = [
-    path('administrador/', views.principalAdmin, name= 'admin_principal'),
-    path('administrador/perfil/', views.verPerfil, name= 'admin_perfil'),
+    path('admin_dashboard/', views.admin_dashboard, name= 'admin_principal'),
+    path('admin_dashboard/profile/', views.admin_profile, name= 'admin_profile'),
     path('administrador/clientes/', views.verClientes, name='admin_clientes_list'),
-    path('administrador/agregar-cliente/', views.agregarCliente, name='admin_cliente_agregar'),
+    path('admin_dashboard/add_client/', views.add_client, name='add_client'),
     path('administrador/siniestros/', views.verSiniestros, name='admin_siniestros_list'),
     path('administrador/agregar-siniestro/', views.agregarSiniestro, name='admin_siniestros_agregar'),
     path('administrador/aseguradoras/', views.verAseguradoras, name='admin_aseguradoras_list'),
@@ -26,16 +26,19 @@ admin_urls = [
     path('administrador/agregar-seguro/', views.agregarSeguro, name='admin_seguros_agregar'),
     path('administrador/polizas/', views.verPolizas, name = 'admin_polizas_list'),
 
-    #editar
+    #edit
     path('aseguradoras/<int:insurer_id>/', views.edit_insurer, name='edit'),
     path('add_beneficiary/<int:policy_id>/', views.add_beneficiary, name='add_beneficiary'),
+    path('show_beneficiarys/<int:policy_id>/', views.show_beneficiarys, name='show_beneficiarys'),
+    path('add_claim/<int:policy_id>/', views.add_claim, name='add_claim'),
 ]
 #URLs del apartado cliente*
 cliente_urls = [
     path('cliente/', views.principalCliente, name='cliente_principal'),
     path('cliente/mi-perfil/', views.miPerfil, name='cliente_mi_perfil'),
     path('cliente/polizas/', views.misPolizas, name='cliente_mis_polizas'),
-    path('cliente/polizas/mis-beneficiarios/', views.misBeneficiarios, name='cliente_mis_beneficiarios'),
+    path('cliente/polizas/beneficiarys/<int:policy_id>/', views.beneficiarys_client, name='client_beneficiarys'),
+    path('show_my_claims/<int:policy_id>/', views.claims_client, name='show_my_claims'),
 ]
 #URLs del apartado gerente
 gerente_urls = [

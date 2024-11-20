@@ -1,7 +1,6 @@
-{% extends 'layouts/baseCliente.html' %}
+{% extends 'layouts/baseAdmin.html' %}
 {% load static %}
 {% block content %}
-{% if context.beneficiarys.count > 0 %}
 <section id="clientes">
     <h3>Listado de beneficiarios</h3>
 </section>
@@ -12,7 +11,7 @@
             <h4>Filtrar beneficiarios</h4>
         </section>
         <div class="filtrar-items">                         
-            <label for="typeDocument">Tipo de docuento:</label>
+            <label for="typeDocument">Tipo de documento:</label>
             <select name="typeDocument">
                 <option value="">Despliegue</option>
                 <option value="CC">CC</option>
@@ -48,6 +47,27 @@
                 <td>{{ beneficiary.beneficiary_id.nombre }}</td>
                 <td class="space">{{ beneficiary.beneficiary_id.tipo_documento }}</td>
                 <td>{{ beneficiary.beneficiary_id.num_documento }}</td>
+                <td>
+                    <div class="boton-menu">
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
+                        <ul class="menu-desplegable">
+                            <button class="icono-options options">
+                                <figure>
+                                    <img src="{% static 'assets/user-edit.png' %}"  alt="icono">
+                                </figure>
+                                <p>Editar</p>
+                            </button>
+                            <button class="icono-options options">
+                                <figure>
+                                    <img src="{% static 'assets/delete.png' %}"  alt="icono">
+                                </figure>
+                                <p>Eliminar</p>
+                            </button>
+                        </ul>
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -61,7 +81,4 @@
             menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
-{% else %}
-<h2>Sin beneficiarios</h2>
-{% endif %}
 {% endblock %}

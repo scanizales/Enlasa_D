@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import Tipo_Seguro, Seguro, Usuario, Aseguradora, Usuario, Cliente, Poliza, Beneficiario, Poliza_Beneficiario
+from .models import Tipo_Seguro, Seguro, Usuario, Aseguradora, Usuario, Cliente, Poliza, Beneficiario, Policy_Beneficiary, Siniestro
 from django.contrib.auth.hashers import make_password
 import secrets
 # configuración para enviar correo
@@ -20,14 +20,14 @@ def exit(request):
 
 #vistas del apartado administrador
 @login_required
-def principalAdmin(request):
-    return render(request, 'admin/principal.html')
+def admin_dashboard(request):
+    return render(request, 'admin/admin_dashboard.html')
 
 @login_required
-def verPerfil(request):
-    return render(request, 'admin/verPerfil.html')
+def admin_profile(request):
+    return render(request, 'admin/admin_profile.html')
 
-def agregarCliente(request):
+def add_client(request):
     #inicializar datos de la modal
     modal = False
     mensaje = ''
@@ -103,7 +103,7 @@ def agregarCliente(request):
         'mensaje': mensaje,
     }   
 
-    return render(request, 'admin/agregarCliente.html',{
+    return render(request, 'admin/add_client.html',{
          'context': context       
     })
 
@@ -163,12 +163,38 @@ def verPolizas(request):
          'context': context       
     })
 
-def verSiniestros(request):
+def verSiniestros(request): 
     context = {
+        'claims' : Siniestro.objects.all(),
         'insurers': Aseguradora.objects.all(),
         'insurances': Seguro.objects.all(),
         'type_insurance': Tipo_Seguro.objects.all(),
     } 
+    if request.method == 'POST':
+        insurer = request.POST.get('insurer')
+        type_insurance = request.POST.get('type_insurance')
+        insurance = request.POST.get('insurance')
+        state = request.POST.get('state')
+        date = request.POST.get('date')
+
+        filters = {}
+        if date:
+            filters['fecha'] = date
+
+        if insurer and not "":
+            filters['poliza_id__aseguradora_id'] = insurer
+
+        if insurance and not "":
+            filters['poliza_id__seguro_id'] = insurance
+
+        if type_insurance and not "":
+            filters['poliza_id__seguro_id__tipo_seguro_id'] = type_insurance
+
+        if state and not "":
+            filters['estado'] = state
+            
+        claims = Siniestro.objects.filter(**filters)
+        context['claims'] = claims
 
     return render(request, 'admin/verSiniestros.html',{
         'context': context       
@@ -335,8 +361,46 @@ def misPolizas(request):
     })
 
 
-def misBeneficiarios(request):
-    return render(request, 'cliente/misBeneficiarios.html')
+def beneficiarys_client(request, policy_id):
+    policy = Poliza.objects.get(id = policy_id) #póliza
+    beneficiarys = policy.policy_beneficiary_set.all() 
+
+    if request.method == 'POST':
+        type_document = request.POST.get('typeDocument')
+        
+        if type_document:
+            beneficiarys = policy.policy_beneficiary_set.filter(beneficiary_id__tipo_documento = type_document)
+
+    context = {
+    'beneficiarys' : beneficiarys,
+    } 
+
+    return render(request, 'cliente/misBeneficiarios.html',{
+         'context': context       
+    })
+
+def claims_client(request, policy_id):
+    policy = Poliza.objects.get(id = policy_id)
+    claims = Siniestro.objects.filter(poliza_id = policy)
+ 
+    if request.method == 'POST':
+        state = request.POST.get('state')
+        date = request.POST.get('date')
+
+        filters = {}
+        if date:
+            filters['fecha'] = date
+
+        if state and not "":
+            filters['estado'] = state
+            
+        new= claims.filter(**filters)
+        claims = new
+
+    return render(request, 'cliente/claims.html',{
+        'claims': claims      
+    })
+
 
 #vistas del apartado gerente
 
@@ -418,34 +482,88 @@ def edit_insurer(request, insurer_id):
          'context': context       
     }) 
 
-def add_beneficiary(request, policy_id):
-    
+#vista que agrega  beneficiarios a la póliza seleccionada
+def add_beneficiary(request, policy_id):   
     policy = Poliza.objects.get(id = policy_id)
     modal = False
     message = ''
 
     if request.method == 'POST':
+        #obtener datos del form
         name = request.POST.get('name')
         type_document = request.POST.get('typeDocument')
         document = request.POST.get('document')
 
-        Beneficiario.objects.create(num_documento= document, nombre = name, tipo_documento = type_document)
-        beneficiary = Beneficiario.objects.get(num_documento = document)
-        if beneficiary:
-           Poliza_Beneficiario.create(poliza_id = policy, beneficiario_id = beneficiary) 
-           message = f'La persona {name} fue agregado como beneficario a la póliza {policy.seguro_id.nombre} a cargo de señor(a) {policy.cliente_id.nombre}'
-        
-        else:
-            message = 'No se pudo agregar el beneficiario'
-   
+        try:
+            #crear beneficiario
+            beneficiary = Beneficiario.objects.create(num_documento= document, nombre = name, tipo_documento = type_document)
+            Policy_Beneficiary.objects.create(policy_id = policy, beneficiary_id = beneficiary) #crear relación con la póliza
+            modal = True
+            message = f'La persona {name} fue agregado como beneficario a la póliza {policy.seguro_id.nombre} a cargo del señor(a) {policy.cliente_id.nombre}'
+
+        except Exception as e:
+            message = f'Error al crear beneficiario: {e}'
+    
+                   
     context = {
     'modal': modal,
     'message': message,
+    'policy' :policy,
     } 
 
     return render(request, 'admin/addBeneficiary.html',{
          'context': context       
     })
+
+#vista que muestra los beneficiarios de la poliza seleccionada
+def show_beneficiarys(request, policy_id):
+    policy = Poliza.objects.get(id = policy_id) #póliza
+    beneficiarys = policy.policy_beneficiary_set.all() 
+
+    if request.method == 'POST':
+        type_document = request.POST.get('typeDocument')
+        
+        if type_document:
+            beneficiarys = policy.policy_beneficiary_set.filter(beneficiary_id__tipo_documento = type_document)
+
+    context = {
+    'beneficiarys' : beneficiarys,
+    } 
+
+    return render(request, 'admin/showBeneficiarys.html',{
+         'context': context       
+    })
+
+#vista para agregar un siniestro a la póliza seleccionada
+def add_claim(request, policy_id):
+    policy = Poliza.objects.get(id = policy_id) #póliza
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        description = request.POST.get('description')
+        state = request.POST.get('state')
+        
+        #crear siniestro
+        try:
+            Siniestro.objects.create(fecha = date, descripcion = description, estado = state, poliza_id = policy)
+            modal = True
+            message = f'El siniestro fue creado a la póliza {policy.seguro_id.nombre} a cargo del señor(a) {policy.cliente_id.nombre}'
+
+        except Exception as e:
+            modal = True
+            message = f'Error al crear el siniestro: {e}'
+
+    context = {
+    'modal': modal,
+    'message': message,
+    } 
+
+    return render(request, 'admin/add_claim.html',{
+         'context': context       
+    })
+
 
 #Public
 

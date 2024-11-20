@@ -41,14 +41,16 @@
                 <section class="column">
                     <label for="state">Estado:</label>
                     <select class="size"  name="state" required>
-                        <option value="Reportado">Reportado</option>
-                        <option value="Rechazado">Rechazado</option>
-                        <option value="Anulado">Anulado</option>
+                        <option value="REPORTADO">Reportado</option>
+                        <option value="EN_PROCESO">En proceso</option>
+                        <option value="APROBADO">Aprobado</option>
+                        <option value="RECHAZADO">Rechazado</option>
+                        <option value="RESUELTO">Resuelto</option>
                     </select>
                 </section>
                 <section>
-                    <label for="expiryDate">Fecha:</label>
-                    <input class="date" name="expiryDate" type="date"></input>
+                    <label for="date">Fecha:</label>
+                    <input class="date" name="date" type="date"></input>
                 </section>
         </div>          
         <section class="buttons">
@@ -59,7 +61,7 @@
     <section id="buscar" class="sec-buscar">
         <section>
             <p>Siniestros:</p>
-            <p id="count">número</p>
+            <p id="count">{{ context.claims.count }}</p>
         </section>
         <section>
             <label for="buscar">Buscar:</label>
@@ -70,27 +72,26 @@
         <thead class="polizas">
             <tr>
                 <th>Cliente</th>
-                <th>Número de póliza</th>
-                <th>Número de siniestro</th>
+                <th>Documento</th>
                 <th>Aseguradora</th>
-                <th>Tipo de seguro</th>
-                <th class="space">Seguro</th>
-                <th>Fecha</th>                  
+                <th>Tipo Seguro</th> 
+                <th>Seguro</th>               
+                <th>Fecha</th>
                 <th>Descripción</th>
                 <th>Estado</th>
             </tr>
         </thead>
         <tbody class="polizas">
+            {% for claim in context.claims %}
             <tr id="datos">
-                <td>Sofía Canizales Lezama</td>
-                <td>2907676</td>
-                <td >29076</td>
-                <td>Seguros Bolivar</td>
-                <td>Seguro de vida</td>
-                <td>Individual</td>
-                <td>20/06/24</td>
-                <td>Accidente automovil</td>
-                <td>En proceso</td>
+                <td>{{ claim.poliza_id.cliente_id.nombre }}</td>
+                <td>{{ claim.poliza_id.cliente_id.num_documento }}</td>
+                <td>{{ claim.poliza_id.aseguradora_id.nombre }}</td>
+                <td>{{ claim.poliza_id.seguro_id.tipo_seguro_id.nombre }}</td>
+                <td>{{ claim.poliza_id.seguro_id.nombre }}</td>
+                <td>{{ claim.fecha }}</td>
+                <td>{{ claim.descripcion }}</td>
+                <td>{{ claim.estado }}</td>
                 <td>
                     <div class="boton-menu">
                         <button class="options boton">
@@ -111,15 +112,18 @@
                             </button>
                         </ul>
                     </div>
-                    <script>
-                        document.querySelector('.boton-menu').addEventListener('click', function () {
-                            document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-                        });
-                    </script>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';}); });
+</script>
 <script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

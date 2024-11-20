@@ -33,7 +33,7 @@
         </button>
         <script>
              document.getElementById("miBoton").onclick = function() {
-                location.href = "{% url 'admin_perfil' %}"
+                location.href = "{% url 'admin_profile' %}"
              };
         </script>      
     </header>
@@ -68,7 +68,7 @@
                     </div>
                     <ul class="list_show">
                         <li class="list_inside">
-                            <a href="{% url 'admin_cliente_agregar' %}" class="nav_link nav_link--inside">Agregar cliente</a>
+                            <a href="{% url 'add_client' %}" class="nav_link nav_link--inside">Agregar cliente</a>
                         </li>           
                         <li class="list_inside">
                             <a href="{% url 'admin_clientes_list' %}" class="nav_link nav_link--inside">Ver clientes</a>

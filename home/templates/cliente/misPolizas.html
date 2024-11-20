@@ -65,14 +65,11 @@
             <p>Pólizas:</p>
             <p id="count">{{ context.policys.count }}</p>
         </section>
-        <section>
-            <label for="buscar">Buscar:</label>
-            <input name="buscar" type="text" placeholder="Ingrese el número..."></input>
-        </section>
     </section>
     <table>
         <thead class="polizas">
             <tr>
+                <th>Estado</th>
                 <th>Número</th>
                 <th>Aseguradora</th>
                 <th>Tipo de seguro</th>
@@ -82,13 +79,17 @@
                 <th>Prima</th>
                 <th>Valor prima</th>
                 <th>Medio de pago</th>
-                <th>Estado</th>
             </tr>
         </thead>
         <tbody class="polizas">
             {% for policy in context.policys %}
             <tr id="datos">
-                <td class="space">{{ policy.id }}</td>
+                {% if policy.estado == True %}
+                <td>Activa</td>
+                {% else %}
+                <td>Inactiva</td>
+                {% endif %}
+                <td class="space">{{ policy.id }}</td> 
                 <td>{{ policy.aseguradora_id.nombre }}</td>
                 <td>{{ policy.seguro_id.tipo_seguro_id.nombre }}</td>
                 <td>{{ policy.seguro_id.nombre }}</td>
@@ -97,27 +98,40 @@
                 <td>{{ policy.prima }}</td>
                 <td>{{ policy.valor }}</td>
                 <td>{{ policy.medio_pago }}</td>
-                {% if policy.estado == True %}
-                <td>Activa</td>
-                {% else %}
-                <td>Inactiva</td>
-                {% endif %}
                 <td>
-                    <button class="options boton" id="show-beneficiarios">
-                        <figure>
-                            <img src="{% static 'assets/groups.png' %}" alt="icono">
-                        </figure>
-                    </button>  
-                    <script>
-                        document.getElementById("show-beneficiarios").onclick = function() {
-                            location.href = "{% url 'cliente_mis_beneficiarios' %}";
-                        };
-                    </script>    
+                    <div class="boton-menu">
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
+                        <ul class="menu-desplegable">
+                            {% url 'show_my_claims' policy.id as url_show_claims %}
+                            <button class="icono-options options" onclick="window.location.href='{{url_show_claims}}'">
+                                <figure>
+                                    <img src="{% static 'assets/sinester.png' %}"  alt="icono">
+                                </figure>
+                                <p>Siniestros</p>
+                            </button>
+                            {% url 'client_beneficiarys' policy.id as url_show_beneficiarys %}
+                            <button class="icono-options options" onclick="window.location.href='{{url_show_beneficiarys}}'">
+                                <figure>
+                                    <img src="{% static 'assets/people.png' %}"  alt="icono">
+                                </figure>
+                                <p>Beneficiarios</p>
+                            </button>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
+    </script>
 <script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

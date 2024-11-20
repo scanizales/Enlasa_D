@@ -108,25 +108,19 @@ class Beneficiario(models.Model):
         ('PAS', 'Pasaporte')
     ]
 
-    num_documento = models.IntegerField( primary_key = True)
+    id = models.AutoField(primary_key = True)
+    num_documento = models.IntegerField()
     nombre = models.CharField(max_length = 50)
     tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
+    
 
     def __str__(self) -> str:
         return self.nombre
 
-
-class Poliza_Beneficiario(models.Model):
-    """
-    Modelo que representa relación entre póliza y beneficiario
-    """
-
+class Policy_Beneficiary(models.Model):
     id = models.AutoField(primary_key = True)
-    poliza_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
-    beneficiario_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
-
-    def __str__ (self) -> str:
-        return self.id
+    policy_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
+    beneficiary_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
 
 
 class Siniestro(models.Model):
@@ -141,7 +135,7 @@ class Siniestro(models.Model):
         ('RECHAZADO', 'Rechazado'),
         ('RESUELTO', 'Resuelto'),
     ]
-
+    id = models.AutoField(primary_key = True)
     fecha = models.DateField()
     descripcion = models.TextField()
     estado = models.CharField(max_length = 15, choices= ESTADO)
