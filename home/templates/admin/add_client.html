@@ -4,7 +4,7 @@
     {% load static %}
     {% if context.modal %}
         <div id="modal" class="modal">
-            <p>{{ context.mensaje }}</p>
+            <p>{{ context.message_modal }}</p>
             <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
         </div>
     {% endif %} 
@@ -68,8 +68,8 @@
             <section class="column">
                 <label for="insurance">Nombre del seguro:</label>
                 <select name="insurance" required>
-                    {% for seguro in context.seguros %}
-                    <option value={{seguro.id}}>{{ seguro.nombre }}</option>
+                    {% for insurance in context.insurances %}
+                    <option value={{insurance.id}}>{{ insurance.nombre }}</option>
                     {% endfor %}
                 </select>
             </section>
@@ -103,8 +103,8 @@
             <section class="column">
                 <label for="insurer">Aseguradora:</label>
                 <select name="insurer" required>
-                    {% for aseguradora in context.aseguradoras %}
-                    <option value={{aseguradora.id}}>{{ aseguradora.nombre }}</option>
+                    {% for insurer in context.insurers %}
+                    <option value={{insurer.id}}>{{ insurer.nombre }}</option>
                     {% endfor %}
                 </select>
             </section>

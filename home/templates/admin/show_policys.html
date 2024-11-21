@@ -110,12 +110,14 @@
                             <img class="icon" src="{% static 'assets/opciones2.png' %}">  
                         </button>
                         <ul class="menu-desplegable">
-                            <button class="icono-options options">
+                            {% url 'edit_policy' policy.id as url_edit_policy %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_edit_policy}}'">
                                 <figure>
                                     <img src="{% static 'assets/user-edit.png' %}" alt="icono">
                                 </figure>
                                 <p>Editar</p>
                             </button>
+                            {% if policy.policy_beneficiary_set.all %}
                             {% url 'show_beneficiarys' policy.id as url_show_beneficiarys %} 
                             <button class="icono-options options" onclick="window.location.href='{{url_show_beneficiarys}}'">
                                 <figure>
@@ -123,6 +125,7 @@
                                 </figure>
                                 <p>Beneficiarios</p>
                             </button>
+                            {% endif %}
                             {% url 'add_beneficiary' policy.id as url_add_beneficiary %} 
                             <button onclick="window.location.href='{{url_add_beneficiary}}'" class="icono-options options">
                                 <figure id="diferent">

@@ -27,90 +27,92 @@ def admin_dashboard(request):
 def admin_profile(request):
     return render(request, 'admin/admin_profile.html')
 
-def add_client(request):
+def create_client_policy(request):
     #inicializar datos de la modal
     modal = False
-    mensaje = ''
+    message_modal = ''
 
     #obtener datos del form    
     if request.method == 'POST':
 
         #datos de cliente
-        nombre = request.POST.get('name')
-        tipo_documento = request.POST.get('typeDocument')
-        documento = request.POST.get('document')
-        celular = request.POST.get('phone')
-        telefono = request.POST.get('phone2')
+        name = request.POST.get('name')
+        type_document = request.POST.get('typeDocument')
+        document = request.POST.get('document')
+        phone_mobile = request.POST.get('phone')
+        phone = request.POST.get('phone2')
         email = request.POST.get('email')
-        ciudad = request.POST.get('city')
-        direccion = request.POST.get('address')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
 
         #datos de póliza
-        estado = request.POST.get('state')
-        fecha_inicio = request.POST.get('startDate')
-        fecha_vencimiento = request.POST.get('expiryDate') 
-        tipo_prima = request.POST.get('typeFace') 
-        valor_prima = request.POST.get('valueFace') 
-        medio_pago = request.POST.get('payMethod') 
-        aseguradora_id  = request.POST.get('insurer')
-        seguro_id = request.POST.get('insurance')
-        seguro = Seguro.objects.get(id = seguro_id)
-        aseguradora = Aseguradora.objects.get(id = aseguradora_id)
+        state = request.POST.get('state')
+        start_date = request.POST.get('startDate')
+        end_date = request.POST.get('expiryDate') 
+        type_premium = request.POST.get('typeFace') 
+        value_premium = request.POST.get('valueFace') 
+        payment_method = request.POST.get('payMethod') 
+        insurer_id  = request.POST.get('insurer')
+        insurance_id = request.POST.get('insurance')
 
+        #obtener las onstancias de aseguradora y seguro
+        insurer = Aseguradora.objects.get(id = insurer_id)
+        insurance = Seguro.objects.get(id = insurance_id)
+
+        #validar si el cliente existe
         try:
-           cliente = Cliente.objects.get(num_documento = documento)
-    
+           client = Cliente.objects.get(num_documento = document)
+
+
+        #sino existe se crea el cliente y el usuario para el sistema
         except Cliente.DoesNotExist:
             Cliente.objects.create(
-            nombre = nombre, num_documento = documento, tipo_documento = tipo_documento,
-            celular = celular, email = email, ciudad = ciudad, telefono = telefono, direccion = direccion
+            nombre = name, num_documento = document, tipo_documento = type_document,
+            celular = phone_mobile, email = email, ciudad = city, telefono = phone, direccion = address
             )
             #generar una contraseña
-            cliente = Cliente.objects.get(num_documento = documento)
-            def generar_contraseña():
+            client = Cliente.objects.get(num_documento = document)
+            def generate_password():
                password = secrets.token_hex(4)
                return password
 
             #datos que se enviarán al correo 
-            contraseña = generar_contraseña()    
-            asunto = 'Contraseña de Enlasa'
-            mensaje = f'Buen día señor(a) {nombre} su contraseña es: {contraseña}.\nLe recomendamos cambiarla.'
-            remitente = settings.EMAIL_HOST_USER 
-            destinatario = [email]
+            password = generate_password()    
+            subject = 'Contraseña de Enlasa'
+            message_email = f'Buen día señor(a) {name} su contraseña es: {password}.\nLe recomendamos cambiarla.'
+            sender = settings.EMAIL_HOST_USER 
+            recipient = [email]
 
             #envío de la contraseña al correo
-            send_mail(asunto, mensaje, remitente, destinatario)
+            send_mail(subject, message_email, sender, recipient)
 
             #creación de el usuario para el inicio de sesión  
-            Usuario.objects.create(num_documento= documento, rol = 'CLIENTE',  nombre = nombre, email= email, password = make_password(contraseña))           
+            Usuario.objects.create(num_documento= document, rol = 'CLIENTE',  nombre = name, email= email, password = make_password(password))           
         
                 
         #crear póliza
-        Poliza.objects.create(fecha_inicio = fecha_inicio, fecha_vencimiento = fecha_vencimiento,
-         valor = valor_prima, prima = tipo_prima, estado = estado, aseguradora_id = aseguradora, 
-         seguro_id = seguro, cliente_id = cliente, medio_pago = medio_pago
+        Poliza.objects.create(fecha_inicio = start_date, fecha_vencimiento = end_date,
+         valor = value_premium, prima = type_premium, estado = state, aseguradora_id = insurer, 
+         seguro_id = insurance, cliente_id = client, medio_pago = payment_method
         )
 
-        #modal que comunica si el resgistro fue éxitoso
+        #modal que comunica si el registro fue éxitoso
         modal = True
-        mensaje = 'Póliza agregada con éxito.'
+        message_modal = 'Póliza agregada con éxito.'
 
     #variables que van al template    
     context = {
-        'seguros': Seguro.objects.all(),
-        'aseguradoras': Aseguradora.objects.all(),
+        'insurances': Seguro.objects.all(),
+        'insurers': Aseguradora.objects.all(),
         'modal': modal,
-        'mensaje': mensaje,
+        'message': message_modal,
     }   
 
     return render(request, 'admin/add_client.html',{
          'context': context       
     })
 
-def agregarSiniestro(request):
-    return render(request, 'admin/agregarSiniestros.html')
-
-def verClientes(request):
+def show_clients(request):
     clients = Cliente.objects.all()
     if request.method == 'POST':
         type_document = request.POST.get('typeDocument')
@@ -118,11 +120,11 @@ def verClientes(request):
         if type_document:
             clients = Cliente.objects.filter(tipo_documento = type_document)
             
-    return render(request, 'admin/verClientes.html', {
-        'clientes': clients
+    return render(request, 'admin/show_clients.html', {
+        'clients': clients
     })
 
-def verPolizas(request):
+def show_policys(request):
     policys = Poliza.objects.all()
     context = {
         'insurances': Seguro.objects.all(),
@@ -159,11 +161,11 @@ def verPolizas(request):
         policys = Poliza.objects.filter(**filters)
         context['policys'] = policys
 
-    return render(request, 'admin/verPolizas.html',{
+    return render(request, 'admin/show_policys.html',{
          'context': context       
     })
 
-def verSiniestros(request): 
+def show_claims(request): 
     context = {
         'claims' : Siniestro.objects.all(),
         'insurers': Aseguradora.objects.all(),
@@ -196,52 +198,52 @@ def verSiniestros(request):
         claims = Siniestro.objects.filter(**filters)
         context['claims'] = claims
 
-    return render(request, 'admin/verSiniestros.html',{
+    return render(request, 'admin/show_claims.html',{
         'context': context       
     })
 
-def agregarAseguradora(request):
+def add_insurer(request):
     modal = False
-    mensaje = ''
+    message = ''
     if request.method == 'POST':
-        nombre = request.POST.get('name')
-        telefono = request.POST.get('phone')
-        direccion = request.POST.get('address')
-        Aseguradora.objects.create(nombre = nombre, telefono = telefono, direccion = direccion)
+        name = request.POST.get('name')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+        Aseguradora.objects.create(nombre = name, telefono = phone, direccion = address)
         modal = True
-        mensaje = f'La aseguradora {nombre} ha sido agregada.'
+        message = f'La aseguradora {name} ha sido agregada.'
     
     context = {
         'modal': modal,
-        'mensaje': mensaje,
+        'message': message,
     } 
 
-    return render(request, 'admin/agregarAseguradora.html',{
+    return render(request, 'admin/add_insurer.html',{
          'context': context       
     })
 
 
-def verAseguradoras(request):
-    aseguradoras = Aseguradora.objects.all()
-    return render(request, 'admin/verAseguradoras.html', {
-        'aseguradoras':aseguradoras
+def show_insurers(request):
+    insurers = Aseguradora.objects.all()
+    return render(request, 'admin/show_insurers.html', {
+        'insurers': insurers
     })
 
-def agregarTipoSeguro(request):
+def add_type_insurance(request):
     modal = False
-    mensaje = ''
+    message = ''
     if request.method == 'POST':
-        nombre = request.POST.get('type')
-        Tipo_Seguro.objects.create(nombre = nombre)       
+        name = request.POST.get('type')
+        Tipo_Seguro.objects.create(nombre = name)       
         modal = True
-        mensaje = f'El tipo de seguro:  {nombre}, ha sido agregado.'
+        message = f'El tipo de seguro:  {name}, ha sido agregado.'
     
     context = {
     'modal': modal,
-    'mensaje': mensaje,
+    'message': message,
     } 
 
-    return render(request, 'admin/agregarTipoSeguro.html',{
+    return render(request, 'admin/add_type_insurance.html',{
          'context': context       
     })
 
@@ -268,39 +270,160 @@ def iniciar_sesion(request):
 
     return render(request, 'public/iniciarSesion.html')
 
-def agregarSeguro(request):
+def add_insurance(request):
     modal = False
-    mensaje = ''
-    tipos_seguros = Tipo_Seguro.objects.all()
+    message = ''
+    types_insurances = Tipo_Seguro.objects.all()
     if request.method == 'POST':
-        seguro = request.POST.get('type')
-        tipo_seguro_id = int(request.POST.get('typeInsurance'))
-        tipo_seguro = Tipo_Seguro.objects.get(id = tipo_seguro_id)
-        Seguro.objects.create(nombre = seguro, tipo_seguro_id = tipo_seguro)
+        insurance = request.POST.get('type')
+        type_insurance_id = int(request.POST.get('typeInsurance'))
+        type_insurance = Tipo_Seguro.objects.get(id = type_insurance_id)
+        Seguro.objects.create(nombre = insurance, tipo_seguro_id = type_insurance)
         modal = True
-        mensaje = f'El seguro: {seguro}, ha sido agregado.'
+        message = f'El seguro: {insurance}, ha sido agregado.'
 
     context = {
     'modal': modal,
-    'mensaje': mensaje,
-    'tipos_seguros': tipos_seguros,
+    'message': message,
+    'types_insurances': types_insurances,
     } 
 
-    return render(request, 'admin/agregarSeguro.html',{
+    return render(request, 'admin/add_insurance.html',{
          'context': context       
     })
 
-def verTiposSeguros(request):
-    tipos_seguros = Tipo_Seguro.objects.all()
-    return render(request, 'admin/verTiposSeguros.html', {
-        'tipos_seguros':tipos_seguros
+def show_types_insurances(request):
+    types_insurances = Tipo_Seguro.objects.all()
+    return render(request, 'admin/show_types_insurances.html', {
+        'types_insurances': types_insurances
     })   
 
-def verSeguros(request):
-    seguros = Seguro.objects.all()
-    return render(request, 'admin/verSeguros.html', {
-        'seguros': seguros
+def show_insurances(request):
+    insurances = Seguro.objects.all()
+    return render(request, 'admin/show_insurances.html', {
+        'insurances': insurances
     })  
+
+def edit_policy(request, policy_id):
+    policy = Poliza.objects.get(id = policy_id) #póliza
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        start_date = request.POST.get('startDate')
+        end_date = request.POST.get('expiryDate')
+        premium = request.POST.get('typeFace')
+        value_premium = request.POST.get('valueFace')
+        payment_method = request.POST.get('payMethod')
+        state = request.POST.get('state')
+
+        if start_date:
+           policy.fecha_inicio = start_date
+
+        if end_date:
+           policy.fecha_vencimiento = end_date
+
+        if value_premium:
+           policy.valor = value_premium
+
+        policy.medio_pago = payment_method
+        policy.estado = state
+        policy.prima = premium
+        policy.save()
+        modal = True
+        message = 'Se agregaron los cambios con éxito.'
+
+    context = {
+        'policy': policy,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'admin/edit_policy.html',{
+        'context': context       
+    })
+
+def edit_client(request, client_id):
+    client = Cliente.objects.get(num_documento = client_id) #póliza
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        type_document = request.POST.get('typeDocument')
+        document = request.POST.get('document')
+        mobile_phone = request.POST.get('phone')
+        phone = request.POST.get('phone2')
+        email = request.POST.get('email')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+
+        if name:
+           client.nombre = name
+
+        if document:
+           client.num_documento = document
+
+        if mobile_phone:
+           client.celular = mobile_phone
+
+        if phone:
+           client.telefono = phone
+
+        if email:
+           client.email = email
+        
+        if city:
+           client.ciudad = city
+        
+        if address:
+           client.direccion = address
+        
+        client.tipo_documento = type_document
+        client.save()
+        modal = True
+        message = 'Se agregaron los cambios con éxito.'
+
+    context = {
+        'client': client,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'admin/edit_client.html',{
+        'context': context       
+    })
+
+def edit_claim(request, claim_id):
+    claim = Siniestro.objects.get(id = claim_id) #siniestro
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        date = request.POST.get('date')
+        description = request.POST.get('description')
+        state = request.POST.get('state')
+
+        if date:
+           claim.fecha = date
+
+        if description:
+           claim.descripcion = description
+       
+        claim.estado = state
+        claim.save()
+        modal = True
+        message = 'Se agregaron los cambios con éxito.'
+
+    context = {
+        'claim': claim,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'admin/edit_claim.html',{
+        'context': context       
+    })
 
 
 #vistas del apartado cliente

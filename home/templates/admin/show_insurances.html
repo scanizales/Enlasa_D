@@ -2,26 +2,28 @@
 {% load static %}
 {% block content %}
 <section id="clientes">
-    <h3>Listado de tipos de seguros</h3>
+    <h3>Listado de seguros</h3>
 </section>
 <div id="general">
     <section id="buscar">
-        <p id="count" class="space-num">{{ tipos_seguros.count }}</p>
+        <p id="count" class="space-num">{{ insurances.count }}</p>
         <section>
             <label for="buscar">Buscar:</label>
             <input name="buscar" type="text" placeholder="Nombre..."></input>
         </section>
     </section>
     <table>
-        <thead>
+        <thead class="second2">
             <tr>
                 <th>Nombre</th>
+                <th>Tipo de seguro</th>
             </tr>
         </thead>
-        <tbody>
-            {% for tipo_seguro in tipos_seguros %}
+        <tbody class="second2">
+            {% for insurance in insurances %}
             <tr id="datos">
-                <td>{{ tipo_seguro.nombre }}</td>
+                <td>{{ insurance.nombre }}</td>
+                <td>{{ insurance.tipo_seguro_id.nombre }}</td>
                 <td>
                     <button class="button-icon">
                         <figure>
@@ -34,12 +36,12 @@
         </tbody>
     </table>
 </div>
-<script>  
+<script>
     const botonesMenu = document.querySelectorAll('.boton');
-     botonesMenu.forEach(boton => {
+    botonesMenu.forEach(boton => {
         boton.addEventListener('click', function () {
             const menuDesplegable = boton.nextElementSibling;
-            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; });  });
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';}); });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

@@ -98,7 +98,8 @@
                             <img class="icon" src="{% static 'assets/opciones2.png' %}">  
                         </button>
                         <ul class="menu-desplegable">
-                            <button class="icono-options options">
+                            {% url 'edit_claim' claim.id as url_edit_claim %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_edit_claim}}'">
                                 <figure>
                                     <img src="{% static 'assets/user-edit.png' %}" alt="icono">
                                 </figure>

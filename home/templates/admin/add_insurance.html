@@ -3,7 +3,7 @@
 <section>
     <h3 class="h3-forms">Registrar Seguro</h3>
 </section>
-<form method='post' action="{% url 'admin_seguros_agregar'%}" id="formGlobal">
+<form method='post' id="formGlobal">
     {% csrf_token %}
     <section class="column">
         <label for="type">Nombre del seguro:</label>
@@ -12,8 +12,8 @@
     <section class="column">
         <label for="typeInsurance">Tipo de seguro al que pertenecerá:</label>
         <select name="typeInsurance" required>
-            {% for tipo_seguro in context.tipos_seguros %}
-            <option value={{tipo_seguro.id}}>{{tipo_seguro.nombre}}</option>
+            {% for type_insurance in context.types_insurances %}
+            <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
             {% endfor %}
         </select>
     </section>
@@ -23,15 +23,9 @@
 </form>
 {% if context.modal %}
 <div id="modal" class="modal">
-    <p>{{ context.mensaje }}</p>
-    <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    {% url 'show_insurances' as url %}
+    <p>{{ context.message }}</p>
+    <button class="boton options" onclick="window.location.href='{{url}}'"><strong>OK</strong></button>                           
 </div>
 {% endif %} 
-<script>
-const cerrrarModal2 = document.getElementById('cerrar-modal2');
-const modal = document.getElementById('modal');
-cerrrarModal2.addEventListener('click', () =>{
-modal.style.display = 'none';
-})
-</script> 
 {% endblock %}

@@ -11,7 +11,7 @@
             <h4>Filtrar clientes</h4>
         </section>
         <div class="filtrar-items">                         
-            <label for="typeDocument">Tipo de docuento:</label>
+            <label for="typeDocument">Tipo de documento:</label>
             <select name="typeDocument">
                 <option value="">Despliegue</option>
                 <option value="CC">CC</option>
@@ -27,7 +27,7 @@
     <section id="buscar">
         <section>
             <p>Clientes:</p>
-            <p id="count">{{ clientes.count }}</p>
+            <p id="count">{{ clients.count }}</p>
         </section>
         <section>
             <label for="buscar">Buscar:</label>
@@ -48,23 +48,28 @@
             </tr>
         </thead>
         <tbody class="polizas">
-            {% for cliente in clientes %}
+            {% for client in clients %}
             <tr id="datos">
-                <td>{{ cliente.nombre }}</td>
-                <td class="space">{{ cliente.tipo_documento }}</td>
-                <td>{{ cliente.num_documento }}</td>
-                <td>{{ cliente.telefono }}</td>
-                <td>{{ cliente.celular }}</td>
-                <td>{{ cliente.ciudad }}</td>
-                <td>{{ cliente.direccion }}</td>
-                <td>{{ cliente.email }}</td>
+                <td>{{ client.nombre }}</td>
+                <td class="space">{{ client.tipo_documento }}</td>
+                <td>{{ client.num_documento }}</td>
+                {% if client.telefono ==  '' %}
+                <td>No aplica</td>
+                {% else %}
+                <td>{{ client.telefono }}</td>
+                {% endif %}
+                <td>{{ client.celular }}</td>
+                <td>{{ client.ciudad }}</td>
+                <td>{{ client.direccion }}</td>
+                <td>{{ client.email }}</td>
                 <td>
                     <div class="boton-menu">
                         <button class="options boton">
                             <img class="icon" src="{% static 'assets/opciones2.png' %}">  
                         </button>
                         <ul class="menu-desplegable">
-                            <button class="icono-options options">
+                            {% url 'edit_client' client.num_documento as url_edit_client %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_edit_client}}'">
                                 <figure>
                                     <img src="{% static 'assets/user-edit.png' %}"  alt="icono">
                                 </figure>

@@ -71,13 +71,13 @@
                             <a href="{% url 'add_client' %}" class="nav_link nav_link--inside">Agregar cliente</a>
                         </li>           
                         <li class="list_inside">
-                            <a href="{% url 'admin_clientes_list' %}" class="nav_link nav_link--inside">Ver clientes</a>
+                            <a href="{% url 'show_clients' %}" class="nav_link nav_link--inside">Ver clientes</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_polizas_list' %}"  class="nav_link nav_link--inside">Ver pólizas</a>
+                            <a href="{% url 'show_policys' %}"  class="nav_link nav_link--inside">Ver pólizas</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_siniestros_list' %}"  class="nav_link nav_link--inside">Ver siniestros</a>
+                            <a href="{% url 'show_claims' %}"  class="nav_link nav_link--inside">Ver siniestros</a>
                         </li>
                     </ul>        
                 </li>
@@ -89,10 +89,10 @@
                     </div>
                     <ul class="list_show">
                         <li class="list_inside">
-                            <a href="{% url 'admin_aseguradoras_agregar' %}" class="nav_link nav_link--inside">Agregar aseguradora</a>
+                            <a href="{% url 'add_insurer' %}" class="nav_link nav_link--inside">Agregar aseguradora</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_aseguradoras_list' %}" class="nav_link nav_link--inside">Ver aseguradoras</a>
+                            <a href="{% url 'show_insurers' %}" class="nav_link nav_link--inside">Ver aseguradoras</a>
                         </li>
                     </ul>        
                 </li>
@@ -104,16 +104,16 @@
                     </div>
                     <ul class="list_show">
                         <li class="list_inside">
-                            <a href="{% url 'admin_tipos_seguros_agregar' %}" class="nav_link nav_link--inside">Agregar tipo seguro</a>
+                            <a href="{% url 'add_type_insurance' %}" class="nav_link nav_link--inside">Agregar tipo seguro</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_seguros_agregar' %}"  class="nav_link nav_link--inside">Agregar seguro</a>
+                            <a href="{% url 'add_insurance' %}"  class="nav_link nav_link--inside">Agregar seguro</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_tipos_seguros_list' %}" class="nav_link nav_link--inside">Tipos seguros</a>
+                            <a href="{% url 'show_types_insurances' %}" class="nav_link nav_link--inside">Tipos seguros</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_seguros_list' %}" class="nav_link nav_link--inside">Seguros</a>
+                            <a href="{% url 'show_insurances' %}" class="nav_link nav_link--inside">Seguros</a>
                         </li>
                     </ul>        
                 </li>

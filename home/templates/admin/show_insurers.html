@@ -6,7 +6,7 @@
 </section>
 <div id="general">
     <section id="buscar">
-        <p id="count" class="space-num">{{ aseguradoras.count }}</p>
+        <p id="count" class="space-num">{{ insurers.count }}</p>
         <section>
             <label for="buscar">Buscar:</label>
             <input name="buscar" type="text" placeholder="Nombre..."></input>
@@ -21,13 +21,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for aseguradora in aseguradoras %}
+            {% for insurer in insurers %}
             <tr id="datos">
-                <td>{{ aseguradora.nombre }}</td>
-                <td>{{ aseguradora.telefono }}</td>
-                <td>{{ aseguradora.direccion }}</td>
+                <td>{{ insurer.nombre }}</td>
+                <td>{{ insurer.telefono }}</td>
+                <td>{{ insurer.direccion }}</td>
                 <td> 
-                {% url 'edit' aseguradora.id as url_edit %} 
+                {% url 'edit' insurer.id as url_edit %} 
                 <button class="button-icon" id="myButton" onclick="showModalEdit('{{url_edit}}')">
                     <figure>
                         <img src="{% static 'assets/edit.png' %}" alt="icono">
