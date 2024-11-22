@@ -105,7 +105,8 @@
                                 </figure>
                                 <p>Editar</p>
                             </button>
-                            <button class="icono-options options">
+                            {% url 'delete_claim' claim.id as url_delete_claim %} 
+                            <button class="icono-options options" onclick="deleteClaim('{{url_delete_claim}}')">
                                 <figure>
                                     <img src="{% static 'assets/delete.png' %}" alt="icono">
                                 </figure>
@@ -127,4 +128,22 @@
             menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';}); });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
+<script>
+    function deleteClaim(url){
+        Swal.fire({
+            title:'¿Estás seguro de eliminar este siniestro?',
+            text: 'No podrás recuperarlo',
+            icon: 'warning',
+            showCancelButton : true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor : ' #0048B0',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value){
+                location.href = url
+            }
+        })
+    }
+</script>
 {% endblock %}

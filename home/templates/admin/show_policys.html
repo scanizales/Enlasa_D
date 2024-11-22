@@ -145,7 +145,8 @@
                                 </figure>
                                 <p>Agregar siniestro</p>
                             </button>
-                            <button class="icono-options options">
+                            {% url 'delete_policy' policy.id as url_delete_policy %} 
+                            <button class="icono-options options" onclick="deletePolicy( '{{url_delete_policy}}')">
                                 <figure>
                                     <img src="{% static 'assets/delete.png' %}" alt="icono">
                                 </figure>
@@ -158,6 +159,17 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
 </div>
 <script>  
 const botonesMenu = document.querySelectorAll('.boton');
@@ -167,5 +179,23 @@ botonesMenu.forEach(boton => {
         menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
+<script>
+    function deletePolicy(url){
+        Swal.fire({
+            title:'¿Estás seguro de eliminar esta póliza?',
+            text: 'No podrás recuperarla',
+            icon: 'warning',
+            showCancelButton : true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor : ' #0048B0',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value){
+                location.href = url
+            }
+        })
+    }
+</script>
 {% endblock %}
 

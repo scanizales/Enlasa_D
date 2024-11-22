@@ -25,7 +25,8 @@
                 <td>{{ insurance.nombre }}</td>
                 <td>{{ insurance.tipo_seguro_id.nombre }}</td>
                 <td>
-                    <button class="button-icon">
+                    {% url 'edit_insurance' insurance.id as url_edit %}
+                    <button class="button-icon" onclick="window.location.href='{{url_edit}}'">
                         <figure>
                             <img src="{% static 'assets/edit.png' %}" alt="icono">
                         </figure>

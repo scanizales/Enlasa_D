@@ -24,13 +24,20 @@ admin_urls = [
     path('admin_dashboard/insurances/', views.show_insurances, name='show_insurances'),
     path('dmin_dashboard/add_insurance', views.add_insurance, name='add_insurance'),
     path('admin_dashboard/policys/', views.show_policys, name = 'show_policys'),
-    path('admin_dashboard/aseguradoras/<int:insurer_id>/', views.edit_insurer, name='edit'),
+    path('admin_dashboard/aseguradoras/<int:insurer_id>/', views.edit_insurer, name='edit_insurer'),
     path('admin_dashboard/add_beneficiary/<int:policy_id>/', views.add_beneficiary, name='add_beneficiary'),
     path('admin_dashboard/show_beneficiarys/<int:policy_id>/', views.show_beneficiarys, name='show_beneficiarys'),
     path('admin_dashboard/add_claim/<int:policy_id>/', views.add_claim, name='add_claim'),
     path('admin_dashboard/edit_policy/<int:policy_id>/', views.edit_policy, name='edit_policy'),
     path('admin_dashboard/edit_client/<int:client_id>/', views.edit_client, name='edit_client'),
     path('admin_dashboard/edit_claim/<int:claim_id>/', views.edit_claim, name='edit_claim'),
+    path('admin_dashboard/edit_type_insurance/<int:type_insurance_id>/', views.edit_type_insurance, name='edit_type_insurance'),
+    path('admin_dashboard/edit_insurance/<int:insurance_id>/', views.edit_insurance, name='edit_insurance'),
+    #detele
+    path('admin_dashboard/delete_claim/<int:claim_id>/', views.delete_claim, name='delete_claim'),
+    path('admin_dashboard/delete_client/<int:client_id>/', views.delete_client, name='delete_client'),
+    path('admin_dashboard/delete_policy/<int:policy_id>/', views.delete_policy, name='delete_policy'),
+    path('admin_dashboard/edit_profile/<int:admin_id>/', views.edit_profile_admin, name='edit_profile_admin'),
 ]
 #URLs del apartado cliente*
 cliente_urls = [

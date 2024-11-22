@@ -26,9 +26,9 @@
                 <td>{{ insurer.nombre }}</td>
                 <td>{{ insurer.telefono }}</td>
                 <td>{{ insurer.direccion }}</td>
-                <td> 
-                {% url 'edit' insurer.id as url_edit %} 
-                <button class="button-icon" id="myButton" onclick="showModalEdit('{{url_edit}}')">
+                <td>  
+                {% url 'edit_insurer' insurer.id as url_edit %}
+                <button class="button-icon" id="myButton" onclick="window.location.href='{{url_edit}}'">
                     <figure>
                         <img src="{% static 'assets/edit.png' %}" alt="icono">
                     </figure>
@@ -40,17 +40,5 @@
     </table>
 </div>
 <script src="{% static 'js/buscar.js' %}"></script>
-<div id="edit" class="dialog" role="document">
-</div>
-{% block extrajs%}
-<script type="text/javascript">
-    let $ = jQuery.noConflict()
-    function showModalEdit(url){
-        $('#edit').load(url, function(){
-            $(this).modal('show');
-        })
-    }   
-</script>
-{% endblock extrajs%}
 {% endblock %}
 

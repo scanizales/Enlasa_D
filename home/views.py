@@ -10,9 +10,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from django.contrib import messages
-
+from datetime import date
 import random
-
 
 def exit(request):
     logout(request)
@@ -424,6 +423,119 @@ def edit_claim(request, claim_id):
     return render(request, 'admin/edit_claim.html',{
         'context': context       
     })
+    
+def edit_type_insurance(request, type_insurance_id):
+    type_insurance = Tipo_Seguro.objects.get(id = type_insurance_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        modal = True
+    
+        if name:
+            type_insurance.nombre = name
+            message = 'Cambios hechos con éxito.'
+        else:           
+            message = 'No se pudieron hacer los cambios.' 
+
+    context = {
+        'type_insurance': type_insurance,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'admin/edit_types_insurances.html',{
+        'context': context       
+    })
+
+
+def edit_insurance(request, insurance_id):
+    insurance = Seguro.objects.get(id = insurance_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        modal = True
+    
+        if name != "":
+            insurance.nombre = name
+            insurance.save()
+            message = 'Cambios hechos con éxito.'
+        
+        else:
+           message = 'No se pudieron hacer los cambios.' 
+
+    context = {
+        'insurance': insurance,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'admin/edit_insurance.html',{
+        'context': context       
+    })
+
+def delete_claim(request, claim_id):
+    claim = Siniestro.objects.get(id = claim_id)
+    claim.delete()
+    return redirect('show_claims')
+
+def delete_client(request, client_id):
+    client = Cliente.objects.get(num_documento = client_id)
+
+    policys = Poliza.objects.filter(cliente_id = client)
+
+    if policys.exists():
+        messages.error(request, 'No se puede eliminar el cliente porque tiene pólizas asociadas.')
+        return redirect('show_clients')
+    
+    else:
+        client.delete()
+        messages.success(request, 'Cliente eliminado con éxito.')
+        return redirect('show_clients')
+
+def delete_policy(request, policy_id):
+    policy = Poliza.objects.get(id = policy_id)
+
+    if policy.fecha_vencimiento <= date.today():
+        policy.delete()
+        messages.success(request, 'Póliza eliminada con éxito.')
+
+    else:
+        messages.error(request, 'No se pudo eliminar la póliza porque no ha vencido.')
+
+    return redirect('show_policys')
+
+def edit_profile_admin(request, admin_id):
+    admin = Usuario.objects.get(num_documento = admin_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        modal = True
+    
+        if name:
+            admin.nombre = name
+
+        if email:
+            admin.email = email
+
+        admin.save()
+        message = 'Cambios guardados con éxito.' 
+
+    context = {
+        'admin': admin,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'admin/edit_profile.html',{
+        'context': context       
+    })
 
 
 #vistas del apartado cliente
@@ -593,7 +705,6 @@ def edit_insurer(request, insurer_id):
         insurer.save()
         modal = True
         message = 'Se realizaron los cambios exitosamente.'
-        return HttpResponseRedirect(request.META['HTTP_REFERER'])
  
     context = {
     'modal': modal,
@@ -601,7 +712,7 @@ def edit_insurer(request, insurer_id):
     'insurer': insurer
     } 
 
-    return render(request, 'admin/editInsurer.html',{
+    return render(request, 'admin/edit_insurer.html',{
          'context': context       
     }) 
 
