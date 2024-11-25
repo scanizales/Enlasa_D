@@ -46,6 +46,8 @@ cliente_urls = [
     path('cliente/polizas/', views.misPolizas, name='cliente_mis_polizas'),
     path('cliente/polizas/beneficiarys/<int:policy_id>/', views.beneficiarys_client, name='client_beneficiarys'),
     path('show_my_claims/<int:policy_id>/', views.claims_client, name='show_my_claims'),
+    path('edit_my_profile/<int:client_id>/', views.edit_profile_client, name='edit_my_profile'),
+    path('change_password/<int:client_id>/', views.change_password_client, name='change_password_client'),
 ]
 #URLs del apartado gerente
 gerente_urls = [
@@ -55,6 +57,10 @@ gerente_urls = [
     path('gerente/estadisticas-por-aseguradora/', views.verEstadisticasPorAseguradora, name='gerente_estadisticas_aseguradora'),
     path('gerente/administradores/', views.verAdministradores, name='gerente_administradores_list'),
     path('gerente/agregar-admi/', views.agregarAdministrador, name='gerente_administradores_agregar'),
+    path('manager/edit_profile/<int:manager_id>', views.edit_profile_manager, name='edit_profile_manager'),
+    path('manager/change_password/<int:manager_id>', views.change_password_manager, name='change_password_manager'),
+    path('manager/change_password_admin/<int:admin_id>', views.edit_password_admin, name='edit_password_admin'),
+    path('manager/delete_admin/<int:admin_id>', views.delete_admin, name='delete_admin'),
 ]
 
 

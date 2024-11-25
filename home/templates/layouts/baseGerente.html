@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <title>Gerente</title>
     <link rel="icon" type="image/png" href="{% static 'assets/icon.png' %}" >
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <header>
@@ -29,7 +30,7 @@
         </section>
         <button id="miBoton" class="icono1">               
             <img src="{% static 'assets/icono1.png' %}"  alt="icono">  
-            <span><strong>Camilo Andres</strong></span>
+            <span><strong>{{user.nombre}}</strong></span>
         </button>
         <script>
              document.getElementById("miBoton").onclick = function() {

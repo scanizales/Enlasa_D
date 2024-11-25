@@ -1,0 +1,35 @@
+{% extends 'layouts/baseGerente.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar mi perfil</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section class="column">
+            <label for="name">Nombre:</label>
+            <input value="{{ context.manager.nombre }}" name="name" type="text"></input>
+        </section>
+        <section class="column">
+            <label for="email">Correo electrónico:</label>
+            <input value="{{ context.manager.email }}" name="email" type="email"></input> 
+        </section>
+        <section class="contentButton">
+            {% url 'gerente_perfil' as url %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button onclick="window.location.href='{{url}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
+{% endblock %}
+
+
+
+
+
+
+

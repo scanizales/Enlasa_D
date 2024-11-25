@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import Tipo_Seguro, Seguro, Usuario, Aseguradora, Usuario, Cliente, Poliza, Beneficiario, Policy_Beneficiary, Siniestro
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 import secrets
 # configuración para enviar correo
 from django.core.mail import send_mail
@@ -12,6 +12,7 @@ from django.conf import settings
 from django.contrib import messages
 from datetime import date
 import random
+
 
 def exit(request):
     logout(request)
@@ -262,7 +263,7 @@ def iniciar_sesion(request):
                 return redirect(redirect_url)
 
             else:
-                redirect_url == settings.ROLE_REDIRECT_URLS.get('GERENTE')
+                redirect_url = settings.ROLE_REDIRECT_URLS.get('GERENTE')
                 return redirect(redirect_url )
         else:
             return HttpResponse('No se encuentra su usuario')  
@@ -390,6 +391,43 @@ def edit_client(request, client_id):
     }
 
     return render(request, 'admin/edit_client.html',{
+        'context': context       
+    })
+
+def change_password_client(request, client_id):
+    manager = Usuario.objects.get(num_documento = client_id)
+    modal = False
+    changed = False
+    message = ''
+
+    if request.method == 'POST':
+        old_password = request.POST.get('oldPassword')
+        new_password = request.POST.get('newPassword')
+        modal = True
+
+        if old_password and new_password:
+
+            if check_password(old_password, manager.password):
+                manager.password = make_password(new_password)
+                manager.save()
+                changed = True
+                message = 'Cambio de contraseña éxitoso, vuelve a ingresar.' 
+                logout(request)
+
+            else:
+                changed = False
+                message = 'La contraseña antigua no coincide.' 
+        else:
+            changed = False
+            message = 'Porfavor complete los campos.' 
+
+    context = {
+        'changed': changed,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'cliente/change_password_client.html',{
         'context': context       
     })
 
@@ -637,6 +675,67 @@ def claims_client(request, policy_id):
     })
 
 
+def edit_profile_client(request, client_id):
+    user = Usuario.objects.get(num_documento = client_id)
+    client = Cliente.objects.get(num_documento = client_id)
+
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        type_document = request.POST.get('typeDocument')
+        document = request.POST.get('document')
+        phone_mobile = request.POST.get('phone')
+        phone = request.POST.get('phone2')
+        email = request.POST.get('email')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+        modal = True    
+    
+        if name and client.nombre != name:
+            client.nombre = name
+            user.nombre = name
+
+        if client.tipo_documento != type_document:
+           client.tipo_documento = type_document
+
+        if document and client.num_documento != document:
+            client.num_documento = document
+            user.num_documento = document
+
+        if phone_mobile and client.celular != phone_mobile:
+            client.celular = phone_mobile
+
+        if phone and client.telefono != phone:
+            client.telefono = phone
+
+        if email and client.email != email:
+            client.email = email
+            user.email = email
+        
+        if city and client.ciudad != city:
+            client.ciudad = ciudad
+
+        if address and client.direccion != address:
+            client.direccion = address
+
+        client.save()
+        user.save()
+        message = 'Cambios guardados con éxito.' 
+
+    context = {
+        'client': client,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'cliente/edit_profile_client.html',{
+        'context': context       
+    })
+
+
+
 #vistas del apartado gerente
 
 def principalGerente(request):
@@ -644,6 +743,106 @@ def principalGerente(request):
 
 def verPerfilGerente(request):
     return render(request, 'gerente/verPerfil.html')
+
+def edit_profile_manager(request, manager_id):
+    manager = Usuario.objects.get(num_documento = manager_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        modal = True
+    
+        if name:
+            manager.nombre = name
+
+        if email:
+            manager.email = email
+
+        manager.save()
+        message = 'Cambios guardados con éxito.' 
+
+    context = {
+        'manager': manager,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'gerente/edit_profile_manager.html',{
+        'context': context       
+    })
+
+def change_password_manager(request, manager_id):
+    manager = Usuario.objects.get(num_documento = manager_id)
+    modal = False
+    changed = False
+    message = ''
+
+    if request.method == 'POST':
+        old_password = request.POST.get('oldPassword')
+        new_password = request.POST.get('newPassword')
+        modal = True
+
+        if old_password and new_password:
+
+            if check_password(old_password, manager.password):
+                manager.password = make_password(new_password)
+                manager.save()
+                changed = True
+                message = 'Cambio de contraseña éxitoso, vuelve a ingresar.' 
+                logout(request)
+
+            else:
+                changed = False
+                message = 'La contraseña antigua no coincide.' 
+        else:
+            changed = False
+            message = 'Porfavor complete los campos.' 
+
+    context = {
+        'changed': changed,
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'gerente/change_password_manager.html',{
+        'context': context       
+    })
+
+def edit_password_admin(request, admin_id):
+    admin = Usuario.objects.get(num_documento = admin_id)
+    modal = False
+    message = ''
+
+    if request.method == 'POST':
+        new_password = request.POST.get('newPassword')
+        modal = True
+
+        if new_password:
+            admin.password = make_password(new_password)
+            admin.save()
+            message = 'Cambio de contraseña éxitoso.' 
+
+        else:
+            changed = False
+            message = 'Porfavor complete los campos.' 
+
+    context = {
+        'modal' : modal,
+        'message': message
+    }
+
+    return render(request, 'gerente/edit_password_admin.html',{
+        'context': context       
+    })
+
+def delete_admin(request, admin_id):
+    admin = Usuario.objects.get(num_documento = admin_id)
+    admin.delete()
+    messages.success(request, 'Administrador eliminado con éxito.')
+    return redirect('gerente_administradores_list')
+
 
 def agregarAdministrador(request):
     modal = False
@@ -684,10 +883,61 @@ def verAdministradores(request):
     })  
 
 def verEstadisticasGenerales(request):
-    return render(request, 'gerente/verEstadisticasGenerales.html')
+    policys_activate = Poliza.objects.filter(estado = True)
+    policys_not_activate = Poliza.objects.filter(estado = False)
+    types_insurances = Tipo_Seguro.objects.all()
+    names = []
+    data = []
+    data_others = 0
+    count = 0
+    for type_insurance in types_insurances:
+        if count <= 3:
+           names.append(type_insurance.nombre)
+           data.append(Poliza.objects.filter(seguro_id__tipo_seguro_id = type_insurance).count())
+        
+        else:
+            data_others += Poliza.objects.filter(seguro_id__tipo_seguro_id = type_insurance).count()
+
+        count += 1
+
+
+    by_state = [policys_activate.count(), policys_not_activate.count()]
+
+    context = {
+    'by_state': by_state,
+    'names_types_insurances': names,
+    'data': data,
+    'data_others': data_others
+    } 
+
+    return render(request, 'gerente/verEstadisticasGenerales.html', context)
+
 
 def verEstadisticasPorAseguradora(request):
-    return render(request, 'gerente/verEstadisticasPorAseguradora.html')
+    insurers = Aseguradora.objects.all()
+    names = []
+    data = []
+    data_others = 0
+    count = 0
+    for insurer in insurers:
+        if count <= 5:
+           names.append(insurer.nombre)
+           data.append(Poliza.objects.filter(aseguradora_id = insurer).count())
+        
+        else:
+            data_others += Poliza.objects.filter(aseguradora_id = insurer).count()
+
+        count += 1
+
+
+    context = {
+    'names_insurers': names,
+    'data': data,
+    'data_others': data_others
+    } 
+
+    return render(request, 'gerente/verEstadisticasPorAseguradora.html', context)
+
 
 def edit_insurer(request, insurer_id):
     insurer = Aseguradora.objects.get(id = insurer_id)

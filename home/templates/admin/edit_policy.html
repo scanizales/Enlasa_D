@@ -16,6 +16,7 @@
         <section class="column">
             <label for="typeFace">Tipo de prima:</label>
             <select name="typeFace">
+                <option value="MENSUAL" {% if context.policy.prima == 'MENSUAL'%} selected {% endif %}>Mensual</option>
                 <option value="TRIMESTRAL" {% if context.policy.prima == 'TRIMESTRAL'%} selected {% endif %}>Trimestral</option>
                 <option value="SEMESTRAL" {% if context.policy.prima == 'SEMESTRAL'%} selected {% endif %}>Semestral</option>
                 <option value="ANUAL" {% if context.policy.prima == 'ANUAL'%} selected {% endif %}>Anual</option>

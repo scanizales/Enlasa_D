@@ -74,6 +74,7 @@ class Poliza(models.Model):
     """
 
     PRIMA = [  #creación de la enumeración de tipo de prima
+        ('MENSUAL', 'Mensual'),
         ('TRIMESTRAL', 'Trimestral'),
         ('SEMESTRAL', 'Semestral'),
         ('ANUAL', 'Anual'),

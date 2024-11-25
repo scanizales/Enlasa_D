@@ -19,8 +19,11 @@
       <p><strong>Dirección:</strong> {{ cliente.direccion }}</p>
     </div>
     <section class="contentButton">
-       <button id="botton-form"><strong>Cambiar contraseña</strong></button>
-       <button id="botton-form"><strong>Editar perfil</strong></button>
+      {% url 'change_password_client' user.num_documento as url_password %} 
+       <button id="botton-form" onclick="window.location.href='{{url_password}}'"><strong>Cambiar contraseña</strong></button>
+       {% url 'edit_my_profile' user.num_documento as url_edit %} 
+      <button id="botton-form" onclick="window.location.href='{{url_edit}}'"><strong>Editar perfil</strong></button>
+    </section>
     </section>
 </div>  
 {% endblock %}
