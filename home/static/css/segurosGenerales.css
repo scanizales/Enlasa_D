@@ -39,8 +39,6 @@
     padding: 5px;
 }
 
-
-/* Responsivo */
 @media screen and (max-width: 768px) {
     .hero3 {
         flex-direction: column;
@@ -130,7 +128,7 @@
     justify-content: center; 
 }
 
-/* Estilos para dispositivos móviles */
+
 @media (max-width: 768px) {
     .container-productos {
         grid-template-columns: 1fr; 
@@ -154,3 +152,4 @@
         font-size: 0.9em;
     }
 }
+

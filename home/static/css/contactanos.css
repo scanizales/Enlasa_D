@@ -11,7 +11,7 @@ body {
 
 .banner {
     position: relative;
-    height: 300px;
+    height: 443px;
     background: linear-gradient(rgba(67, 56, 202, 0.7), rgba(67, 56, 202, 0.7)),url('https://img.freepik.com/foto-gratis/familia-juguetona-divirtiendose-juntos-mientras-mudan-su-nueva-casa_637285-12380.jpg');
     background-size: cover;
     background-position: center;
@@ -25,7 +25,7 @@ body {
 
 .banner h1 {
     color: white;
-    font-size: 48px;
+    font-size: 75px;
     text-align: center;
 }
 
