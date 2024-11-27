@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/principal.css' %}">
     <link rel="stylesheet" href="{% static 'css/tables.css' %}">
     <link rel="stylesheet" href="{% static 'css/verPerfil.css' %}">
@@ -11,7 +13,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <title>Principal_Admin</title>
+    <title>Administrador</title>
+    <link rel="icon" type="image/png" href="{% static 'assets/icon.png' %}" >
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <header>
@@ -30,7 +34,7 @@
         </button>
         <script>
              document.getElementById("miBoton").onclick = function() {
-                location.href = "{% url 'admin_perfil' %}"
+                location.href = "{% url 'admin_profile' %}"
              };
         </script>      
     </header>
@@ -43,11 +47,16 @@
             </section>
             <section class="confi">
                 <p class="p" >Configuración</p>
-                <button class="icono2">                
+                <button class="icono2" id="boton-logout">                
                     <figure>
                         <img src="{% static 'assets/out.png' %}"  alt="icono">
                     </figure>               
                     <p>Salir</p>
+                    <script>
+                        document.getElementById("boton-logout").onclick = function() {
+                           location.href = "{% url 'exit' %}"
+                        };
+                   </script>
                 </button>        
             </section>
             <ul class="list">
@@ -60,16 +69,16 @@
                     </div>
                     <ul class="list_show">
                         <li class="list_inside">
-                            <a href="{% url 'admin_cliente_agregar' %}" class="nav_link nav_link--inside">Agregar cliente</a>
+                            <a href="{% url 'add_client' %}" class="nav_link nav_link--inside">Agregar cliente</a>
                         </li>           
                         <li class="list_inside">
-                            <a href="{% url 'admin_clientes_list' %}" class="nav_link nav_link--inside">Ver clientes</a>
+                            <a href="{% url 'show_clients' %}" class="nav_link nav_link--inside">Ver clientes</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_polizas_list' %}"  class="nav_link nav_link--inside">Ver pólilzas</a>
+                            <a href="{% url 'show_policys' %}"  class="nav_link nav_link--inside">Ver pólizas</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_siniestros_list' %}"  class="nav_link nav_link--inside">Ver siniestros</a>
+                            <a href="{% url 'show_claims' %}"  class="nav_link nav_link--inside">Ver siniestros</a>
                         </li>
                     </ul>        
                 </li>
@@ -81,10 +90,10 @@
                     </div>
                     <ul class="list_show">
                         <li class="list_inside">
-                            <a href="{% url 'admin_aseguradoras_agregar' %}" class="nav_link nav_link--inside">Agregar aseguradora</a>
+                            <a href="{% url 'add_insurer' %}" class="nav_link nav_link--inside">Agregar aseguradora</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_aseguradoras_list' %}" class="nav_link nav_link--inside">Ver aseguradoras</a>
+                            <a href="{% url 'show_insurers' %}" class="nav_link nav_link--inside">Ver aseguradoras</a>
                         </li>
                     </ul>        
                 </li>
@@ -96,16 +105,16 @@
                     </div>
                     <ul class="list_show">
                         <li class="list_inside">
-                            <a href="{% url 'admin_tipos_seguros_agregar' %}" class="nav_link nav_link--inside">Agregar tipo seguro</a>
+                            <a href="{% url 'add_type_insurance' %}" class="nav_link nav_link--inside">Agregar tipo seguro</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_seguros_agregar' %}"  class="nav_link nav_link--inside">Agregar seguro</a>
+                            <a href="{% url 'add_insurance' %}"  class="nav_link nav_link--inside">Agregar seguro</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_tipos_seguros_list' %}" class="nav_link nav_link--inside">Tipos seguros</a>
+                            <a href="{% url 'show_types_insurances' %}" class="nav_link nav_link--inside">Tipos seguros</a>
                         </li>
                         <li class="list_inside">
-                            <a href="{% url 'admin_seguros_list' %}" class="nav_link nav_link--inside">Seguros</a>
+                            <a href="{% url 'show_insurances' %}" class="nav_link nav_link--inside">Seguros</a>
                         </li>
                     </ul>        
                 </li>

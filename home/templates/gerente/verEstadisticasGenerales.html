@@ -3,11 +3,13 @@
 <div id="estadisticas">
     <article>
         <section>
-            <h4>Pólizas por estado</h4> 
+            <h4>Pólizas por estado</h4>
+            <br>
             <canvas id="diagrama-po-estado" class="chartjs-no-styling"></canvas>
         </section>
         <section>
             <h4>Pólizas por tipo de seguros</h4> 
+            <br>
             <canvas id="diagrama-seguros" class="chartjs-no-styling"></canvas>
         </section>
     </article>
@@ -20,7 +22,7 @@ const chart2 = new Chart(ctx2, {
         labels: ['Activas', 'Inactivas'],
         datasets: [{
             label: 'Pólizas por estado',
-            data: [100, 50], // Datos de ejemplo
+            data: ['{{by_state.0}}','{{by_state.1}}'] , // Datos de ejemplo
             backgroundColor: [
                 'rgba(0, 255, 0, 0.2)', // Verde para activas
                 'rgba(255, 165, 0, 0.2)', // Naranja para vencidas
@@ -50,14 +52,19 @@ const chart2 = new Chart(ctx2, {
 });
 </script>
 <script>
+const others = '{{data_others}}'
+const labels = ['{{ names_types_insurances.0 }}', '{{ names_types_insurances.1 }}', '{{ names_types_insurances.2 }}', '{{ names_types_insurances.3 }}', 'Otros']
+const data = ['{{ data.0 }}','{{ data.1 }}', '{{ data.2 }}', '{{ data.3 }}', '{{ data_others}}']
+console.log(labels, others)
+console.log(data)
 const ctx3 = document.getElementById('diagrama-seguros').getContext('2d');
 const chart3 = new Chart(ctx3, {      
 type: 'pie',
 data: {
-    labels: ['Vida', 'Automóvil', 'Hogar', 'Salud', 'Otros'],
+    labels: labels,
     datasets: [{
     label: 'Tipos de seguros',
-    data: [30, 25, 20, 15, 10], // Valores que suman 100
+    data: data, // Valores que suman 100
     backgroundColor: [
         'rgba(0, 255, 0, 0.2)',
         'rgba(255, 165, 0, 0.2)',
@@ -83,15 +90,6 @@ options: {
         display: true,
         position: 'bottom'
     },
-    tooltip: {
-        callbacks: {
-        label: (context) => {
-            const value = context.formattedValue;
-            const percentage = context.dataset.data[context.dataIndex];
-            return `${value} (${percentage}%)`;
-        }
-        }
-    }
     }
 }
 });

@@ -5,18 +5,25 @@
 </section>
 <div class="perfil-informacion">
     <div class="perfil-datos">
-      <p><strong>Nombre:</strong> Juan Pérez</p>
-      <p><strong>Tipo de documento:</strong> CC</p>
-      <p><strong>Documento:</strong> 1106773193</p>
-      <p><strong>Celular:</strong> 1106773193</p>
-      <p><strong>Teléfono fijo:</strong> 1106773193</p>
-      <p><strong>Correo electrónico:</strong> juanperez@example.com</p>
-      <p><strong>Ciudad:</strong> Ibagué</p>
-      <p><strong>Dirección:</strong> Comfenalco-Manzana 36- Casa 8</p>
+      <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+      <p><strong>Tipo de documento:</strong> {{ cliente.tipo_documento }}</p>
+      <p><strong>Documento:</strong> {{ cliente.num_documento }}</p>
+      <p><strong>Celular:</strong> {{ cliente.celular }}</p>
+      {% if cliente.telefono != '' %}
+      <p><strong>Teléfono fijo:</strong> {{ cliente.telefono }}</p>
+      {% else %}
+      <p><strong>Teléfono fijo:</strong> No aplica </p>
+      {% endif %}
+      <p><strong>Correo electrónico:</strong> {{ cliente.email }}</p>
+      <p><strong>Ciudad:</strong> {{ cliente.ciudad }}</p>
+      <p><strong>Dirección:</strong> {{ cliente.direccion }}</p>
     </div>
     <section class="contentButton">
-       <button id="botton-form"><strong>Cambiar contraseña</strong></button>
-       <button id="botton-form"><strong>Editar perfil</strong></button>
+      {% url 'change_password_client' user.num_documento as url_password %} 
+       <button id="botton-form" onclick="window.location.href='{{url_password}}'"><strong>Cambiar contraseña</strong></button>
+       {% url 'edit_my_profile' user.num_documento as url_edit %} 
+      <button id="botton-form" onclick="window.location.href='{{url_edit}}'"><strong>Editar perfil</strong></button>
+    </section>
     </section>
 </div>  
 {% endblock %}

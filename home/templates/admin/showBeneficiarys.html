@@ -1,0 +1,84 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de beneficiarios</h3>
+</section>
+<div id="general">
+    <form class="filtrar" method="post">
+        {% csrf_token %}
+        <section>
+            <h4>Filtrar beneficiarios</h4>
+        </section>
+        <div class="filtrar-items">                         
+            <label for="typeDocument">Tipo de documento:</label>
+            <select name="typeDocument">
+                <option value="">Despliegue</option>
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+                <option value="NIT">NIT</option>
+            </select>               
+        </div>
+        <section class="buttons">
+            <button type="submit"><strong>Filtrar</strong></button>
+            <button id="button-color-other"><strong>Limpiar</strong></button>
+        </section>   
+    </form>
+    <section id="buscar">
+        <section>
+            <p id="count">{{ context.beneficiarys.count }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
+    </section>
+    <table>
+        <thead class="polizas">
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo Documento</th>
+                <th class="space">Identificación</th>
+            </tr>
+        </thead>
+        <tbody class="polizas">
+            {% for beneficiary in context.beneficiarys %}
+            <tr id="datos">
+                <td>{{ beneficiary.beneficiary_id.nombre }}</td>
+                <td class="space">{{ beneficiary.beneficiary_id.tipo_documento }}</td>
+                <td>{{ beneficiary.beneficiary_id.num_documento }}</td>
+                <td>
+                    <div class="boton-menu">
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
+                        <ul class="menu-desplegable">
+                            <button class="icono-options options">
+                                <figure>
+                                    <img src="{% static 'assets/user-edit.png' %}"  alt="icono">
+                                </figure>
+                                <p>Editar</p>
+                            </button>
+                            <button class="icono-options options">
+                                <figure>
+                                    <img src="{% static 'assets/delete.png' %}"  alt="icono">
+                                </figure>
+                                <p>Eliminar</p>
+                            </button>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
+</script>
+<script src="{% static 'js/buscar.js' %}"></script>
+{% endblock %}
