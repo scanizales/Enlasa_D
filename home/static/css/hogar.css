@@ -11,69 +11,89 @@
 .hero4 {
     display: flex;
     justify-content: space-between;
-    text-align: justify;
     align-items: center;
-    width: 100%; /* Ocupa todo el ancho */
-    padding: 2rem;
-    flex-direction: row-reverse; /* Cambia la dirección para invertir imagen y texto */
-    margin-top: 70px; /* Agrega un margen superior para que no se superponga con el header */
+    width: 100%; 
+    padding: 3rem; 
+    margin-top: 70px;
+    margin-right: 20px;
+    flex-direction: row-reverse; 
 }
 
 .hero-content4 {
-    width: 50%; /* El texto ocupa la mitad derecha ahora */
-    padding-left: 2rem; /* Espacio a la izquierda del texto */
-    text-align: left; /* Alinea el texto a la izquierda */
+    width: 60%; 
+    padding-right: 4rem; 
+    margin-left: 70px; 
 }
 
 .hero-content4 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.4rem; 
+    margin-bottom: 1.5rem; 
+    margin-left: 20px; 
+    margin-right: 0px; 
     color: #01193b;
 }
 
 .hero-content4 p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1.2rem; 
+    text-align: justify;
     color: #333;
+    margin-left: 20px; 
+    margin-right: 80px; 
 }
 
+
 .hero2-content {
-    width: 50%; /* La imagen ocupa la mitad izquierda */
-    display: flex;
-    justify-content: flex-start; /* Coloca la imagen a la izquierda */
+    width: 60%;
+    border: 15px;
+    margin-left: 100px; 
 }
 
 .hero2-content img {
-    width: 100%; /* Imagen ocupa todo el espacio del contenedor */
-    height: auto; /* Mantener proporción */
+    width: 90%;
+    height: auto; 
+    border: 15px;
+    padding: 5px;
 }
+
 
 /* Responsivo */
 @media screen and (max-width: 768px) {
     .hero4 {
         flex-direction: column;
         text-align: center;
-        margin-top: 70px;
+        padding: 2rem; 
     }
 
     .hero-content4, .hero2-content {
-        width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        width: 100%; 
+        padding: 0; 
     }
 
-    .hero-content4 h1{
-        font-size: 2rem;
+    .hero-content4 h1 {
+        font-size: 2rem; 
         margin-top: 20px;
-        text-align: center;
+        margin-bottom: 10px; 
     }
 
-    .hero-content4 p{
+    .hero-content4 p {
+        font-size: 1rem; 
         text-align: justify;
-        font-size: 1rem;
+        margin: 0 15px; 
     }
 
+    .hero2-content {
+        margin-top: 1rem; 
+    }
+
+    .hero2-content img {
+        width: 80%; 
+        height: auto; 
+        margin-top: 15px; 
+    }
+
+    
     .hero-content4 {
-        padding-left: 0;
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem; 
     }
 }
 
@@ -100,7 +120,7 @@
 }
 
 .card-productos:hover img {
-    transform: scale(1.05); /* Efecto de zoom al pasar el cursor */
+    transform: scale(1.05); 
 }
 
 .overlay {
@@ -119,25 +139,25 @@
 
 .container-productos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 20px;
     max-width: 1300px;
-    margin: 0 auto; /* Centra el contenedor */
-    justify-content: center; /* Centra las columnas dentro del contenedor */
+    margin: 0 auto; 
+    justify-content: center; 
 }
 
 /* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
     .container-productos {
-        grid-template-columns: 1fr; /* Una sola columna en dispositivos móviles */
-        max-width: 100%; /* Ocupa todo el ancho del dispositivo */
+        grid-template-columns: 1fr; 
+        max-width: 100%; 
         gap: 15px;
         padding: 0 10px;
-        justify-items: center; /* Centra cada tarjeta dentro del contenedor */
+        justify-items: center; 
     }
 
     .card-productos {
-        transform: scale(0.9); /* Reduce el tamaño de cada tarjeta */
+        transform: scale(0.9); 
         border-radius: 8px;
     }
 
