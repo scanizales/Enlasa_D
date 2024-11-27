@@ -131,3 +131,24 @@ body form input{
 .show_password label{
   font-size: calc(11px + 0.3vw);
 }
+.modal{
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size:calc(10px + 0.5vw);
+  top: 50%;
+  left: 50%;
+  padding: 1em 2em;
+  background-color: white;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+.button-modal{
+  background-color: var(--color-primario);
+}
+.show{
+  display: block;
+}

@@ -103,10 +103,6 @@ select{
     height:calc(8px + 4vh);;
     
 }
-.flex{
-    display: flex;
-}
-
 /*Estilos responsive */
 @media (max-width: 1100px){
     form{

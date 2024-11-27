@@ -238,13 +238,17 @@ figure img{
 }
 .dialog{
     position:absolute;
-    top:50%;
+    top:40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
 }
-.dialog .exit{
-    float: right;
+.dialog form{
+    padding: 1em 1.5em;
+}
+.dialog form article{
+    display: flex;
+    justify-content: flex-end;
 }
 /*Responsive para las tablas*/
 @media (max-width: 680px){

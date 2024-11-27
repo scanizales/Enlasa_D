@@ -45,5 +45,11 @@
           passwordInput.type = 'text'; }
         else {passwordInput.type = 'password'; }});
     </script>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button id="button-modal" onclick="window.location.href='login'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
 </body>
 </html>

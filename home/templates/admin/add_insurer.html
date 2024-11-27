@@ -4,7 +4,11 @@
 {% if context.modal %}
 <div id="modal" class="modal">
     <p>{{ context.message }}</p>
-    {% url 'show_insurers' as url %}
+    {% if context.add %}
+      {% url 'show_insurers' as url %}
+    {% else %}
+     {% url 'add_insurer' as url %}
+    {% endif %}
     <button class="boton options" onclick="window.location.href='{{url}}'"><strong>OK</strong></button>                           
 </div>
 {% endif %} 
