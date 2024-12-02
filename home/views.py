@@ -1151,7 +1151,7 @@ def agregarAdministrador(request):
 
     if request.method == 'POST':
         #obtener datos del formulario
-        nombre = request.POST.get('name')  
+        name = request.POST.get('name')  
         email = request.POST.get('email')
         password = request.POST.get('password')
         modal = True
@@ -1165,8 +1165,16 @@ def agregarAdministrador(request):
 
         #validar datos 
         if name and email and password:           
-            Usuario.objects.create(num_documento= usuario, rol = 'ADMINISTRADOR',  nombre = nombre, email= email, password = make_password(password))              
-            mensaje = f'Se ha agregado a {nombre} como administrador.'
+            Usuario.objects.create(num_documento= usuario, rol = 'ADMINISTRADOR',  nombre = name, email= email, password = make_password(password))              
+            mensaje = f'Se ha agregado a {name} como administrador.'
+            #datos que se enviarán al correo    
+            subject = 'Contraseña de Enlasa'
+            message_email = f'Buen día señor(a) {name}, haz sido agregad@ como administrador de Enlasa, tus datos para el inicio de sesión son:\nContraseña: {password}\nUsuario: {usuario}\n¡Bienvenido administrador!.'
+            sender = settings.EMAIL_HOST_USER 
+            recipient = [email]
+
+            #envío de la contraseña al correo
+            send_mail(subject, message_email, sender, recipient)
 
         else:
             mensaje = 'No se pudo agregar, por favor complete los campos.'

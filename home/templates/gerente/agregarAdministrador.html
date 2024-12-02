@@ -5,6 +5,7 @@
 </section> 
 <form id="formGlobal" method="post">
     {% csrf_token %}
+    <p style="color:red; margin: 0;">Recuerda la contraseña debe contener: 3 mayúsculas, 3 minúsculas y 2 numeros.</p>
     <section class="column">
         <label for="name">Nombre:</label>
         <input name="name" type="text" placeholder="Ej: Pepito Pérez" required></input>
