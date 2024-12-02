@@ -3,34 +3,47 @@
 <section>      
     <h3 class="h3-forms">Registrar Administrador</h3> 
 </section> 
-<form id="formGlobal">
+<form id="formGlobal" method="post">
+    {% csrf_token %}
+    <p style="color:red; margin: 0;">Recuerda la contraseña debe contener: 3 mayúsculas, 3 minúsculas y 2 numeros.</p>
     <section class="column">
         <label for="name">Nombre:</label>
         <input name="name" type="text" placeholder="Ej: Pepito Pérez" required></input>
     </section>
     <section class="column">
-        <label for="typeDocument">Tipo de documento:</label>
-        <select name="typeDocument" required>
-            <option value="CE">TI</option>
-            <option value="NIT">NIT</option>
-            <option value="CC">CC</option>
-            <option value="CE">CE</option>
-        </select>
+        <label for="email">Correo electronico:</label>
+        <input name="email" type="text" placeholder="Ej: soy@gmail.com" required></input>
     </section>
     <section class="column">
-        <label for="document">Número de documento:</label>
-        <input name="document" type="number" placeholder="Escriba aquí" required></input> 
+        <label for="password">Contraseña:</label>
+        <input minlength="8" maxlength="8" name="password" type="password" id="passwordInput" placeholder="Escriba aquí" required></input> 
     </section>
-    <section class="column">
-        <label for="name">Correo electronico:</label>
-        <input name="name" type="text" placeholder="Ej: soy@gmail.com" required></input>
-    </section>
-    <section class="column">
-        <label for="document">Contraseña:</label>
-        <input name="document" type="password" placeholder="Escriba aquí" required></input> 
+    <section class="show_password">           
+        <input type="checkbox" id="verContraseña">
+        <label for="verContraseña">Ver contraseña</label>
     </section>
     <section class="contentButton">
-        <button id="botton-form"><strong>Registrar</strong></button>
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
     </section>
 </form>
+{% if context.modal %}
+<div id="modal" class="modal">
+    <p>{{ context.mensaje }}</p>
+    <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+</div>
+{% endif %} 
+<script>
+const cerrrarModal2 = document.getElementById('cerrar-modal2');
+const modal = document.getElementById('modal');
+cerrrarModal2.addEventListener('click', () =>{
+modal.style.display = 'none';
+})
+</script> 
+<script>
+    document.getElementById('verContraseña').addEventListener('change', function() {
+    var passwordInput = document.getElementById('passwordInput');
+    if (this.checked) {
+      passwordInput.type = 'text'; }
+    else {passwordInput.type = 'password'; }});
+</script>
 {% endblock %}

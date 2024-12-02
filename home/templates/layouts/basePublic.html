@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="{% static 'assets/iconoLogo.png' %}" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/public.css' %}">
     <link rel="stylesheet" href="{% static 'css/cuerpoP.css' %}">
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/contactanos.css' %}">
     <link rel="stylesheet" href="{% static 'css/nosotros.css' %}">
     <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
-    <title>Principal_Cliente</title>
+    <title>Enlasa</title>
 </head>
 <body>
     <header>
@@ -42,15 +43,20 @@
     </header> 
     <div class="container-bar2">
         <input type="checkbox" id="btn-social">
-        <label for="btn-social" class="fa fa-play"></label>
+        <label for="btn-social">
+            <img src="{% static 'assets/flecha.png' %}">
+        </label>
         <div class="icon-social">
             <a href="https://web.facebook.com/enlasaseguro/?_rdc=1&_rdr" class="fa fa-facebook">
+                <img src="{% static 'assets/facebook.png' %}"  alt="Facebook" width="30">
                 <span class="title">Facebook</span>
             </a>
             <a href="https://api.whatsapp.com/send/?phone=%2B573163210085&text&type=phone_number&app_absent=0" class="fa fa-whatsapp">
+                <img src="{% static 'assets/whatsapp.png' %}"  alt="WhatsApp" width="30">
                 <span class="title">WhatsApp</span>
             </a>
             <a href="https://www.instagram.com/enlasaseguros?igsh=aWZlOTRlZGtreXFx&utm_source=qr" class="fa fa-instagram">
+                <img src="{% static 'assets/instagram.png' %}"  alt="Instagram" width="30">
                 <span class="title">instagram</span>
             </a>
         </div>

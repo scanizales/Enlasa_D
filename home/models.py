@@ -1,5 +1,8 @@
 from django.db import models
 
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, UserManager
+from django.utils.translation import gettext_lazy 
+
 class Aseguradora(models.Model):
 
     """
@@ -45,15 +48,17 @@ class Cliente(models.Model):
     Modelo que representa un cliente
     """
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CED', 'Cédula'), 
+        ('CC', 'Cédula'), 
         ('NIT', 'NIT'),
-        ('PAS', 'Pasaporte')
+        ('PAS', 'Pasaporte'),
+        ('CE', 'Cédula de extranjería'),
     ]
 
     num_documento = models.IntegerField( primary_key = True)
     tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
     nombre = models.CharField(max_length = 50)
-    telefono = models.CharField(max_length = 50)
+    telefono = models.CharField(max_length = 50, null = True)
+    celular = models.CharField(max_length = 50, default = 1)
     ciudad = models.CharField(max_length = 25)
     direccion = models.CharField(max_length = 50)
     email = models.CharField(max_length = 50)
@@ -69,6 +74,7 @@ class Poliza(models.Model):
     """
 
     PRIMA = [  #creación de la enumeración de tipo de prima
+        ('MENSUAL', 'Mensual'),
         ('TRIMESTRAL', 'Trimestral'),
         ('SEMESTRAL', 'Semestral'),
         ('ANUAL', 'Anual'),
@@ -78,9 +84,7 @@ class Poliza(models.Model):
         ('EFECTIVO', 'Efectivo'),
         ('TARJETA', 'Tarjeta '),
     ]
-
-    numero = models.CharField(max_length = 5,primary_key = True)
-    nombre = models.CharField(max_length = 40)
+    id = models.AutoField(primary_key = True)
     fecha_inicio = models.DateField()
     fecha_vencimiento = models.DateField()
     valor = models.DecimalField(max_digits = 10, decimal_places = 2)
@@ -89,7 +93,7 @@ class Poliza(models.Model):
     estado = models.BooleanField()
     aseguradora_id = models.ForeignKey(Aseguradora, on_delete = models.CASCADE)
     cliente_id = models.ForeignKey(Cliente, on_delete = models.CASCADE)
-    tipo_seguro_id = models.ForeignKey(Tipo_Seguro, on_delete = models.CASCADE)
+    seguro_id = models.ForeignKey(Seguro, on_delete = models.CASCADE)
 
     def __str__ (self) -> str:
         return self.nombre
@@ -105,25 +109,19 @@ class Beneficiario(models.Model):
         ('PAS', 'Pasaporte')
     ]
 
-    num_documento = models.IntegerField( primary_key = True)
+    id = models.AutoField(primary_key = True)
+    num_documento = models.IntegerField()
     nombre = models.CharField(max_length = 50)
     tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
+    
 
     def __str__(self) -> str:
         return self.nombre
 
-
-class Poliza_Beneficiario(models.Model):
-    """
-    Modelo que representa relación entre póliza y beneficiario
-    """
-
+class Policy_Beneficiary(models.Model):
     id = models.AutoField(primary_key = True)
-    poliza_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
-    beneficiario_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
-
-    def __str__ (self) -> str:
-        return self.id
+    policy_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
+    beneficiary_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
 
 
 class Siniestro(models.Model):
@@ -138,7 +136,7 @@ class Siniestro(models.Model):
         ('RECHAZADO', 'Rechazado'),
         ('RESUELTO', 'Resuelto'),
     ]
-
+    id = models.AutoField(primary_key = True)
     fecha = models.DateField()
     descripcion = models.TextField()
     estado = models.CharField(max_length = 15, choices= ESTADO)
@@ -147,16 +145,23 @@ class Siniestro(models.Model):
     def __str__ (self) -> str:
         return self.descripcion
 
-class  Usuario(models.Model):
+class UsuarioManager(UserManager):
+    def get_by_natural_key(self, username):
+        return self.get(num_documento = username)
+
+    def create_user(self, num_documento, password, **extra_fields):
+        if not num_documento:
+            raise ValueError(('El número de documento es requerido.'))
+        user = self.model(num_documento = num_documento, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
+      
+
+class  Usuario(AbstractBaseUser, PermissionsMixin):
     """
     Modelo que representa un Usuario
     """
-
-    TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CC', 'Cédula'), 
-        ('NIT', 'NIT'),
-        ('CE', 'Cédula extranjera')
-    ]
 
     ROL = [ #creación de la enumeración de tipo de rol
         ('CLIENTE', 'Cliente'),
@@ -164,15 +169,28 @@ class  Usuario(models.Model):
         ('ADMINISTRADOR', 'Administrador')
     ]
     
-    num_documento = models.IntegerField( primary_key = True)
-    tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
+    num_documento = models.IntegerField( primary_key = True, unique=True)
     rol = models.CharField(max_length = 14, choices = ROL)
     nombre = models.CharField(max_length = 50)
-    email = models.CharField(max_length = 50)
+    email = models.EmailField(max_length = 50)
     password = models.CharField(max_length = 8)
+
+    REQUIRED_FIELDS = ['rol']
+    USERNAME_FIELD = 'num_documento'
+
+    objects = UsuarioManager()
 
     def __str__ (self) -> str:
        return self.nombre
+
+
+
+
+
+
+
+
+
 
 
 

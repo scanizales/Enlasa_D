@@ -5,35 +5,39 @@
     <h3>Mis pólizas</h3>
 </section>
 <div id="general">
-    <div class="filtrar">
+    <form class="filtrar" method="post">
+        {% csrf_token %}
         <section>
             <h4>Filtrar pólizas</h4>
         </section>
         <div class="filtrar-items">
-            <div>
                 <section>
                     <label for="insurer">Aseguradora:</label>
                     <select name="insurer">
-                        <option value="SBS Seguros Colombia S.A">SBS Seguros Colombia S.A</option>
-                        <option value="BBVA Seguros">BBVA Seguros</option>
-                        <option value="CHUBB">CHUBB</option>
-                        <option value="Aurora">Aurora</option>
-                        <option value="HDI Seguros S.A">HDI Seguros S.A</option>
-                        <option value="La Previsora">La Previsora</option>
+                        <option value="">Despliegue</option>
+                        {% for insurer in context.insurers %}
+                        <option value={{insurer.id}}>{{ insurer.nombre }}</option>
+                        {% endfor %}
                     </select>
                 </section>
                 <section>
-                    <label for="typeInsurance">Tipo de seguro:</label>
-                    <select name="typeInsurance">
-                        <option value="Generales">Generales</option>
-                        <option value="Hogar y copropiedad">Hogar y copropiedad</option>
-                        <option value="Obligatorios">Obligatorios</option>
-                        <option value="Vida">De vida</option>
-                        <option value="Responsabilidad civil contractual y extracontractual">Responsabilidad civil contractual y extracontractual</option>
+                    <label for="type_insurance">Tipo seguro:</label>                   
+                    <select name="type_insurance">
+                        <option value="">Despliegue</option>
+                        {% for type_insurance in context.type_insurance %}
+                        <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
+                        {% endfor %}                 
                     </select>
                 </section>
-            </div>
-            <div>
+                <section>
+                    <label for="insurance">Seguro:</label>                   
+                    <select name="insurance">
+                        <option value="">Despliegue</option>
+                        {% for insurance in context.insurances %}
+                        <option value={{insurance.id}}>{{insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section> 
                 <section>
                     <label for="startDate">Fecha de inicio:</label>
                     <input class="date" name="startDate" type="date"></input>
@@ -41,70 +45,93 @@
                 <section>
                     <label for="expiryDate">Fecha de vencimiento:</label>
                     <input class="date" name="expiryDate" type="date"></input>
-                </section>
-            </div>    
+                </section> 
+                <section>
+                    <label for="state">Estado:</label>
+                     <select name="state">
+                        <option value="">Despliegue</option>
+                        <option value="True">Activo</option>
+                        <option value="False">Inactivo</option>
+                    </select>
+                </section> 
         </div>
         <div class="butons">
-            <button><strong>Filtrar</strong></button>
+            <button type="submit"><strong>Filtrar</strong></button>
             <button id="button-color-other"><strong>Limpiar</strong></button>
         </div>   
-    </div>
+    </form>
     <section id="buscar" class="sec-buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <section>
+            <p>Pólizas:</p>
+            <p id="count">{{ context.policys.count }}</p>
+        </section>
     </section>
     <table>
         <thead class="polizas">
             <tr>
+                <th>Estado</th>
                 <th>Número</th>
                 <th>Aseguradora</th>
-                <th>Tipo de póliza</th>
-                <th class="space">Póliza</th>
+                <th>Tipo de seguro</th>
+                <th class="space">Seguro</th>
                 <th>Fecha de inicio</th>
                 <th>Fecha de vencimiento</th>
                 <th>Prima</th>
                 <th>Valor prima</th>
                 <th>Medio de pago</th>
-                <th>Estado</th>
             </tr>
         </thead>
         <tbody class="polizas">
+            {% for policy in context.policys %}
             <tr id="datos">
-                <td class="space">29076</td>
-                <td>Seguros Bolivar</td>
-                <td>Seguro de vida</td>
-                <td>Individual</td>
-                <td>20/06/24</td>
-                <td>20/06/32</td>
-                <td>Mensual</td>
-                <td>1.200.000</td>
-                <td>Tarjeta</td>
+                {% if policy.estado == True %}
                 <td>Activa</td>
+                {% else %}
+                <td>Inactiva</td>
+                {% endif %}
+                <td class="space">{{ policy.id }}</td> 
+                <td>{{ policy.aseguradora_id.nombre }}</td>
+                <td>{{ policy.seguro_id.tipo_seguro_id.nombre }}</td>
+                <td>{{ policy.seguro_id.nombre }}</td>
+                <td>{{ policy.fecha_inicio }}</td>
+                <td>{{ policy.fecha_vencimiento }}</td>
+                <td>{{ policy.prima }}</td>
+                <td>{{ policy.valor }}</td>
+                <td>{{ policy.medio_pago }}</td>
                 <td>
                     <div class="boton-menu">
-                        <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
-                        <ul class="menu-desplegable">                               
-                            <button id="show-beneficiarios" class="icono-options options">
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
+                        <ul class="menu-desplegable">
+                            {% url 'show_my_claims' policy.id as url_show_claims %}
+                            <button class="icono-options options" onclick="window.location.href='{{url_show_claims}}'">
                                 <figure>
-                                    <img src="{% static 'assets/people.png' %}"    alt="icono">
+                                    <img src="{% static 'assets/sinester.png' %}"  alt="icono">
+                                </figure>
+                                <p>Siniestros</p>
+                            </button>
+                            {% url 'client_beneficiarys' policy.id as url_show_beneficiarys %}
+                            <button class="icono-options options" onclick="window.location.href='{{url_show_beneficiarys}}'">
+                                <figure>
+                                    <img src="{% static 'assets/people.png' %}"  alt="icono">
                                 </figure>
                                 <p>Beneficiarios</p>
-                            </button>  
-                            <script>
-                                document.getElementById("show-beneficiarios").onclick = function() {
-                                    location.href = "{% url 'cliente_mis_beneficiarios' %}";
-                                };
-                            </script>                         
+                            </button>
                         </ul>
                     </div>
-                    <script>
-                        document.querySelector('.boton-menu').addEventListener('click', function () {
-                            document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-                        });
-                    </script>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
+    </script>
+<script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

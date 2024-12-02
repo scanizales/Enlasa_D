@@ -1,0 +1,17 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+    <section>
+        <h3 class="h3-forms">Mi perfil</h3>
+    </section>
+    <div class="perfil-informacion">
+        <div class="perfil-datos">
+          <p><strong>Nombre:</strong> {{ user.nombre }}</p>
+          <p><strong>Usuario:</strong> {{ user.num_documento }}</p>
+          <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+        </div>
+        <section class="contentButton">
+            {% url 'edit_profile_admin' user.num_documento as url %} 
+           <button id="botton-form" onclick="window.location.href='{{url}}'"><strong>Editar perfil</strong></button>
+        </section>
+    </div> 
+{% endblock %}

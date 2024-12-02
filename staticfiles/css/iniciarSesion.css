@@ -1,0 +1,154 @@
+:root{
+  --color-primario: #0048b0;
+  --color-hover-button: #005eef;
+}
+body {
+  background-image: url('../assets/fondoIniciar.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Mukta", sans-serif;
+  margin: 0;
+}
+body header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: calc(12px + 0.5vw);
+  padding: 1em 2em;
+}
+.icono_house{
+  width: calc(20px + 1vw);
+  margin: 0;
+}
+body header figure {
+  width: calc(70px + 2.5vw);
+  margin: 0;
+}
+body header figure img {
+  max-width: 100%;
+  height: auto;
+}
+body header nav {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+body header nav ul {
+  display: flex;
+  gap: 4em;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--color-primario);
+}
+body header nav ul li a {
+  text-decoration: none;
+}
+body header nav ul li a h4 {
+  color: var(--color-primario);
+}
+header .icono1 {
+  display: flex;
+  background-color: var(--color-primario);
+  align-items: center;
+  width: auto;
+  padding: 0.3em;
+  padding-right: 0.5em;
+  border-radius: 10px; 
+  gap:0.2em;
+  color: white;
+  font-size: calc(10px + 0.3vw);
+}
+
+header article img{
+  width: calc(23px + 1vw);
+}
+body form {
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  border-radius: 27px;
+  width: fit-content;
+  padding: 2% 3%;
+  margin-top: 1em;
+  margin-left: 5%;
+}
+body form h1 {
+  color: var(--color-primario);
+  font-size: calc(16px + 1vw);
+}
+body form section {
+  align-items: center;
+}
+select,  option{
+  font-size: calc(12px + 0.5vw);
+}
+body form input, body form select {
+  width: calc(250px + 2vw);
+  height: 1.5em;
+  border-radius: 15px;
+  background-color: rgb(235, 231, 231);
+  border: none;
+  padding-left: 20px;
+}
+body form button {
+  width: fit-content;
+  border-radius: 20px;
+  color: white;
+  padding: 0.5em 2em;
+  background-color: var(--color-primario);
+  font-size: calc(13px + 0.5vw);
+  margin-top: 5px;
+  border: none;
+}
+body form button:hover{
+  background-color: var(--color-hover-button);
+  cursor: pointer;
+}
+body form label {
+  font-size: calc(10px + 0.5vw);
+}
+body form input{
+  font-size: calc(12px + 0.5vw);
+}
+.show_password{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap:0.5em; 
+}
+.show_password input{
+  width: 15px;
+}
+.show_password label{
+  font-size: calc(11px + 0.3vw);
+}
+.modal{
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-size:calc(10px + 0.5vw);
+  top: 50%;
+  left: 50%;
+  padding: 1em 2em;
+  background-color: white;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+.button-modal{
+  background-color: var(--color-primario);
+}
+.show{
+  display: block;
+}

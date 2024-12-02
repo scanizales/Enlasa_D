@@ -1,0 +1,46 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de tipos de seguros</h3>
+</section>
+<div id="general">
+    <section id="buscar">
+        <p id="count" class="space-num">{{ types_insurances.count }}</p>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
+    </section>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for type_insurance in types_insurances %}
+            <tr id="datos">
+                <td>{{ type_insurance.nombre }}</td>
+                <td>
+                    {% url 'edit_type_insurance' type_insurance.id as url_edit %} 
+                    <button class="button-icon" onclick="window.location.href='{{url_edit}}'">
+                        <figure>
+                            <img src="{% static 'assets/edit.png' %}" alt="icono">
+                        </figure>
+                    </button> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; });  });
+</script>
+<script src="{% static 'js/buscar.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'layouts/baseCliente.html' %}
+{% load static %}
+{% block content %}
+{% if claims.count > 0 %}
+<section id="clientes">
+    <h3>Mis siniestros</h3>
+</section>
+<div id="general">
+    <form class="filtrar" method="post">
+        {% csrf_token %}
+        <section>
+            <h4>Filtrar siniestros</h4>
+        </section>
+        <div class="filtrar-items">
+            <section class="column">
+                <label for="state">Estado:</label>
+                <select class="size"  name="state" required>
+                    <option value="REPORTADO">Reportado</option>
+                    <option value="EN_PROCESO">En proceso</option>
+                    <option value="APROBADO">Aprobado</option>
+                    <option value="RECHAZADO">Rechazado</option>
+                    <option value="RESUELTO">Resuelto</option>
+                </select>
+            </section>
+            <section>
+                <label for="date">Fecha:</label>
+                <input class="date" name="date" type="date"></input>
+            </section>
+        </div>
+        <div class="butons">
+            <button type="submit"><strong>Filtrar</strong></button>
+            <button id="button-color-other"><strong>Limpiar</strong></button>
+        </div>   
+    </form>
+    <section id="buscar" class="sec-buscar">
+        <p id="count">{{ claims.count }}</p>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Estado..."></input>
+        </section>
+    </section>
+    <table>
+        <thead class="polizas">
+            <tr>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody class="polizas">
+            {% for claim in claims %}
+            <tr id="datos">
+                <td>{{ claim.estado }}</td>
+                <td>{{ claim.fecha}}</td>
+                <td>{{ claim.descripcion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
+    </script>
+<script src="{% static 'js/buscar.js' %}"></script>
+{% else %}
+<h2>Sin siniestros</h2>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de pólizas</h3>
+</section>
+<div id="general">
+    <form class="filtrar" method ="post">
+        {% csrf_token %}
+        <section>
+            <h4>Filtrar pólizas</h4>
+        </section>
+        <div class="filtrar-items">           
+                <section>
+                    <label for="startDate">Fecha de inicio:</label>
+                    <input class="date" name="startDate" type="date"></input>
+                </section>
+                <section>
+                    <label for="expiryDate">Fecha de vencimiento:</label>
+                    <input class="date" name="expiryDate" type="date"></input>
+                </section>          
+                <section>
+                    <label for="insurer">Aseguradora:</label>
+                    <select name="insurer">
+                        <option value="">Despliegue</option>
+                        {% for insurer in context.insurers %}
+                        <option value={{insurer.id}}>{{ insurer.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+                <section>
+                    <label for="type_insurance">Tipo seguro:</label>                   
+                    <select name="type_insurance">
+                        <option value="">Despliegue</option>
+                        {% for type_insurance in context.type_insurance %}
+                        <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section> 
+                <section>
+                    <label for="insurance">Seguro:</label>                   
+                    <select name="insurance">
+                        <option value="">Despliegue</option>
+                        {% for insurance in context.insurances %}
+                        <option value={{insurance.id}}>{{insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section>           
+                <section>
+                    <label for="state">Estado:</label>
+                     <select name="state">
+                        <option value="">Despliegue</option>
+                        <option value="True">Activo</option>
+                        <option value="False">Inactivo</option>
+                    </select>
+                </section>   
+        </div>
+        <section class="buttons">
+            <button type="submit"><strong>Filtrar</strong></button>
+            <button id="button-color-other"><strong>Limpiar</strong></button>
+        </section>   
+    </form>
+    <section id="buscar" class="sec-buscar">
+        <section>
+            <p>Pólizas:</p>
+            <p id="count">{{ context.policys.count }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre del cliente..."></input>
+        </section>
+    </section>
+    <table>
+        <thead class="polizas second">
+            <tr>
+                <th>Cliente</th>
+                <th>Número</th>
+                <th>Aseguradora</th>
+                <th>Tipo de póliza</th>
+                <th class="space">Póliza</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de vencimiento</th>
+                <th>Prima</th>
+                <th>Valor prima</th>
+                <th>Medio de pago</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody class="polizas second">
+            {% for policy in context.policys %}
+            <tr id="datos">
+                <td>{{ policy.cliente_id.nombre }}</td>
+                <td class="space">{{ policy.id }}</td>
+                <td>{{ policy.aseguradora_id.nombre }}</td>
+                <td>{{ policy.seguro_id.tipo_seguro_id.nombre }}</td>
+                <td>{{ policy.seguro_id.nombre }}</td>
+                <td>{{ policy.fecha_inicio }}</td>
+                <td>{{ policy.fecha_vencimiento }}</td>
+                <td>{{ policy.prima }}</td>
+                <td>{{ policy.valor }}</td>
+                <td>{{ policy.medio_pago }}</td>
+                {% if policy.estado == True %}
+                <td>Activa</td>
+                {% else %}
+                <td>Inactiva</td>
+                {% endif %}
+                <td>
+                    <div class="boton-menu">
+                        <button class="boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
+                        <ul class="menu-desplegable">
+                            {% url 'edit_policy' policy.id as url_edit_policy %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_edit_policy}}'">
+                                <figure>
+                                    <img src="{% static 'assets/user-edit.png' %}" alt="icono">
+                                </figure>
+                                <p>Editar</p>
+                            </button>
+                            {% if policy.policy_beneficiary_set.all %}
+                            {% url 'show_beneficiarys' policy.id as url_show_beneficiarys %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_show_beneficiarys}}'">
+                                <figure>
+                                    <img src="{% static 'assets/people.png' %}" alt="icono">
+                                </figure>
+                                <p>Beneficiarios</p>
+                            </button>
+                            {% endif %}
+                            {% url 'add_beneficiary' policy.id as url_add_beneficiary %} 
+                            <button onclick="window.location.href='{{url_add_beneficiary}}'" class="icono-options options">
+                                <figure id="diferent">
+                                    <img src="{% static 'assets/people.png' %}" alt="icono">
+                                </figure>
+                                <p>Agregar beneficiario</p>
+                            </button>
+                            <script>
+                                document.getElementById("add-beneficiary").onclick = function() {
+                                   location.href = "{% url 'add_beneficiary' policy.id %}"
+                                };
+                           </script> 
+                           {% url 'add_claim' policy.id as url_add_claim %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_add_claim}}'">
+                                <figure id="diferent">
+                                    <img class="img-small" src="{% static 'assets/sinester.png' %}" alt="icono">
+                                </figure>
+                                <p>Agregar siniestro</p>
+                            </button>
+                            {% url 'delete_policy' policy.id as url_delete_policy %} 
+                            <button class="icono-options options" onclick="deletePolicy( '{{url_delete_policy}}')">
+                                <figure>
+                                    <img src="{% static 'assets/delete.png' %}" alt="icono">
+                                </figure>
+                                <p>Eliminar</p>
+                            </button>
+                        </ul>
+                    </div>               
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
+</div>
+<script>  
+const botonesMenu = document.querySelectorAll('.boton');
+botonesMenu.forEach(boton => {
+    boton.addEventListener('click', function () {
+        const menuDesplegable = boton.nextElementSibling
+        menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
+</script>
+<script src="{% static 'js/buscar.js' %}"></script>
+<script>
+    function deletePolicy(url){
+        Swal.fire({
+            title:'¿Estás seguro de eliminar esta póliza?',
+            text: 'No podrás recuperarla',
+            icon: 'warning',
+            showCancelButton : true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor : ' #0048B0',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value){
+                location.href = url
+            }
+        })
+    }
+</script>
+{% endblock %}
+
