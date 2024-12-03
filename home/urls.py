@@ -13,6 +13,7 @@ general_urls = [
     path('segurosVida', views.segurosVida, name='vida'),
     path('contactanos', views.contactanos, name='contactanos'),
     path('nosotros', views.nosotros, name='nosotros'),
+    path('recuperar-contraseña/', views.recuperar_contraseña, name='recuperar_contraseña'),
 ]
 #URLs del apartado administrador
 admin_urls = [

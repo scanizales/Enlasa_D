@@ -30,8 +30,6 @@
                 <li><a href="#">Productos</a>
                     <ul>
                         <li><a href="{% url 'generales' %}">Seguros generales</a></li>
-                        <li><a href="{% url 'hogar' %}">Seguros de hogar y copropiedad</a></li>
-                        <li><a href="{% url 'obligatorios' %}">Seguros obligatorios</a></li>
                         <li><a href="{% url 'vida' %}">Seguros de vida</a></li>
                     </ul>
                 </li>
@@ -76,9 +74,7 @@
                 <h3>Enlaces rapidos</h3>
                 <ul>
                     <li><p>Productos</p></li>
-                        <li><a href=""> -Seguros generales</a></li>
-                        <li><a href=""> -Seguros de hogar y copropiedad</a></li>
-                        <li><a href="{% url 'obligatorios' %}"> -Seguros obligatorios</a></li>
+                        <li><a href="{% url 'generales' %}"> -Seguros generales</a></li>
                         <li><a href="{% url 'vida' %}"> -Seguros de vida</a></li>
                     <li><a href="{% url 'contactanos' %}">Contactanos</a></li>
                     <li><a href="#nosotros">Nosotros</a></li>
@@ -94,6 +90,7 @@
         </div>
         <div class="footer-bottom">
             <p>Copyright © 2024- diseñado por tecnodesarrollo</p>
+            <p>Atribución imagenes  www.freepik.es. </p>
         </div>
     </footer> 
     <script>

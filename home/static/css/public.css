@@ -168,7 +168,7 @@ header .navbar ul li:hover > ul{
   width: 60px;
   position: fixed;
   left: 0;
-  top: 40%;
+  top: 60%;
   z-index: 1000;
   padding: 5px;
   border-radius: 5px;
@@ -193,6 +193,7 @@ header .navbar ul li:hover > ul{
   text-decoration: none;
   font-size: 24px;
   color: #ffed29;
+  padding-top: 8px;
 }
 
 .title {

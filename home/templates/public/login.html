@@ -37,7 +37,7 @@
             <label for="verContraseña">Ver contraseña</label>
         </section>  
         <button type="submit"><strong>Iniciar sesión</strong></button>
-        <a href="#" style="color: blue;font-size: calc(10px + 0.4vw);">Olvide mi contraseña</a>
+        <a href="{% url 'recuperar_contraseña' %}" id="forgotPasswordLink">Olvidé mi contraseña</a>
     </form>
     <script>
         document.getElementById('verContraseña').addEventListener('change', function() {

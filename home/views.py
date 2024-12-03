@@ -1289,3 +1289,41 @@ def contactanos(request):
     return render(request,'public/contactanos.html')
 def nosotros(request):
     return render(request,'public/nosotros.html')
+
+def recuperar_contraseña(request):
+    if request.method == 'POST':
+        # Obtener el número de documento ingresado
+        documento = request.POST.get('numDocument')
+        
+        # Intentar obtener el cliente correspondiente
+        try:
+            cliente = Cliente.objects.get(num_documento=documento)
+        except Cliente.DoesNotExist:
+            messages.error(request, 'No se encontró un usuario con ese número de documento.')
+            return redirect('recuperar_contraseña')
+
+        # Generar una nueva contraseña
+        nueva_contraseña = secrets.token_hex(4)  # Contraseña aleatoria
+        nueva_contraseña_encriptada = make_password(nueva_contraseña)
+
+        # Actualizar la contraseña del usuario
+        try:
+            usuario = Usuario.objects.get(num_documento=documento)
+            usuario.password = nueva_contraseña_encriptada
+            usuario.save()
+
+            # Enviar la nueva contraseña por correo
+            subject = 'Recuperación de Contraseña'
+            message = f'Hola {cliente.nombre},\n\nTu nueva contraseña es: {nueva_contraseña}\nTe recomendamos cambiarla al iniciar sesión.'
+            sender = settings.EMAIL_HOST_USER
+            recipient = [cliente.email]
+            send_mail(subject, message, sender, recipient)
+
+            messages.success(request, 'Se ha enviado una nueva contraseña a tu correo electrónico.')
+            return redirect('iniciar_sesion')  # Redirigir al inicio de sesión
+
+        except Usuario.DoesNotExist:
+            messages.error(request, 'No se encontró un usuario asociado con ese número de documento.')
+            return redirect('recuperar_contraseña')
+
+    return render(request, 'public/recuperar_contraseña.html')
