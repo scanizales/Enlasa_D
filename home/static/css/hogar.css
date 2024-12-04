@@ -14,7 +14,6 @@
     align-items: center;
     width: 100%; 
     padding: 3rem; 
-    margin-top: 70px;
     margin-right: 20px;
     flex-direction: row-reverse; 
 }
@@ -26,7 +25,7 @@
 }
 
 .hero-content4 h1 {
-    font-size: 2.4rem; 
+    font-size: 2.7rem; 
     margin-bottom: 1.5rem; 
     margin-left: 20px; 
     margin-right: 0px; 
