@@ -1,0 +1,62 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar póliza</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section class="column">
+            <label for="name">Nombre:</label>
+            <input value="{{ context.client.nombre }}" name="name" type="text"></input>
+        </section>
+        <section class="column">
+            <label for="typeDocument">Tipo de documento:</label>
+            <select name="typeDocument" required>
+                <option value="NIT" {% if context.client.tipo_documento == 'NIT' %} selected {% endif %}>NIT</option>
+                <option value="CC" {% if context.client.tipo_documento == 'CC' %} selected {% endif %}>CC</option>
+                <option value="CE" {% if context.client.tipo_documento == 'CE' %} selected {% endif %}>CE</option>
+            </select>
+        </section>
+        <section class="column">
+            <label for="document">Número de documento:</label>
+            <input value="{{ context.client.num_documento }}" name="document" type="number"></input> 
+        </section>
+        <section class="phone">
+            <label for="phone">Télefonos:</label>
+            <section>
+                <input value="{{ context.client.celular }}" name="phone" type="number"></input>
+                <input value="{{ context.client.telefono }}" name="phone2" type="number"></input>
+            </section>
+        </section>
+        <section class="column">
+            <label for="email">Correo electrónico:</label>
+            <input value="{{ context.client.email }}" name="email" type="email"></input> 
+        </section>
+        <section class="column">
+            <label for="city">Ciudad:</label>
+            <input value="{{ context.client.ciudad }}" name="city" type="text"></input>
+        </section>
+        <section class="column">
+            <label for="address">Dirección de residencia:</label>
+            <input value="{{ context.client.direccion}}" name="address" type="text" placeholder="Escriba aquí" required></input>
+        </section>
+        <section class="contentButton">
+            {% url 'show_clients' as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button onclick="window.location.href='{{url_list}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
+{% endblock %}
+
+
+
+
+
+
+

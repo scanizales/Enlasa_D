@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Afacad:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Outfit:wght@100..900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    font-family: "Afacad Flux", sans-serif;
+    text-decoration: none;
+}
+body {
+    background-color: #f0f0f0; /* Fondo gris claro */
+    background-size: cover;
+    background-position: center;
+    overflow-x: hidden;
+}
+
+/* Estilo para la sección de seguros generales */
+.hero6 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 3rem;
+    margin-top: 70px;
+    margin-right: 20px;
+    flex-direction: row-reverse;
+}
+
+.hero-content6 {
+    width: 60%;
+    padding-right: 4rem;
+    margin-left: 120px;  /* Aumenté el margen izquierdo para moverlo más a la derecha */
+}
+
+.hero-content6 h1 {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+    margin-left: -50px;  /* Aumenté el margen izquierdo para moverlo más a la derecha */
+    margin-right: 0px;
+    color: #01193b;
+}
+
+.hero-content6 p {
+    font-size: 1.2rem;
+    text-align: justify;
+    color: #333;
+    margin-left: -50px;  /* Aumenté el margen izquierdo */
+    margin-right: 10px;
+}
+
+.hero6-content {
+    width: 60%;
+    border: 15px;
+    margin-left: 150px;  /* Aumenté el margen izquierdo */
+}
+
+.img6-content {
+    margin-left: 65px;  /* Aumenté el margen izquierdo para mover la imagen más a la derecha */
+}
+
+.img6-content img {
+    width: 90%;
+    height: auto;
+    border: 15px;
+    padding: 5px;
+    margin-right: 300px;
+}
+
+
+/* Responsivo */
+@media screen and (max-width: 768px) {
+    /* Sobrescribir estilos generales con estilos responsivos */
+    .hero6 {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem; 
+        margin-right: 0; /* Elimina margen extra en móviles */
+    }
+
+    .hero-content6, .hero6-content {
+        width: 100%; 
+        padding: 0; 
+        margin-left: 0;  /* Elimina el margen izquierdo extra */
+        margin-right: 0; /* Elimina el margen derecho extra */
+    }
+
+    .hero-content6 h1 {
+        font-size: 2rem; 
+        margin-top: 20px;
+        margin-bottom: 10px; 
+        margin-left: 0; /* Elimina el margen izquierdo extra */
+        margin-right: 0; /* Elimina el margen derecho extra */
+    }
+
+    .hero-content6 p {
+        font-size: 1rem; 
+        text-align: justify;
+        margin: 0 15px;  
+    }
+
+    .hero6-content {
+        margin-top: 1rem; 
+    }
+
+    .img6-content {
+        width: 100%; /* Asegura que la imagen ocupe el 100% del ancho en dispositivos móviles */
+        margin-left: 0; /* Elimina margen izquierdo extra */
+        margin-right: 0; /* Elimina margen derecho extra */
+        display: flex;
+        justify-content: center; /* Centra la imagen dentro de su contenedor */
+    }
+
+    .img6-content img {
+        width: 100%; /* Hace que la imagen ocupe todo el ancho disponible */
+        height: auto; 
+        margin-top: 15px; 
+        margin-left: 0; /* Elimina margen izquierdo extra */
+        margin-right: 0; /* Elimina margen derecho extra */
+    }
+
+    .hero-content6 {
+        margin-bottom: 1.5rem; 
+    }
+}
+.container-productos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    max-width: 900px;
+}
+
+.card-productos {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    flex-direction: column;
+}
+
+.card-productos img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+}
+
+.card-productos:hover img {
+    transform: scale(1.05); 
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(31, 31, 118, 0.6);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-productos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto; 
+    justify-content: center; 
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .container-productos {
+        grid-template-columns: 1fr; 
+        max-width: 100%; 
+        gap: 15px;
+        padding: 0 50px;
+        justify-items: center; 
+    }
+
+    .card-productos {
+        transform: scale(0.9); 
+        border-radius: 8px;
+    }
+
+    .card-productos img {
+        border-radius: 8px;
+    }
+
+    .overlay {
+        padding: 5px;
+        font-size: 0.9em;
+    }
+}

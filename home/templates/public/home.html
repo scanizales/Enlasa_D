@@ -1,0 +1,61 @@
+{% extends 'layouts/basePublic.html' %}
+{% block content %}
+ <div class="hero">
+        <div class="hero-content">
+            <h1>Bienvenidos </h1>
+            <p>Su tranquilidad y protección son nuestra prioridad.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="hero-section">
+            <h1>Planifica tu futuro y asegúrate ahora</h1>
+            <p class="description">¡¡Por que las cosas suceden cuando menos esperamos, es mejor siempre estar asegurado !!</p>
+        </div>
+        
+        <div class="cards">
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/hija-feliz-divirtiendose-sus-padres-mientras-muda-apartamento-nuevo_637285-12378.jpg');">
+                    <div class="card-title">Seguros generales</div>
+                </div>
+                <div class="card-content">
+                    <h3>Seguros generales</h3>
+                    <p>Protege a tus seres queridos y asegura su futuro financiero.</p>
+                    <a href="{% url 'generales' %}" class="card-link">Más información</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/concepto-proteccion-antivirus-familiar_493343-30185.jpg');">
+                    <div class="card-title">Seguros de Hogar</div>
+                </div>
+                <div class="card-content">
+                    <h3>Seguros de Hogar</h3>
+                    <p>Protege tu hogar contra daños y robos inesperados.</p>
+                    <a href="{% url 'generales' %}" class="card-link">Más información</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image" style="background-image: url('https://img.freepik.com/foto-gratis/mujer-feliz-mirando-ventana-mostrando-llaves-coche-nuevo-compro-nuevo-automovil_197531-22648.jpg');">
+                    <div class="card-title">Seguros obligatorios</div>
+                </div>
+                <div class="card-content">
+                    <h3>Seguros obligatorios</h3>
+                    <p>Protege tu seguirdad y el bienestar de los demas.</p>
+                    <a href="{% url 'generales' %}" class="card-link">Más información</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contenedor-principal">
+        <div class="contenedor-imagen">
+            <img src="https://img.freepik.com/foto-gratis/arreglo-plano-lindo-concepto-familia_23-2148485829.jpg" alt="Manos sosteniendo figuras de papel representando una familia" class="imagen-personalizada">
+        </div>
+        <div class="contenedor-texto">
+            <span class="etiqueta-destacada">La vida es bella</span>
+            <h1 class="titulo-personalizado">Asegurate con Enlasa</h1>
+            <p class="texto-personalizado">Protege lo que más amas con nuestra amplia gama de seguros personalizados. En Enlasa, te ofrecemos tranquilidad y seguridad, adaptándonos a tus necesidades. Confía en nosotros para cuidar de tu futuro y el de tu familia, porque cada momento cuenta.</p>
+        </div>
+    </div>
+{% endblock %}
+

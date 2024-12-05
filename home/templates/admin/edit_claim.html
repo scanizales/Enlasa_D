@@ -1,0 +1,45 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar siniestro</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+            {% csrf_token %}
+            <section class="column">
+                <label for="date">Fecha del siniestro:</label>
+                <input  value="{{ context.claim.fecha| date:'Y-m-d' }}" class="date" name="date" type="date"  required></input>
+            </section>
+            <section class="column">
+                <label for="description">Descripción:</label>
+                <input value="{{ context.claim.descripcion }}" name="description" type="text" placeholder="Escriba aquí" required></input>
+            </section>
+            <section class="column">
+                <label for="state">Estado:</label>
+                <select class="size"  name="state" required>
+                    <option value="REPORTADO" {% if context.claim.estado == 'REPORTADO' %} selected {% endif %}>Reportado</option>
+                    <option value="EN_PROCESO" {% if context.claim.estado == 'EN_PROCESO' %} selected {% endif %}>En proceso</option>
+                    <option value="RECHAZADO" {% if context.claim.estado == 'RECHAZADO' %} selected {% endif %}>Rechazado</option>
+                    <option value="RESUELTO"  {% if context.claim.estado == 'RESUELTO' %} selected {% endif %}>Resuelto</option>
+                </select>
+            </section>
+        <section class="contentButton">
+            {% url 'show_claims' as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button onclick="window.location.href='{{url_list}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
+{% endblock %}
+
+
+
+
+
+
+

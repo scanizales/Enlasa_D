@@ -3,15 +3,22 @@
     --color-hover-button: #005eef;
 }
 section .h3-forms{
-    margin-left: 5%;
     color: var(--color-primario);
     font-size: calc(10px + 1vw);
+}
+.form-edit{
+    display: grid;
+    place-items: center;
+    background-image: linear-gradient(320deg, var(--color-primario) -20%, transparent);
+    height: 100vh;
+}
+.form-edit form{
+    position: fixed;
 }
 
 form{
     display: flex;
     justify-content: space-between;   
-    margin-left: 4%;
     margin-right: 4%;
     padding:2em;
     border-radius: 10px;
@@ -96,7 +103,6 @@ select{
     height:calc(8px + 4vh);;
     
 }
-
 /*Estilos responsive */
 @media (max-width: 1100px){
     form{
@@ -131,4 +137,17 @@ select{
     max-width: calc(300px + 8vw);
     gap:1.5em;
 }
+.show_password{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    gap:0.5em; 
+  }
+  .show_password input{
+    width: 15px;
+  }
+  .show_password label{
+    font-size: calc(11px + 0.3vw);
+  }
 

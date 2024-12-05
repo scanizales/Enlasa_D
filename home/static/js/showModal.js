@@ -1,3 +1,4 @@
+
 const modal = document.getElementById('modal');
 const abrirModal = document.getElementById('abrir-modal');
 const cerrrarModal = document.getElementById('cerrar-modal');

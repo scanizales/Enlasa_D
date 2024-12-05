@@ -1,0 +1,40 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar póliza</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section>
+            <label for="name">Nombre:</label>
+            <input value="{{ context.insurer.nombre }}" id="name" name="name" type="text">
+        </section>
+        <section>
+            <label for="phone">Teléfono:</label>
+            <input value="{{ context.insurer.telefono }}" id="phone" name="phone" type="number">
+        </section>
+        <section>
+            <label for="address">Dirección:</label>
+            <input value="{{ context.insurer.direccion }}" id="address" name="address" type="text">
+        </section>
+        <section class="contentButton">
+            {% url 'show_insurers' as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button onclick="window.location.href='{{url_list}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
+
+{% endblock %}
+
+
+
+
+
+
+

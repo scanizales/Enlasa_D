@@ -1,0 +1,32 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar póliza</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section>
+            <label for="name">Nombre:</label>
+            <input value="{{ context.type_insurance.nombre }}" id="name" name="name" type="text">
+        </section>
+        <section class="contentButton">
+            {% url 'show_types_insurances' as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button onclick="window.location.href='{{url_list}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
+
+{% endblock %}
+
+
+
+
+
+
+

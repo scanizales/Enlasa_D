@@ -1,0 +1,76 @@
+/* Centrar el formulario en la pantalla */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Fondo gris claro para toda la página */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Tomar el 100% de la altura de la ventana */
+    margin: 0;
+}
+
+/* Estilo para el formulario */
+form {
+    background-color: #fff; /* Fondo blanco para el formulario */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para el formulario */
+    text-align: center; /* Centrar el contenido dentro del formulario */
+}
+
+/* Título del formulario */
+h1 {
+    font-size: 24px;
+    color: #333; /* Color oscuro para el título */
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+/* Estilo para las etiquetas */
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555; /* Color para las etiquetas */
+}
+
+/* Estilo para los campos de entrada */
+input[type="number"] {
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px; /* Espacio debajo del campo */
+}
+
+/* Estilo para el botón de "Recuperar Contraseña" */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff; /* Color azul para el botón */
+    color: white;
+    transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+}
+
+/* Efecto hover en el botón */
+button:hover {
+    background-color: #0056b3; /* Azul más oscuro cuando el cursor pasa sobre el botón */
+}
+
+/* Estilo para los mensajes de error o éxito */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    color: red; /* Puedes cambiar el color según el tipo de mensaje */
+    font-size: 14px;
+    margin-top: 10px;
+}

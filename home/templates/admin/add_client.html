@@ -1,0 +1,117 @@
+
+    {% extends 'layouts/baseAdmin.html' %}
+    {% block content %}
+    {% load static %}
+    {% if context.modal %}
+        <div id="modal" class="modal">
+            <p>{{ context.message }}</p>
+            <button class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+        </div>
+    {% endif %} 
+    <script>
+        const cerrrarModal2 = document.getElementById('cerrar-modal2');
+        const modal = document.getElementById('modal');
+        cerrrarModal2.addEventListener('click', () =>{
+        modal.style.display = 'none';
+        })
+    </script> 
+    <section>      
+        <h3 class="h3-forms">Registrar cliente</h3> 
+    </section> 
+    <form method="post">
+        {% csrf_token %}
+        <section class="info-cliente">        
+            <section class="column">
+                <label for="name">Nombre:</label>
+                <input name="name" type="text" placeholder="Ej: Pepito Pérez" required></input>
+            </section>
+            <section class="column">
+                <label for="typeDocument">Tipo de documento:</label>
+                <select name="typeDocument" required>
+                    <option value="NIT">NIT</option>
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="document">Número de documento:</label>
+                <input name="document" type="number" placeholder="Escriba aquí" required></input> 
+            </section>
+            <section class="phone">
+                <label for="phone">Télefonos:</label>
+                <section>
+                    <input name="phone" type="number" placeholder="Célular" required></input>
+                    <input name="phone2" type="number" placeholder="Télefono fijo"></input>
+                </section>
+            </section>
+            <section class="column">
+                <label for="email">Correo electrónico:</label>
+                <input name="email" type="email" placeholder="Ej: soy@gmail.com" required></input> 
+            </section>
+            <section class="column">
+                <label for="city">Ciudad:</label>
+                <input name="city" type="text" placeholder="Ej: Ibagué" required></input>
+            </section>
+            <section class="column">
+                <label for="address">Dirección de residencia:</label>
+                <input name="address" type="text" placeholder="Escriba aquí" required></input>
+            </section>
+            <section class="column">
+                <label for="state">Estado póliza:</label>
+                <select name="state" required>
+                    <option value="True">Activa</option>
+                    <option value="False">Inactiva</option>
+                </select>
+            </section>
+        </section>
+        <section class="info-seguro">
+            <section class="column">
+                <label for="insurance">Nombre del seguro:</label>
+                <select name="insurance" required>
+                    {% for insurance in context.insurances %}
+                    <option value={{insurance.id}}>{{ insurance.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </section>
+            <section class="column">
+                <label for="startDate">Fecha de inicio:</label>
+                <input class="date" name="startDate" type="date" required></input>
+            </section>
+            <section class="column">
+                <label for="expiryDate">Fecha de vencimiento:</label>
+                <input class="date" name="expiryDate" type="date"  required></input>
+            </section>
+            <section class="column">
+                <label for="typeFace">Tipo de prima:</label>
+                <select name="typeFace" required>
+                    <option value="MENSUAL">Mensual</option>
+                    <option value="TRIMESTRAL">Trimestral</option>
+                    <option value="SEMESTRAL">Semestral</option>
+                    <option value="ANUAL">Anual</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="valueFace">Valor prima:</label>
+                <input name="valueFace" type="number" placeholder="Escriba el precio aquí..." required></input>
+            </section>
+            <section class="column">
+                <label for="payMethod">Medio de pago:</label>
+                <select name="payMethod" required>
+                    <option value="EFECTIVO">Efectivo</option>
+                    <option value="TARJETA">Tarjeta</option>
+                </select>
+            </section>
+            <section class="column">
+                <label for="insurer">Aseguradora:</label>
+                <select name="insurer" required>
+                    {% for insurer in context.insurers %}
+                    <option value={{insurer.id}}>{{ insurer.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </section>
+            <section class="contentButton">
+                <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+            </section>
+        </section>
+    </form>
+    {% endblock %}
