@@ -458,7 +458,7 @@ def edit_policy(request, policy_id):
         start_date = request.POST.get('startDate')
         end_date = request.POST.get('expiryDate')
         premium = request.POST.get('typeFace')
-        value_premium = request.POST.get('valueFace')
+        value_premium = request.POST.get('value')
         payment_method = request.POST.get('payMethod')
         state = request.POST.get('state')
 
@@ -541,7 +541,7 @@ def edit_client(request, client_id):
 
 def edit_beneficiary(request, beneficiary_id):
     # Obtiene el beneficiario o retorna un 404 si no existe
-    beneficiary = Beneficiario.objects.get( id =beneficiary_id)
+    beneficiary = Beneficiario.objects.get( id = beneficiary_id)
     # Obtener la relación Policy_Beneficiary
     policy_beneficiary = Policy_Beneficiary.objects.get(beneficiary_id=beneficiary)
     policy = policy_beneficiary.policy_id
@@ -573,10 +573,10 @@ def edit_beneficiary(request, beneficiary_id):
 
             if has_changes:
                 beneficiary.save()
-                messages.success('Se agregaron los cambios con éxito.')    
+                messages.success(request,'Se agregaron los cambios con éxito.')    
 
             else:
-                messages.success('No se registraron cambios.')
+                messages.error(request,'No se registraron cambios.')
 
 
     context = { #datos que van al template

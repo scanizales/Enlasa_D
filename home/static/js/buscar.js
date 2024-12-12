@@ -4,6 +4,7 @@
     inputSearch.addEventListener('input', searchInsurance);
     const clear = document.getElementById('button-color-other')
     clear.addEventListener('click', clearFilter)
+    const tableRows = tableInsurance.querySelectorAll('tbody tr');
     
     function searchInsurance(){
         const textSearch = inputSearch.value.trim();
@@ -24,6 +25,7 @@
         tableRows.forEach(row => {
             row.style.display = ""
         });
+        
     }
 
 

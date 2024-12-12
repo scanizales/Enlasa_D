@@ -258,11 +258,14 @@ figure img{
     align-items: center;
     margin-top: 20px;
     padding: 10px 0;
+    font-size: calc(8px + 0.3vw);
 }
 
-.pagination a, .pagination strong {
+.pagination a{
     margin: 0 5px;
-    padding: 8px 16px;
+    height: fit-content;
+    width: fit-content;
+    padding: 0.5em;
     border: 1px solid #0048B0;
     color: #0048B0;
     text-decoration: none;
@@ -272,12 +275,6 @@ figure img{
 .pagination a:hover {
     background-color: #0048B0;
     color: #fff;
-}
-
-.pagination strong {
-    background-color: #0048B0;
-    color: #fff;
-    font-weight: bold;
 }
 
 .pagination a:active, .pagination strong:active {

@@ -36,6 +36,10 @@
             title:'{{ message }}',
             icon: '{{ message.tags }}',
             confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_beneficiarys' context.policy.id %}"
+            }
         })
         </script>
         {% endfor %}

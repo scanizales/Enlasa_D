@@ -55,13 +55,13 @@
         </div>          
         <section class="buttons">
             <button type="submit"><strong>Filtrar</strong></button>
-            <button id="button-color-other"><strong>Limpiar</strong></button>
+            <button id="button-color-other"><strong>Limpiar</strong></button>           
         </section>   
     </form>
     <section id="buscar" class="sec-buscar">
         <section>
             <p>Siniestros:</p>
-            <p id="count">{{ context.claims.count }}</p>
+            <p id="count">{{ context.claims_page.paginator.count }}</p>
         </section>
         <section>
             <label for="buscar">Buscar:</label>
@@ -82,7 +82,7 @@
             </tr>
         </thead>
         <tbody class="polizas">
-            {% for claim in context.claims %}
+            {% for claim in context.claims_page %}
             <tr id="datos">
                 <td>{{ claim.poliza_id.cliente_id.nombre }}</td>
                 <td>{{ claim.poliza_id.cliente_id.num_documento }}</td>
