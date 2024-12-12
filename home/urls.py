@@ -1,14 +1,18 @@
 from django.urls import path
 from . import views
 
-#URLs generales*
+#URLs usuario*
 general_urls = [
     path('', views.home, name='home'),
-    path('login', views.iniciar_sesion, name='login'),
-    path('public/nosotros/', views.nosotros, name='nosotros'),
-    path('public/segurosGenerales/', views.segurosGenerales, name='segurosGenerales'),
-    path('public/segurosHogar/', views.segurosHogar, name='segurosHogar'),
     path('logout/', views.exit, name='exit'),
+    path('login', views.login_user, name='login'),
+    path('home', views.home, name='home'),
+    path('segurosGenerales', views.segurosGenerales, name='generales'),
+    path('segurosHogar', views.segurosHogar, name='hogar'),
+    path('segurosObligatorios', views.segurosObligatorios, name='obligatorios'),
+    path('segurosVida', views.segurosVida, name='vida'),
+    path('contactanos', views.contactanos, name='contactanos'),
+    path('nosotros', views.nosotros, name='nosotros'),
 ]
 #URLs del apartado administrador
 admin_urls = [
@@ -38,6 +42,9 @@ admin_urls = [
     path('admin_dashboard/delete_client/<int:client_id>/', views.delete_client, name='delete_client'),
     path('admin_dashboard/delete_policy/<int:policy_id>/', views.delete_policy, name='delete_policy'),
     path('admin_dashboard/edit_profile/<int:admin_id>/', views.edit_profile_admin, name='edit_profile_admin'),
+    path('admin_dashboard/edit_beneficiary/<int:beneficiary_id>/', views.edit_beneficiary, name='edit_beneficiary'),
+    path('admin_dashboard/delete-beneficiary/<int:beneficiary_id>/', views.delete_beneficiary, name='delete_beneficiary'),
+
 ]
 #URLs del apartado cliente*
 cliente_urls = [
@@ -63,5 +70,12 @@ gerente_urls = [
     path('manager/delete_admin/<int:admin_id>', views.delete_admin, name='delete_admin'),
 ]
 
+#URLs de Public
+public_urls = [
+    path( 'public/nosotros/', views.nosotros, name='nosotros'),
+    path('public/segurosGenerales/', views.segurosGenerales, name='segurosGenerales'),
+    path('public/segurosHogar/', views.segurosHogar, name='segurosHogar'),
+    path('reset_password', views.reset_password, name="reset_password"),
+]
 
-urlpatterns = general_urls + admin_urls + cliente_urls + gerente_urls
+urlpatterns = general_urls + admin_urls + cliente_urls + gerente_urls + public_urls

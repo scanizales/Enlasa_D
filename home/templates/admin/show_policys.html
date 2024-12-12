@@ -5,7 +5,7 @@
     <h3>Listado de pólizas</h3>
 </section>
 <div id="general">
-    <form class="filtrar" method ="post">
+    <form class="filtrar" method ="get">
         {% csrf_token %}
         <section>
             <h4>Filtrar pólizas</h4>
@@ -87,7 +87,7 @@
             </tr>
         </thead>
         <tbody class="polizas second">
-            {% for policy in context.policys %}
+            {% for policy in context.policys_page %}
             <tr id="datos">
                 <td>{{ policy.cliente_id.nombre }}</td>
                 <td class="space">{{ policy.id }}</td>
@@ -159,6 +159,22 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if context.policys_page.has_previous %}
+                <a href="?page=1{% if request.GET.startDate %}&startDate={{ request.GET.startDate }}{% endif %}{% if request.GET.expiryDate %}&expiryDate={{ request.GET.expiryDate }}{% endif %}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}">&laquo; Primera</a>
+                <a href="?page={{ context.policys_page.previous_page_number }}{% if request.GET.startDate %}&startDate={{ request.GET.startDate }}{% endif %}{% if request.GET.expiryDate %}&expiryDate={{ request.GET.expiryDate }}{% endif %}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ context.policys_page.number }} de {{ context.policys_page.paginator.num_pages }}.
+            </span>   
+            {% if context.policys_page.has_next %}
+                <a href="?page={{ context.policys_page.next_page_number }}{% if request.GET.startDate %}&startDate={{ request.GET.startDate }}{% endif %}{% if request.GET.expiryDate %}&expiryDate={{ request.GET.expiryDate }}{% endif %}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}">Siguiente</a>
+                <a href="?page={{ context.policys_page.paginator.num_pages }}{% if request.GET.startDate %}&startDate={{ request.GET.startDate }}{% endif %}{% if request.GET.expiryDate %}&expiryDate={{ request.GET.expiryDate }}{% endif %}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
     {% if messages %}
       {% for message in messages %}
         <script> 

@@ -1,6 +1,7 @@
 from .models import Tipo_Seguro, Seguro, Usuario, Aseguradora, Usuario, Cliente, Poliza, Beneficiario, Policy_Beneficiary, Siniestro
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
+
+from django.core.paginator import Paginator,  EmptyPage, PageNotAnInteger
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -23,7 +24,7 @@ def exit(request):
     return redirect('home')
 
 #vista que inicia sesión en el sistema
-def iniciar_sesion(request):
+def login_user(request):
     modal = False
     message = ''
     if request.method == 'POST':
@@ -32,7 +33,7 @@ def iniciar_sesion(request):
         documento = request.POST.get('numDocument')
         contraseña = request.POST.get('password')
 
-        usuario = authenticate(num_documento = documento, password = contraseña) #vereficar si el usuario es válido
+        usuario = authenticate(num_documento = documento, password = contraseña) #verificar si el usuario es válido
         if usuario is not None:
             login(request, usuario) #iniciar la sesión
 
@@ -58,7 +59,7 @@ def iniciar_sesion(request):
         'message': message,
     }
 
-    return render(request, 'public/iniciarSesion.html',{
+    return render(request, 'public/login.html',{
         'context': context       
     })
 
@@ -76,10 +77,6 @@ def admin_profile(request):
 #vista para crear un cliente si no existe y su respectiva póliza
 @login_required
 def create_client_policy(request):
-    #inicializar datos de la modal
-    modal = False
-    message_modal = ''
-
     #obtener datos del form    
     if request.method == 'POST':
 
@@ -127,7 +124,7 @@ def create_client_policy(request):
             #datos que se enviarán al correo 
             password = generate_password()    
             subject = 'Contraseña de Enlasa'
-            message_email = f'Buen día señor(a) {name} su contraseña es: {password}.\nLe recomendamos cambiarla.'
+            message_email = f'Buen día señor(a) {name} sus datos para iniciar sesión en el sistema de Enlasa son:\nUsuario: {document}\nContraseña: {password}.\nLe recomendamos cambiar la contraseña.'
             sender = settings.EMAIL_HOST_USER 
             recipient = [email]
 
@@ -145,15 +142,13 @@ def create_client_policy(request):
         )
 
         #modal que comunica si el registro fue éxitoso
-        modal = True
-        message_modal = 'Póliza agregada con éxito.'
+        messages.success(request, 'Póliza agregada con éxito.')
 
     #variables que van al template    
     context = {
         'insurances': Seguro.objects.all(),
         'insurers': Aseguradora.objects.all(),
-        'modal': modal,
-        'message': message_modal,
+
     }   
 
     return render(request, 'admin/add_client.html',{
@@ -163,40 +158,53 @@ def create_client_policy(request):
 #vista para ver el listado de clientes
 @login_required
 def show_clients(request):
+    
     clients = Cliente.objects.all()
 
-    if request.method == 'POST': #obtener datos del formulario cuando se vaya a filtrar
-        type_document = request.POST.get('typeDocument')
+    if request.method == 'GET': #obtener datos del formulario cuando se vaya a filtrar
+        type_document = request.GET.get('typeDocument')
         
         if type_document:
             clients = Cliente.objects.filter(tipo_documento = type_document) #clientes filtrados
+
+    paginator = Paginator(clients, 10)
+    #obtener el número de página actual desde los parámetros GET
+    page_number = request.GET.get('page')
+
+    #obtener los objetos de la página actual
+    try:
+        clients_page = paginator.page(page_number)
+    except PageNotAnInteger:
+        clients_page = paginator.page(1) 
+    except EmptyPage:
+        clients_page = paginator.page(paginator.num_pages)
+
             
-    return render(request, 'admin/show_clients.html', {
-        'clients': clients
-    })
+    return render(request, 'admin/show_clients.html', {'page_obj': clients_page})
 
 #vista para ver el listado de pólizas
 @login_required
 def show_policys(request):
     policys = Poliza.objects.all()
 
-    #datos que van para el template
+    # datos que van para el template
     context = {
         'insurances': Seguro.objects.all(),
         'insurers': Aseguradora.objects.all(),
         'type_insurance': Tipo_Seguro.objects.all(),
         'policys': policys,
-    }  
-    if request.method == 'POST':
-        #obtener datos del formulario de filtrar
-        date_star = request.POST.get('startDate')
-        date_end = request.POST.get('expiryDate')
-        insurer = request.POST.get('insurer')
-        insurance = request.POST.get('insurance')
-        type_insurance = request.POST.get('type_insurance')
-        state = request.POST.get('state')
+    }
 
-        filters = {} #diccionario para almacenar los filtros
+    if request.method == 'GET':
+        # obtener datos del formulario de filtrar (usar request.GET en lugar de request.POST)
+        date_star = request.GET.get('startDate')
+        date_end = request.GET.get('expiryDate')
+        insurer = request.GET.get('insurer')
+        insurance = request.GET.get('insurance')
+        type_insurance = request.GET.get('type_insurance')
+        state = request.GET.get('state')
+
+        filters = {}  # diccionario para almacenar los filtros
         if date_star:
             filters['fecha_inicio'] = date_star
 
@@ -214,13 +222,29 @@ def show_policys(request):
 
         if state and not "":
             filters['estado'] = state
-  
-        policys = Poliza.objects.filter(**filters) #filtrar pólizas por los datos almacenados en el diccionario
+
+        # aplicar los filtros si hay alguno
+        if filters:
+            policys = Poliza.objects.filter(**filters)
         context['policys'] = policys
 
-    return render(request, 'admin/show_policys.html',{
-         'context': context       
-    })
+    #implementación de la paginación
+    paginator = Paginator(context['policys'], 10)  
+    page = request.GET.get('page')
+
+    try:
+        policys_page = paginator.page(page)
+    except PageNotAnInteger:
+        #si la página no es un número entero, muestra la primera página
+        policys_page = paginator.page(1)
+    except EmptyPage:
+        #si la página está fuera de rango, muestra la última página
+        policys_page = paginator.page(paginator.num_pages)
+
+    context['policys_page'] = policys_page  
+
+    return render(request, 'admin/show_policys.html', {'context': context})
+
 
 #vista para ver los siniestros
 @login_required
@@ -233,13 +257,13 @@ def show_claims(request):
         'insurances': Seguro.objects.all(),
         'type_insurance': Tipo_Seguro.objects.all(),
     } 
-    if request.method == 'POST':
+    if request.method == 'GET':
         #obtener datos del formulario filtrar
-        insurer = request.POST.get('insurer')
-        type_insurance = request.POST.get('type_insurance')
-        insurance = request.POST.get('insurance')
-        state = request.POST.get('state')
-        date = request.POST.get('date')
+        insurer = request.GET.get('insurer')
+        type_insurance = request.GET.get('type_insurance')
+        insurance = request.GET.get('insurance')
+        state = request.GET.get('state')
+        date = request.GET.get('date')
 
         filters = {} #diccionario que almacena los filtros
         if date:
@@ -260,37 +284,48 @@ def show_claims(request):
         claims = Siniestro.objects.filter(**filters) #filtrar siniestros por los datos almacenados en el diccionario de filtros
         context['claims'] = claims
 
-    return render(request, 'admin/show_claims.html',{
-        'context': context       
-    })
+    # implementación de la paginación
+    paginator = Paginator(context['claims'], 10)  
+    page = request.GET.get('page')
+
+    try:
+        claims_page = paginator.page(page)
+
+    except PageNotAnInteger:
+        #si la página no es un número entero, muestra la primera página
+        claims_page = paginator.page(1)
+    except EmptyPage:
+        #si la página está fuera de rango, muestra la última página
+        claims_page = paginator.page(paginator.num_pages)
+
+    context['claims_page'] = claims_page  # pasar los siniestros paginados al contexto
+
+    return render(request, 'admin/show_claims.html', {'context': context})
+
 
 #vista para agregar una aseguradora
 @login_required
 def add_insurer(request):
-    modal = False
-    message = ''
     add = False 
+
     if request.method == 'POST':
         #obtener datos del formulario
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
-        modal = True
         
         #validar datos del formulario
         if name and phone and address:
            Aseguradora.objects.create(nombre = name, telefono = phone, direccion = address) #crear aseguradora
            add = True      
-           message = f'La aseguradora {name} ha sido agregada.'
+           messages.success(request, 'Aseguradora agregada con éxito.')
 
         else:
             add = False
-            message = 'Complete los campos'
+            messages.success(request, 'Complete los campos.')
     
     context = { #datos que van al template
         'add' : add,
-        'modal': modal,
-        'message': message,
     } 
 
     return render(request, 'admin/add_insurer.html',{
@@ -300,62 +335,64 @@ def add_insurer(request):
 #vista para ver la lista de aseguradoras
 @login_required
 def show_insurers(request):
-    insurers = Aseguradora.objects.all()
-    return render(request, 'admin/show_insurers.html', {
-        'insurers': insurers
-    })
+
+    context = {
+        'insurers' : Aseguradora.objects.all(),
+    }
+    #implementación de la paginación
+    paginator = Paginator(context['insurers'], 10)  
+    page = request.GET.get('page')
+
+    try:
+        insurers_page = paginator.page(page)
+    except PageNotAnInteger:
+        #si la página no es un número entero, muestra la primera página
+        insurers_page = paginator.page(1)
+    except EmptyPage:
+        #si la página está fuera de rango, muestra la última página
+        insurers_page = paginator.page(paginator.num_pages)
+
+    context['insurers_page'] = insurers_page 
+
+    return render(request, 'admin/show_insurers.html', {'context': context})
 
 #vista para ver los tipos de seguros
 @login_required
 def add_type_insurance(request):
-    modal = False
-    message = ''
-
     if request.method == 'POST':
         #obtener los datos del formulario
         name = request.POST.get('type')
-        modal = True
 
         if name:
            Tipo_Seguro.objects.create(nombre = name)            
-           message = f'El tipo de seguro:  {name}, ha sido agregado.'
+           messages.success(request, f'El tipo de seguro {name} fue agregado con éxito.')
 
         else:
-            message = 'Complete los campos'
+            messages.success(request, 'Complete los campos.')
     
-    context = {
-    'modal': modal,
-    'message': message,
-    } 
 
-    return render(request, 'admin/add_type_insurance.html',{
-         'context': context       
-    })
+    return render(request, 'admin/add_type_insurance.html')
 
+    
 #vista que agrega un seguro a la lista
 @login_required
 def add_insurance(request):
-    modal = False
-    message = ''
     types_insurances = Tipo_Seguro.objects.all() #obtener los tipos de seguros para poder agregar el seguro a alguno
 
     if request.method == 'POST':
         #obtenener los datos del formualrio
         insurance = request.POST.get('type')
         type_insurance_id = int(request.POST.get('typeInsurance'))
-        modal = True
 
         if insurance:
            type_insurance = Tipo_Seguro.objects.get(id = type_insurance_id)  #obtener el tipo de seguro al que va a pertenecer
            Seguro.objects.create(nombre = insurance, tipo_seguro_id = type_insurance) #crear el seguro
-           message = f'El seguro: {insurance}, ha sido agregado.'
-
+           messages.success(request, f'El seguro: {insurance}, ha sido agregado.')
+        
         else:
-            message = 'No se completaron los campos.'
+           messages.success('No se completaron lo campos.')
 
     context = { #datos que van al template
-    'modal': modal,
-    'message': message,
     'types_insurances': types_insurances,
     } 
 
@@ -366,25 +403,55 @@ def add_insurance(request):
 #vista que muestra los tipos de seguros en portafolio
 @login_required
 def show_types_insurances(request):
-    types_insurances = Tipo_Seguro.objects.all()
-    return render(request, 'admin/show_types_insurances.html', {
-        'types_insurances': types_insurances
-    })   
+    context = {
+        'type_insurance' : Tipo_Seguro.objects.all(),
+    }
+    #implementación de la paginación
+    paginator = Paginator(context['type_insurance'], 10)  
+    page = request.GET.get('page')
+
+    try:
+        type_insurance_page = paginator.page(page)
+    except PageNotAnInteger:
+        #si la página no es un número entero, muestra la primera página
+        type_insurance_page = paginator.page(1)
+    except EmptyPage:
+        #si la página está fuera de rango, muestra la última página
+        type_insurance_page = paginator.page(paginator.num_pages)
+
+    context['type_insurance_page'] = type_insurance_page 
+
+    return render(request, 'admin/show_types_insurances.html', {'context': context})
+    
 
 #vista que muestra los seguros en portafolio
 @login_required
 def show_insurances(request):
-    insurances = Seguro.objects.all()
-    return render(request, 'admin/show_insurances.html', {
-        'insurances': insurances
-    })  
+    context = {
+        'insurances' : Seguro.objects.all(),
+    }
+    #implementación de la paginación
+    paginator = Paginator(context['insurances'], 10)  
+    page = request.GET.get('page')
+
+    try:
+        insurances_page = paginator.page(page)
+    except PageNotAnInteger:
+        #si la página no es un número entero, muestra la primera página
+        insurances_page = paginator.page(1)
+    except EmptyPage:
+        #si la página está fuera de rango, muestra la última página
+        insurances_page = paginator.page(paginator.num_pages)
+
+    context['insurances_page'] = insurances_page 
+
+    return render(request, 'admin/show_insurances.html', {'context': context})
+ 
 
 #vista que edita una póliza: obtiene la póliza por la url
 @login_required
 def edit_policy(request, policy_id):
     policy = Poliza.objects.get(id = policy_id) #póliza
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #obtener datos del formulario
@@ -411,14 +478,10 @@ def edit_policy(request, policy_id):
         policy.prima = premium
         policy.save()
 
-        #mosatrar mensaje
-        modal = True
-        message = 'Se agregaron los cambios con éxito.'
+        messages.success(request,'Se agregaron los cambios con éxito.')
 
     context = { #datos que van al template
         'policy': policy,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'admin/edit_policy.html',{
@@ -429,8 +492,6 @@ def edit_policy(request, policy_id):
 @login_required
 def edit_client(request, client_id):
     client = Cliente.objects.get(num_documento = client_id) #cliente
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #obtener datos del formulario
@@ -467,32 +528,95 @@ def edit_client(request, client_id):
         
         client.tipo_documento = type_document
         client.save() #guardar cambios
-        modal = True
-        message = 'Se agregaron los cambios con éxito.'
+        messages.success(request,'Se agregaron los cambios con éxito.')
+        
    
     context = { #datos que van al template
         'client': client,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'admin/edit_client.html',{
         'context': context       
     })
 
+def edit_beneficiary(request, beneficiary_id):
+    # Obtiene el beneficiario o retorna un 404 si no existe
+    beneficiary = Beneficiario.objects.get( id =beneficiary_id)
+    # Obtener la relación Policy_Beneficiary
+    policy_beneficiary = Policy_Beneficiary.objects.get(beneficiary_id=beneficiary)
+    policy = policy_beneficiary.policy_id
+
+    if request.method == 'POST':
+        # Recoge los datos del formulario
+        name = request.POST.get('name', '').strip()
+        type_document = request.POST.get('typeDocument', '').strip()
+        document = request.POST.get('document', '').strip()
+
+        # Validaciones de los campos requeridos
+        if not name or not type_document or not document:
+            message = 'Por favor, complete los campos obligatorios.'
+
+        else:
+            # Solo actualizar si hay cambios
+            has_changes = False
+            if beneficiary.nombre.strip() != name:
+                beneficiary.nombre = name
+                has_changes = True
+
+            if beneficiary.tipo_documento.strip() != type_document:
+                beneficiary.tipo_documento = type_document
+                has_changes = True
+
+            if str(beneficiary.num_documento).strip() != document:
+                beneficiary.num_documento = document
+                has_changes = True
+
+            if has_changes:
+                beneficiary.save()
+                messages.success('Se agregaron los cambios con éxito.')    
+
+            else:
+                messages.success('No se registraron cambios.')
+
+
+    context = { #datos que van al template
+      'beneficiary': beneficiary,
+      'policy': policy
+    }
+
+    return render(request, 'admin/edit_beneficiary.html',{
+        'context': context       
+    })
+
+
+
+def delete_beneficiary(request, beneficiary_id):
+    # Obtén el beneficiario por su ID
+    beneficiary = Beneficiario.objects.get(id = beneficiary_id)
+    policy_beneficiary = Policy_Beneficiary.objects.get(beneficiary_id=beneficiary)
+    policy = policy_beneficiary.policy_id
+
+    # Eliminar el beneficiario
+    beneficiary.delete()
+    messages.success(request, 'Beneficiario eliminado con éxito.')
+    beneficiarios = Beneficiario.objects.filter(policy_beneficiary__policy_id= policy)
+
+    if beneficiarios.count() == 0:
+        return redirect('show_policys')
+
+    # Redirigir a la lista de beneficiarios de la póliza
+    return redirect('show_beneficiarys', policy.id)
+
 #vista que cambia la contraseña del cliente: obtiene el usuario del cliente por url
 @login_required
 def change_password_client(request, client_id):
     manager = Usuario.objects.get(num_documento = client_id)
-    modal = False
     changed = False
-    message = ''
 
     if request.method == 'POST':
         #obtener datos del formulario
         old_password = request.POST.get('oldPassword')
         new_password = request.POST.get('newPassword')
-        modal = True
         
         if old_password and new_password: #validar datos
             
@@ -501,23 +625,22 @@ def change_password_client(request, client_id):
                 manager.password = make_password(new_password) #cambiar contraseña por la nueva
                 manager.save()
                 changed = True
-                message = 'Cambio de contraseña éxitoso, vuelve a ingresar.' 
+                messages.success(request, 'Cambio de contraseña éxitoso, vuelve a ingresar') 
                 logout(request) #terminar sesión para que vuelva e ingrese
 
             else:
                 #mostrar mensaje en caso de no coincidir datos
                 changed = False
-                message = 'La contraseña antigua no coincide.' 
+                messages.success(request, 'La contraseña antigua no coincide.') 
+                 
         else:
             #mostrar mensaje en caso de no llenar los campos del formulario
             changed = False
-            message = 'Porfavor complete los campos.' 
+            messages.success(request, 'Porfavor complete los campos.')  
  
 
     context = { #datos que se enviarán al template
         'changed': changed,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'cliente/change_password_client.html',{
@@ -528,8 +651,6 @@ def change_password_client(request, client_id):
 @login_required
 def edit_claim(request, claim_id):
     claim = Siniestro.objects.get(id = claim_id) #siniestro
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #obtener datos del formulario
@@ -547,15 +668,10 @@ def edit_claim(request, claim_id):
         #guardar datos
         claim.estado = state
         claim.save()
-
-        #mostrar mensaje
-        modal = True
-        message = 'Se agregaron los cambios con éxito.'
+        messages.success(request, 'Se agregaron los cambios con éxito.')
     
     context = { #pasar datos al template
         'claim': claim,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'admin/edit_claim.html',{
@@ -566,25 +682,21 @@ def edit_claim(request, claim_id):
 @login_required  
 def edit_type_insurance(request, type_insurance_id):
     type_insurance = Tipo_Seguro.objects.get(id = type_insurance_id)
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         name = request.POST.get('name')
-        modal = True
     
         if name:
             type_insurance.nombre = name #cambiar el nombre existente por el dado
-            message = 'Cambios hechos con éxito.'
+            messages.success(request, 'Cambios hechos con éxito.')
             type_insurance.save() #guardar cambios
         else:           
-            message = 'No se pudieron hacer los cambios.' 
+            messages.success(request, 'No se pudieron hacer los cambios.')
+            
 
     #diccionario que almacena los datos que van al template
     context = {
         'type_insurance': type_insurance,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'admin/edit_types_insurances.html',{
@@ -597,26 +709,19 @@ def edit_type_insurance(request, type_insurance_id):
 def edit_insurance(request, insurance_id):
     insurance = Seguro.objects.get(id = insurance_id) 
 
-    #modal para mostrar el mensaje
-    modal = False
-    message = ''
-
     if request.method == 'POST':
         name = request.POST.get('name')
-        modal = True
     
         if name:
             insurance.nombre = name #cambiar el nombre existente por el nombre dado
             insurance.save()
-            message = 'Cambios hechos con éxito.'
+            messages.success(request, 'Cambios hechos con éxito.')
         
         else:
-           message = 'No se pudieron hacer los cambios.' 
+           messages.success(request, 'No se pudieron hacer los cambios.')
 
     context = {
         'insurance': insurance,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'admin/edit_insurance.html',{
@@ -670,14 +775,11 @@ def delete_policy(request, policy_id):
 @login_required
 def edit_profile_admin(request, admin_id):
     admin = Usuario.objects.get(num_documento = admin_id)
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #obtener datos del formulario
         name = request.POST.get('name')
         email = request.POST.get('email')
-        modal = True
         
         #validar datos que no sean vacíos
         if name:
@@ -686,13 +788,11 @@ def edit_profile_admin(request, admin_id):
         if email:
             admin.email = email
         
-        admin.save() #guardar la información editada
-        message = 'Cambios guardados con éxito.' 
+        admin.save() #guardar la información editada 
+        messages.success(request, 'Cambios guardados con éxito.')
     
     context = { #pasar datos al template
         'admin': admin,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'admin/edit_profile.html',{
@@ -703,8 +803,6 @@ def edit_profile_admin(request, admin_id):
 @login_required
 def edit_insurer(request, insurer_id):
     insurer = Aseguradora.objects.get(id = insurer_id)
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #se obtienen los datos del formulario
@@ -723,12 +821,9 @@ def edit_insurer(request, insurer_id):
            insurer.direccion = address
 
         insurer.save() #guardar cambios
-        modal = True
-        message = 'Se realizaron los cambios exitosamente.'
+        messages.success(request, 'Se realizaron los cambios exitosamente.')
  
     context = { #datos que van para el template
-    'modal': modal,
-    'message': message,
     'insurer': insurer
     } 
 
@@ -740,8 +835,6 @@ def edit_insurer(request, insurer_id):
 @login_required
 def add_beneficiary(request, policy_id):   
     policy = Poliza.objects.get(id = policy_id)
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #obtener datos del form
@@ -753,16 +846,13 @@ def add_beneficiary(request, policy_id):
             #crear beneficiario
             beneficiary = Beneficiario.objects.create(num_documento= document, nombre = name, tipo_documento = type_document)
             Policy_Beneficiary.objects.create(policy_id = policy, beneficiary_id = beneficiary) #crear relación con la póliza
-            modal = True
-            message = f'La persona {name} fue agregado como beneficario a la póliza {policy.seguro_id.nombre} a cargo del señor(a) {policy.cliente_id.nombre}'
+            messages.success(request, f'La persona {name} fue agregado como beneficario a la póliza {policy.seguro_id.nombre} a cargo del señor(a) {policy.cliente_id.nombre}')
+
 
         except Exception as e:
-            message = f'Error al crear beneficiario: {e}'
-    
-                   
+            messages.error(request, f'Error al crear beneficiario: {e}')
+              
     context = {
-    'modal': modal,
-    'message': message,
     'policy' :policy,
     } 
 
@@ -797,8 +887,6 @@ def show_beneficiarys(request, policy_id):
 @login_required
 def add_claim(request, policy_id):
     policy = Poliza.objects.get(id = policy_id) #póliza
-    modal = False
-    message = ''
 
     if request.method == 'POST':
         #obtener los datos del formulario
@@ -810,23 +898,19 @@ def add_claim(request, policy_id):
             #crear siniestro
             try:
                 Siniestro.objects.create(fecha = date, descripcion = description, estado = state, poliza_id = policy)
-                modal = True
-                message = f'El siniestro fue creado a la póliza {policy.seguro_id.nombre} a cargo del señor(a) {policy.cliente_id.nombre}'
+                messages.success(request, f'El siniestro fue creado a la póliza {policy.seguro_id.nombre} a cargo del señor(a) {policy.cliente_id.nombre}')
+
 
             except Exception as e:
-                modal = True
-                message = f'Error al crear el siniestro: {e}'
+                messages.error(request, f'No se pudo crear el siniestro, {e}')
+
         else:
-            message = 'Complete los campos.'
+            messages.error(request,'Complete los campos.')
 
-    context = { #datos que van al template
-    'modal': modal,
-    'message': message,
-    } 
+ 
 
-    return render(request, 'admin/add_claim.html',{
-         'context': context       
-    })
+    return render(request, 'admin/add_claim.html')
+
 
 #vistas del apartado cliente
 
@@ -951,9 +1035,6 @@ def edit_profile_client(request, client_id):
     user = Usuario.objects.get(num_documento = client_id)
     client = Cliente.objects.get(num_documento = client_id)
 
-    modal = False
-    message = ''
-
     if request.method == 'POST':
         #se obtienen los datos dados en el formulario
         name = request.POST.get('name')
@@ -963,9 +1044,7 @@ def edit_profile_client(request, client_id):
         phone = request.POST.get('phone2')
         email = request.POST.get('email')
         city = request.POST.get('city')
-        address = request.POST.get('address')
-
-        modal = True    
+        address = request.POST.get('address')  
         
         #se validan los datos: editar si es diferente al dato almacenado
         #se edita también los campos compartidos en usuario
@@ -991,7 +1070,7 @@ def edit_profile_client(request, client_id):
             user.email = email  #dato compartido con usuario
         
         if city and client.ciudad != city:
-            client.ciudad = ciudad
+            client.ciudad = city
 
         if address and client.direccion != address:
             client.direccion = address
@@ -999,12 +1078,11 @@ def edit_profile_client(request, client_id):
         #guardar cambios hechos tanto para cliente como para el usuario del sistema del cliente
         client.save()
         user.save()
-        message = 'Cambios guardados con éxito.' 
+        messages.success(request,'Cambios guardados con éxito')
+
     
     context = { #datos que van para el template
         'client': client,
-        'modal' : modal,
-        'message': message
     }
 
     return render(request, 'cliente/edit_profile_client.html',{
@@ -1192,15 +1270,33 @@ def agregarAdministrador(request):
 #vista qie muestra los administradores
 @login_required
 def verAdministradores(request):
-    usuarios = Usuario.objects.all()
-    administradores = []
-    for usuario in usuarios:
-        if usuario.rol == 'ADMINISTRADOR':
-            administradores.append(usuario) #almacenar los usuarios que tengan el rol de administrador
-         
-    return render(request, 'gerente/verAdministradores.html', {
-        'administradores': administradores
-    })  
+    users = Usuario.objects.all()
+    managers = []
+
+    for user in users:
+        if user.rol == 'ADMINISTRADOR':
+            managers.append(user) #almacenar los usuarios que tengan el rol de administrador
+
+    context = {
+        'managers' : managers,
+    }
+    #implementación de la paginación
+    paginator = Paginator(context['managers'], 10)  
+    page = request.GET.get('page')
+
+    try:
+        managers_page = paginator.page(page)
+    except PageNotAnInteger:
+        #si la página no es un número entero, muestra la primera página
+        managers_page = paginator.page(1)
+    except EmptyPage:
+        #si la página está fuera de rango, muestra la última página
+        managers_page = paginator.page(paginator.num_pages)
+
+    context['managers_page'] = managers_page
+
+    return render(request, 'gerente/verAdministradores.html', {'context': context})
+
 
 #vista para ver estadísticas generales
 @login_required
@@ -1267,7 +1363,20 @@ def verEstadisticasPorAseguradora(request):
 #Páginas públicas
 
 def nosotros(request):
-    return render(request, 'public/nosotros.html')
+    if request.method == 'POST':
+        #obtener datos del formulario  
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        subject = 'Duda, queja y/o reclamo'
+        sender = settings.EMAIL_HOST_USER 
+        message_email = f'Correo de quien escribe: {email}.\n{message}'
+
+        #envío de la contraseña al correo
+        send_mail(subject, message_email, sender, [sender])
+      
+       
+    return render(request, 'public/about.html')
 
 def segurosGenerales(request):
     return render(request, 'public/segurosGenerales.html')
@@ -1276,4 +1385,53 @@ def segurosHogar(request):
     return render(request, 'public/segurosHogar.html')
 
 def home(request):
-    return render(request, 'layouts/basePublic.html')
+    return render(request,'public/home.html')
+
+def segurosObligatorios(request):
+    return render(request,'public/segurosObligatorios.html')
+
+def segurosVida(request):
+    return render(request,'public/segurosVida.html')
+    
+def contactanos(request):
+    return render(request,'public/contactanos.html')
+
+
+def reset_password(request):
+    if request.method == 'POST':
+        # Obtener el número de documento ingresado
+        document = request.POST.get('numDocument')
+        
+        # Intentar obtener el cliente correspondiente
+        try:
+            client = Cliente.objects.get(num_documento=document)
+
+        except Cliente.DoesNotExist:
+            messages.error(request, 'No se encontró un usuario con ese número de documento.')
+            return redirect('reset_password')
+
+        # Generar una nueva contraseña
+        new_password = secrets.token_hex(4)  # Contraseña aleatoria
+        new_password_encript = make_password(new_password)
+
+        # Actualizar la contraseña del usuario
+        try:
+            user = Usuario.objects.get(num_documento=document)
+            user.password = new_password_encript
+            user.save()
+
+            # Enviar la nueva contraseña por correo
+            subject = 'Recuperación de Contraseña'
+            message = f'Hola {client.nombre},\n\nTu nueva contraseña es: {new_password}\nTe recomendamos cambiarla al iniciar sesión.'
+            sender = settings.EMAIL_HOST_USER
+            recipient = [client.email]
+            send_mail(subject, message, sender, recipient)
+
+            messages.success(request, 'Se ha enviado una nueva contraseña a tu correo electrónico.')
+            
+
+        except Usuario.DoesNotExist:
+            messages.error(request, 'No se encontró un usuario asociado con ese número de documento.')
+            return redirect('reset_password')
+
+    return render(request, 'public/reset_password.html')

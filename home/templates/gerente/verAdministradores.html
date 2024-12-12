@@ -7,7 +7,7 @@
 <div id="general">
     <section id="buscar" class="sec-buscar">
         <section>
-            <p id="count">{{ administradores|length }}</p>
+            <p id="count">{{ context.managers_page.paginator.count }}</p>
         </section>
         <section>
             <label for="buscar">Buscar:</label>
@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody class="polizas">
-            {% for administrador in administradores %}
+            {% for administrador in context.managers %}
             <tr id="datos">
                 <td>{{ administrador.nombre }}</td>
                 <td>{{ administrador.num_documento }}</td>
@@ -56,6 +56,19 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="step-links">
+          {% if context.managers_page.has_previous %}
+           <a href="?page=1">Primera</a>
+            <a href="?page={{ context.managers_page.previous_page_number }}">Anterior</a>
+          {% endif %}
+          <span class="current"> Página {{ context.managers_page.number }} de {{ context.managers_page.paginator.num_pages }}. </span>
+          {% if context.managers_page.has_next %}
+            <a href="?page={{ context.managers_page.next_page_number }}">Siguiente</a>
+            <a href="?page={{ context.managers_pagee.paginator.num_pages }}">Última &raquo;</a>
+          {% endif %}
+        </span>
+    </div>
     {% if messages %}
       {% for message in messages %}
         <script> 

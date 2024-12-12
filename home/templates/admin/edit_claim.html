@@ -20,6 +20,7 @@
                     <option value="REPORTADO" {% if context.claim.estado == 'REPORTADO' %} selected {% endif %}>Reportado</option>
                     <option value="EN_PROCESO" {% if context.claim.estado == 'EN_PROCESO' %} selected {% endif %}>En proceso</option>
                     <option value="RECHAZADO" {% if context.claim.estado == 'RECHAZADO' %} selected {% endif %}>Rechazado</option>
+                    <option value="PAGADO" {% if context.claim.estado == 'PAGADO' %} selected {% endif %}>Pagado</option>
                     <option value="RESUELTO"  {% if context.claim.estado == 'RESUELTO' %} selected {% endif %}>Resuelto</option>
                 </select>
             </section>
@@ -29,12 +30,21 @@
             <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
         </section>
     </form>
-    {% if context.modal %}
-    <div id="modal" class="modal">
-        <p>{{ context.message }}</p>
-        <button onclick="window.location.href='{{url_list}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
-    </div>
-    {% endif %} 
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_claims'%}"
+            }
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 
 

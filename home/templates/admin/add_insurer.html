@@ -1,16 +1,20 @@
 {% extends 'layouts/baseAdmin.html' %}
 {% load static %}
 {% block content %}
-{% if context.modal %}
-<div id="modal" class="modal">
-    <p>{{ context.message }}</p>
-    {% if context.add %}
-      {% url 'show_insurers' as url %}
-    {% else %}
-     {% url 'add_insurer' as url %}
-    {% endif %}
-    <button class="boton options" onclick="window.location.href='{{url}}'"><strong>OK</strong></button>                           
-</div>
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_insurers'%}"
+            }
+        })
+        </script>
+        {% endfor %}
 {% endif %} 
 <section>
     <h3 class="h3-forms">Registrar Aseguradora</h3>
@@ -19,15 +23,15 @@
     {% csrf_token %}
     <section>
         <label for="name">Nombre:</label>
-        <input id="name" name="name" type="text">
+        <input id="name" name="name" type="text" required>
     </section>
     <section>
         <label for="phone">Teléfono:</label>
-        <input id="phone" name="phone" type="number">
+        <input id="phone" name="phone" type="number" required>
     </section>
     <section>
         <label for="address">Dirección:</label>
-        <input id="address" name="address" type="text">
+        <input id="address" name="address" type="text" required>
     </section>
     <section class="contentButton">
         <button id="botton-form" type="submit"><strong>Registrar</strong></button>

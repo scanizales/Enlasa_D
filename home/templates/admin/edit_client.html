@@ -15,6 +15,7 @@
                 <option value="NIT" {% if context.client.tipo_documento == 'NIT' %} selected {% endif %}>NIT</option>
                 <option value="CC" {% if context.client.tipo_documento == 'CC' %} selected {% endif %}>CC</option>
                 <option value="CE" {% if context.client.tipo_documento == 'CE' %} selected {% endif %}>CE</option>
+                <option value="PA" {% if context.client.tipo_documento == 'PA' %} selected {% endif %}>PA</option>
             </select>
         </section>
         <section class="column">
@@ -46,11 +47,20 @@
             <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
         </section>
     </form>
-    {% if context.modal %}
-    <div id="modal" class="modal">
-        <p>{{ context.message }}</p>
-        <button onclick="window.location.href='{{url_list}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
-    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_clients'%}"
+            }
+        })
+        </script>
+        {% endfor %}
     {% endif %} 
 {% endblock %}
 

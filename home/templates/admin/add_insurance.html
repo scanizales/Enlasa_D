@@ -21,11 +21,19 @@
         <button id="botton-form" type="submit"><strong>Registrar</strong></button>
     </section>
 </form>
-{% if context.modal %}
-<div id="modal" class="modal">
-    {% url 'show_insurances' as url %}
-    <p>{{ context.message }}</p>
-    <button class="boton options" onclick="window.location.href='{{url}}'"><strong>OK</strong></button>                           
-</div>
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_insurances'%}"
+            }
+        })
+        </script>
+        {% endfor %}
 {% endif %} 
 {% endblock %}

@@ -19,12 +19,17 @@
             <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
         </section>
     </form>
-    {% if context.modal %}
-    <div id="modal" class="modal">
-        <p>{{ context.message }}</p>
-        <button onclick="window.location.href='{{url}}'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
-    </div>
-    {% endif %} 
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 
 

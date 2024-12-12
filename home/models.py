@@ -50,7 +50,7 @@ class Cliente(models.Model):
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
         ('CC', 'Cédula'), 
         ('NIT', 'NIT'),
-        ('PAS', 'Pasaporte'),
+        ('PA', 'Pasaporte'),
         ('CE', 'Cédula de extranjería'),
     ]
 
@@ -104,9 +104,11 @@ class Beneficiario(models.Model):
     Modelo que representa un cliente
     """
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CED', 'Cédula'), 
+        ('CC', 'Cédula de ciudadania'), 
         ('NIT', 'NIT'),
-        ('PAS', 'Pasaporte')
+        ('PAS', 'Pasaporte'),
+        ('TI', 'Tarjeta de identidad'),
+        ('CE', 'Cédula de extranjería'),
     ]
 
     id = models.AutoField(primary_key = True)
@@ -134,6 +136,7 @@ class Siniestro(models.Model):
         ('EN_PROCESO', 'En proceso'),
         ('APROBADO', 'Aprobado'),
         ('RECHAZADO', 'Rechazado'),
+        ('PAGADO', 'Pagado'),
         ('RESUELTO', 'Resuelto'),
     ]
     id = models.AutoField(primary_key = True)

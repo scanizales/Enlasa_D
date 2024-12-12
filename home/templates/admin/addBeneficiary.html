@@ -1,16 +1,16 @@
 {% extends 'layouts/baseAdmin.html' %}
 {% load static %}
 {% block content %}
-{% if context.modal %}
-<div id="modal" class="modal">
-    <p>{{ context.message }}</p>
-    <button class="boton options" id="close"><strong>OK</strong></button>  
-    <script>
-        document.getElementById("close").onclick = function() {
-           location.href = "{% url 'show_policys' %}"
-        };
-   </script>                         
-</div>
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
 {% endif %} 
 <section>
     <h3 class="h3-forms">Registrar beneficiario</h3>

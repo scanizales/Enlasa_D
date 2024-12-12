@@ -1,12 +1,20 @@
 {% extends 'layouts/baseAdmin.html' %}
 {% block content %}
-{% if context.modal %}
-<div id="modal" class="modal">
-    <p>{{ context.message }}</p>
-    {% url 'show_types_insurances' as url %}
-    <button class="boton options" onclick="window.location.href='{{url}}'"><strong>OK</strong></button>                           
-</div>
-{% endif %} 
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_types_insurances'%}"
+            }
+        })
+        </script>
+        {% endfor %}
+{% endif %}  
 <section>
     <h3 class="h3-forms">Registrar Tipo de Seguro</h3>
 </section>

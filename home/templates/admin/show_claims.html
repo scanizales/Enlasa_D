@@ -5,7 +5,7 @@
     <h3>Listado de Siniestros</h3>
 </section>
 <div id="general">
-    <form class="filtrar" method="post">
+    <form class="filtrar" method="get">
         {% csrf_token %}
         <section>
             <h4>Filtrar siniestros</h4>
@@ -119,6 +119,21 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if context.claims_page.has_previous %}
+                <a href="?page=1{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">&laquo; Primera</a>
+                <a href="?page={{ context.claims_page.previous_page_number }}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">Anterior</a>
+            {% endif %}  
+            <span class="current">
+                Página {{ context.claims_page.number }} de {{ context.claims_page.paginator.num_pages }}.
+            </span>   
+            {% if context.claims_page.has_next %}
+                <a href="?page={{ context.claims_page.next_page_number }}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">Siguiente</a>
+                <a href="?page={{ context.claims_page.paginator.num_pages }}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </div>
 <script>
     const botonesMenu = document.querySelectorAll('.boton');

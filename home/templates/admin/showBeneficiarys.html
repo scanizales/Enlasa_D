@@ -53,15 +53,17 @@
                             <img class="icon" src="{% static 'assets/opciones2.png' %}">  
                         </button>
                         <ul class="menu-desplegable">
-                            <button class="icono-options options">
+                            {% url 'edit_beneficiary' beneficiary.beneficiary_id.id as url_edit %}
+                            <button class="icono-options options" onclick="window.location.href='{{url_edit}}'">
                                 <figure>
                                     <img src="{% static 'assets/user-edit.png' %}"  alt="icono">
                                 </figure>
                                 <p>Editar</p>
                             </button>
-                            <button class="icono-options options">
+                            {% url 'delete_beneficiary' beneficiary.beneficiary_id.id as url_delete %} 
+                            <button class="icono-options options" onclick="deleteBeneficiary('{{url_delete}}')">
                                 <figure>
-                                    <img src="{% static 'assets/delete.png' %}"  alt="icono">
+                                    <img src="{% static 'assets/delete.png' %}" alt="icono">
                                 </figure>
                                 <p>Eliminar</p>
                             </button>
@@ -71,6 +73,17 @@
             </tr>
             {% endfor %}
         </tbody>
+        {% if messages %}
+        {% for message in messages %}
+          <script> 
+              Swal.fire({
+              title:'{{ message }}',
+              icon: '{{ message.tags }}',
+              confirmButtonColor: '#0048B0',
+          })
+          </script>
+          {% endfor %}
+      {% endif %}
     </table>
 </div>
 <script>
@@ -81,4 +94,22 @@
             menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
 </script>
 <script src="{% static 'js/buscar.js' %}"></script>
+<script>
+    function deleteBeneficiary(url){
+        Swal.fire({
+            title:'¿Estás seguro de eliminarlo?',
+            text: 'No podrás recuperarlo',
+            icon: 'warning',
+            showCancelButton : true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor : ' #0048B0',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value){
+                location.href = url
+            }
+        })
+    }
+</script>
 {% endblock %}

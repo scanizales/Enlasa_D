@@ -6,7 +6,7 @@
 </section>
 <div id="general">
     <section id="buscar">
-        <p id="count" class="space-num">{{ insurers.count }}</p>
+        <p id="count" class="space-num">{{ context.insurers_page.paginator.count }}</p>
         <section>
             <label for="buscar">Buscar:</label>
             <input name="buscar" type="text" placeholder="Nombre..."></input>
@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for insurer in insurers %}
+            {% for insurer in context.insurers_page %}
             <tr id="datos">
                 <td>{{ insurer.nombre }}</td>
                 <td>{{ insurer.telefono }}</td>
@@ -38,6 +38,19 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="step-links">
+          {% if context.insurers_page.has_previous %}
+           <a href="?page=1">Primera</a>
+            <a href="?page={{ context.insurers_page.previous_page_number }}">Anterior</a>
+          {% endif %}
+          <span class="current"> Página {{ context.insurers_page.number }} de {{ context.insurers_page.paginator.num_pages }}. </span>
+          {% if context.insurers_page.has_next %}
+            <a href="?page={{ context.insurers_page.next_page_number }}">Siguiente</a>
+            <a href="?page={{ context.insurers_page.paginator.num_pages }}">Última &raquo;</a>
+          {% endif %}
+        </span>
+    </div>
 </div>
 <script src="{% static 'js/buscar.js' %}"></script>
 {% endblock %}

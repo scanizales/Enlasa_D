@@ -241,13 +241,13 @@ nav .rol{
 main{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    padding-left:1% ;
     background-color:whitesmoke;
     font-size: calc(9px + 0.3vw); 
     position: relative;
     height: 100%;
-    margin-left: 2%;
 }
 .bienvenida{
     width: 80%;
