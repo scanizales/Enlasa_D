@@ -48,9 +48,10 @@ class Cliente(models.Model):
     Modelo que representa un cliente
     """
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CED', 'Cédula'), 
+        ('CC', 'Cédula'), 
         ('NIT', 'NIT'),
-        ('PAS', 'Pasaporte')
+        ('PA', 'Pasaporte'),
+        ('CE', 'Cédula de extranjería'),
     ]
 
     num_documento = models.IntegerField( primary_key = True)
@@ -73,6 +74,7 @@ class Poliza(models.Model):
     """
 
     PRIMA = [  #creación de la enumeración de tipo de prima
+        ('MENSUAL', 'Mensual'),
         ('TRIMESTRAL', 'Trimestral'),
         ('SEMESTRAL', 'Semestral'),
         ('ANUAL', 'Anual'),
@@ -102,30 +104,26 @@ class Beneficiario(models.Model):
     Modelo que representa un cliente
     """
     TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CED', 'Cédula'), 
+        ('CC', 'Cédula de ciudadania'), 
         ('NIT', 'NIT'),
-        ('PAS', 'Pasaporte')
+        ('PAS', 'Pasaporte'),
+        ('TI', 'Tarjeta de identidad'),
+        ('CE', 'Cédula de extranjería'),
     ]
 
-    num_documento = models.IntegerField( primary_key = True)
+    id = models.AutoField(primary_key = True)
+    num_documento = models.IntegerField()
     nombre = models.CharField(max_length = 50)
     tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
+    
 
     def __str__(self) -> str:
         return self.nombre
 
-
-class Poliza_Beneficiario(models.Model):
-    """
-    Modelo que representa relación entre póliza y beneficiario
-    """
-
+class Policy_Beneficiary(models.Model):
     id = models.AutoField(primary_key = True)
-    poliza_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
-    beneficiario_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
-
-    def __str__ (self) -> str:
-        return self.id
+    policy_id = models.ForeignKey(Poliza, on_delete = models.CASCADE)
+    beneficiary_id = models.ForeignKey(Beneficiario, on_delete = models.CASCADE)
 
 
 class Siniestro(models.Model):
@@ -138,9 +136,10 @@ class Siniestro(models.Model):
         ('EN_PROCESO', 'En proceso'),
         ('APROBADO', 'Aprobado'),
         ('RECHAZADO', 'Rechazado'),
+        ('PAGADO', 'Pagado'),
         ('RESUELTO', 'Resuelto'),
     ]
-
+    id = models.AutoField(primary_key = True)
     fecha = models.DateField()
     descripcion = models.TextField()
     estado = models.CharField(max_length = 15, choices= ESTADO)
@@ -167,12 +166,6 @@ class  Usuario(AbstractBaseUser, PermissionsMixin):
     Modelo que representa un Usuario
     """
 
-    TIPO_DOCUMENTO = [ #creación de la enumeración de tipo de documento
-        ('CC', 'Cédula'), 
-        ('NIT', 'NIT'),
-        ('CE', 'Cédula extranjera')
-    ]
-
     ROL = [ #creación de la enumeración de tipo de rol
         ('CLIENTE', 'Cliente'),
         ('GERENTE', 'Gerente'),
@@ -180,7 +173,6 @@ class  Usuario(AbstractBaseUser, PermissionsMixin):
     ]
     
     num_documento = models.IntegerField( primary_key = True, unique=True)
-    tipo_documento = models.CharField(max_length = 3, choices = TIPO_DOCUMENTO)
     rol = models.CharField(max_length = 14, choices = ROL)
     nombre = models.CharField(max_length = 50)
     email = models.EmailField(max_length = 50)

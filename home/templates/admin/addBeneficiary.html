@@ -1,0 +1,40 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+{% endif %} 
+<section>
+    <h3 class="h3-forms">Registrar beneficiario</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section class="column">
+            <label for="name">Nombre:</label>
+            <input name="name" type="text" placeholder="Ej: Pepito Pérez" required></input>
+        </section>
+        <section class="column">
+            <label for="typeDocument">Tipo de documento:</label>
+            <select name="typeDocument" required>
+                <option value="CE">TI</option>
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+            </select>
+        </section>
+        <section class="column">
+            <label for="document">Número de documento:</label>
+            <input name="document" type="number" placeholder="Escriba aquí" required></input> 
+        </section>
+        <section class="contentButton">
+            <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+        </section>
+    </form>
+{% endblock %}

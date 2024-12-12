@@ -1,0 +1,43 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar beneficiario</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section class="column">
+            <label for="name">Nombre:</label>
+            <input value="{{ context.beneficiary.nombre }}" name="name" type="text" required></input>
+        </section>
+        <section class="column">
+            <label for="typeDocument">Tipo de documento:</label>
+            <select name="typeDocument" required>
+                <option value="TI" {% if context.beneficiary.tipo_documento == 'TI' %} selected {% endif %}>TI</option>
+                <option value="CC" {% if context.beneficiary.tipo_documento == 'CC' %} selected {% endif %}>CC</option>
+                <option value="CE" {% if context.beneficiary.tipo_documento == 'CE' %} selected {% endif %}>CE</option>
+                <option value="PA" {% if context.beneficiary.tipo_documento == 'PA' %} selected {% endif %}>PA</option>
+            </select>
+        </section>
+        <section class="column">
+            <label for="document">Número de documento:</label>
+            <input name="document" type="number" value="{{ context.beneficiary.num_documento }}" required></input> 
+        </section>
+        <section class="contentButton">
+            {% url 'show_beneficiarys' context.policy.id as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

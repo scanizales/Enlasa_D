@@ -1,0 +1,39 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Registrar Seguro</h3>
+</section>
+<form method='post' id="formGlobal">
+    {% csrf_token %}
+    <section class="column">
+        <label for="type">Nombre del seguro:</label>
+        <input name="type" type="text" required>
+    </section>
+    <section class="column">
+        <label for="typeInsurance">Tipo de seguro al que pertenecerá:</label>
+        <select name="typeInsurance" required>
+            {% for type_insurance in context.types_insurances %}
+            <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
+            {% endfor %}
+        </select>
+    </section>
+    <section class="contentButton">
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+    </section>
+</form>
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_insurances'%}"
+            }
+        })
+        </script>
+        {% endfor %}
+{% endif %} 
+{% endblock %}

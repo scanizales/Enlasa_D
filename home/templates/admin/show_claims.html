@@ -1,0 +1,164 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de Siniestros</h3>
+</section>
+<div id="general">
+    <form class="filtrar" method="get">
+        {% csrf_token %}
+        <section>
+            <h4>Filtrar siniestros</h4>
+        </section>
+        <div class="filtrar-items">          
+                <section>
+                    <label for="insurer">Aseguradora:</label>
+                    <select name="insurer">
+                        <option value="">Despliegue</option>
+                        {% for insurer in context.insurers %}
+                        <option value={{insurer.id}}>{{ insurer.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+                <section>
+                    <label for="type_insurance">Tipo seguro:</label>                   
+                    <select name="type_insurance">
+                        <option value="">Despliegue</option>
+                        {% for type_insurance in context.type_insurance %}
+                        <option value={{type_insurance.id}}>{{type_insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section>
+                <section>
+                    <label for="insurance">Seguro:</label>                   
+                    <select name="insurance">
+                        <option value="">Despliegue</option>
+                        {% for insurance in context.insurances %}
+                        <option value={{insurance.id}}>{{insurance.nombre}}</option>
+                        {% endfor %}                 
+                    </select>
+                </section>           
+                <section class="column">
+                    <label for="state">Estado:</label>
+                    <select class="size"  name="state" required>
+                        <option value="REPORTADO">Reportado</option>
+                        <option value="EN_PROCESO">En proceso</option>
+                        <option value="APROBADO">Aprobado</option>
+                        <option value="RECHAZADO">Rechazado</option>
+                        <option value="RESUELTO">Resuelto</option>
+                    </select>
+                </section>
+                <section>
+                    <label for="date">Fecha:</label>
+                    <input class="date" name="date" type="date"></input>
+                </section>
+        </div>          
+        <section class="buttons">
+            <button type="submit"><strong>Filtrar</strong></button>
+            <button id="button-color-other"><strong>Limpiar</strong></button>
+        </section>   
+    </form>
+    <section id="buscar" class="sec-buscar">
+        <section>
+            <p>Siniestros:</p>
+            <p id="count">{{ context.claims.count }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre del cliente..."></input>
+        </section>
+    </section>
+    <table>
+        <thead class="polizas">
+            <tr>
+                <th>Cliente</th>
+                <th>Documento</th>
+                <th>Aseguradora</th>
+                <th>Tipo Seguro</th> 
+                <th>Seguro</th>               
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody class="polizas">
+            {% for claim in context.claims %}
+            <tr id="datos">
+                <td>{{ claim.poliza_id.cliente_id.nombre }}</td>
+                <td>{{ claim.poliza_id.cliente_id.num_documento }}</td>
+                <td>{{ claim.poliza_id.aseguradora_id.nombre }}</td>
+                <td>{{ claim.poliza_id.seguro_id.tipo_seguro_id.nombre }}</td>
+                <td>{{ claim.poliza_id.seguro_id.nombre }}</td>
+                <td>{{ claim.fecha }}</td>
+                <td>{{ claim.descripcion }}</td>
+                <td>{{ claim.estado }}</td>
+                <td>
+                    <div class="boton-menu">
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
+                        <ul class="menu-desplegable">
+                            {% url 'edit_claim' claim.id as url_edit_claim %} 
+                            <button class="icono-options options" onclick="window.location.href='{{url_edit_claim}}'">
+                                <figure>
+                                    <img src="{% static 'assets/user-edit.png' %}" alt="icono">
+                                </figure>
+                                <p>Editar</p>
+                            </button>
+                            {% url 'delete_claim' claim.id as url_delete_claim %} 
+                            <button class="icono-options options" onclick="deleteClaim('{{url_delete_claim}}')">
+                                <figure>
+                                    <img src="{% static 'assets/delete.png' %}" alt="icono">
+                                </figure>
+                                <p>Eliminar</p>
+                            </button>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if context.claims_page.has_previous %}
+                <a href="?page=1{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">&laquo; Primera</a>
+                <a href="?page={{ context.claims_page.previous_page_number }}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">Anterior</a>
+            {% endif %}  
+            <span class="current">
+                Página {{ context.claims_page.number }} de {{ context.claims_page.paginator.num_pages }}.
+            </span>   
+            {% if context.claims_page.has_next %}
+                <a href="?page={{ context.claims_page.next_page_number }}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">Siguiente</a>
+                <a href="?page={{ context.claims_page.paginator.num_pages }}{% if request.GET.insurer %}&insurer={{ request.GET.insurer }}{% endif %}{% if request.GET.insurance %}&insurance={{ request.GET.insurance }}{% endif %}{% if request.GET.type_insurance %}&type_insurance={{ request.GET.type_insurance }}{% endif %}{% if request.GET.state %}&state={{ request.GET.state }}{% endif %}{% if request.GET.date %}&date={{ request.GET.date }}{% endif %}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';}); });
+</script>
+<script src="{% static 'js/buscar.js' %}"></script>
+<script>
+    function deleteClaim(url){
+        Swal.fire({
+            title:'¿Estás seguro de eliminar este siniestro?',
+            text: 'No podrás recuperarlo',
+            icon: 'warning',
+            showCancelButton : true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor : ' #0048B0',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value){
+                location.href = url
+            }
+        })
+    }
+</script>
+{% endblock %}

@@ -6,36 +6,44 @@
 </section>
 <div id="general">
     <section id="buscar" class="sec-buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <section>
+            <p id="count">{{ context.managers_page.paginator.count }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
     </section>
     <table>
         <thead class="polizas">
             <tr>
                 <th>Nombre</th>
-                <th>Tipo de documento</th>
-                <th>Documento</th>
+                <th>Usuario</th>
                 <th>Correo</th>
             </tr>
         </thead>
         <tbody class="polizas">
-            {% for administrador in administradores %}
+            {% for administrador in context.managers %}
             <tr id="datos">
                 <td>{{ administrador.nombre }}</td>
-                <td>{{ administrador.tipo_documento }}</td>
                 <td>{{ administrador.num_documento }}</td>
                 <td>{{ administrador.email }}</td>
                 <td>
                     <div class="boton-menu">
-                        <button class="boton" class="options"><strong>Opciones</strong><i class="flecha"></i></button>
+                        <button class="options boton">
+                            <img class="icon" src="{% static 'assets/opciones2.png' %}">  
+                        </button>
                         <ul class="menu-desplegable">
-                            <button class="icono-options options">
+                            {% url 'edit_password_admin' administrador.num_documento as url_change_password %}
+                            <button class="icono-options options" onclick="window.location.href='{{url_change_password}}'">
                                 <figure>
                                     <img src="{% static 'assets/user-edit.png' %}" alt="icono">
                                 </figure>
-                                <p>Editar</p>
-                            </button>                          
-                            <button class="icono-options options">
+                                <p>Cambiar</p>
+                                <p>contraseña</p>
+                            </button>
+                            {% url 'delete_admin' administrador.num_documento as url_delete_admin %}                          
+                            <button class="icono-options options" onclick="deleteAdmin( '{{url_delete_admin}}', '{{administrador.nombre}}')">
                                 <figure>
                                     <img src="{% static 'assets/delete.png' %}" alt="icono">
                                 </figure>
@@ -48,13 +56,56 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+        <span class="step-links">
+          {% if context.managers_page.has_previous %}
+           <a href="?page=1">Primera</a>
+            <a href="?page={{ context.managers_page.previous_page_number }}">Anterior</a>
+          {% endif %}
+          <span class="current"> Página {{ context.managers_page.number }} de {{ context.managers_page.paginator.num_pages }}. </span>
+          {% if context.managers_page.has_next %}
+            <a href="?page={{ context.managers_page.next_page_number }}">Siguiente</a>
+            <a href="?page={{ context.managers_pagee.paginator.num_pages }}">Última &raquo;</a>
+          {% endif %}
+        </span>
+    </div>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
 </div>
-<script>  
+<script>
     const botonesMenu = document.querySelectorAll('.boton');
-     botonesMenu.forEach(boton => { 
+    botonesMenu.forEach(boton => {
         boton.addEventListener('click', function () {
-            const menuDesplegable = boton.nextElementSibling;     
+            const menuDesplegable = boton.nextElementSibling;
             menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';    });  });
+</script>
+<script src="{% static 'js/buscar.js' %}"></script>
+<script>
+    function deleteAdmin(url, nombre){
+        Swal.fire({
+            title:'¿Estás seguro de eliminar al administrador ' + nombre + '?',
+            text: 'No podrás recuperarlo',
+            icon: 'warning',
+            showCancelButton : true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor : ' #0048B0',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value){
+                location.href = url
+            }
+        })
+    }
 </script>
 
 {% endblock %}

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="{% static 'assets/iconoLogo.png' %}" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="{% static 'css/iniciarSesion.css' %}">
+</head>
+<body>
+    <header>
+        <figure class="icono">
+            <img src="{% static 'assets/logo.png' %}" >
+        </figure>
+        <nav>
+            <a href="{% url 'home' %}">
+                <figure class="icono_house">
+                    <img src="{% static 'assets/house_blue.png' %}" >
+                </figure>
+            </a>
+        </nav>
+        <article id="miBoton" class="icono1">               
+            <img src="{% static 'assets/icono1.png' %}"  alt="icono">  
+            <strong>Inicia sesión</strong>
+        </article>
+    </header>   
+    <form class='small'action="" method="post">
+        {% csrf_token %}
+        <h1>Iniciar Sesión</h1>
+        <label for="numDocument">Usuario:</label>
+        <input name="numDocument" type="number"></input>
+        <label for="password">Contraseña:</label>
+        <input name ='password' type="password" id="passwordInput"></input> 
+        <button type="submit"><strong>Iniciar sesión</strong></button>
+        <a href="{% url 'reset_password'%}" style="color: blue;font-size: calc(10px + 0.4vw);">Olvide mi contraseña</a>
+    </form>
+    {% if context.modal %}
+    <div id="modal" class="modal">
+        <p>{{ context.message }}</p>
+        <button id="button-modal" onclick="window.location.href='login'" class="boton options" id="cerrar-modal2"><strong>OK</strong></button>                           
+    </div>
+    {% endif %} 
+</body>
+</html>

@@ -1,0 +1,61 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+<section id="clientes">
+    <h3>Listado de seguros</h3>
+</section>
+<div id="general">
+    <section id="buscar">
+        <p id="count" class="space-num">{{ context.insurances_page.paginator.count }}</p>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
+    </section>
+    <table>
+        <thead class="second2">
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo de seguro</th>
+            </tr>
+        </thead>
+        <tbody class="second2">
+            {% for insurance in context.insurances_page %}
+            <tr id="datos">
+                <td>{{ insurance.nombre }}</td>
+                <td>{{ insurance.tipo_seguro_id.nombre }}</td>
+                <td>
+                    {% url 'edit_insurance' insurance.id as url_edit %}
+                    <button class="button-icon" onclick="window.location.href='{{url_edit}}'">
+                        <figure>
+                            <img src="{% static 'assets/edit.png' %}" alt="icono">
+                        </figure>
+                    </button> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+          {% if context.insurances_page.has_previous %}
+           <a href="?page=1">Primera</a>
+            <a href="?page={{ context.insurances_page.previous_page_number }}">Anterior</a>
+          {% endif %}
+          <span class="current"> Página {{ context.insurances_page.number }} de {{ context.insurances_page.paginator.num_pages }}. </span>
+          {% if context.insurances_page.has_next %}
+            <a href="?page={{ context.insurances_page.next_page_number }}">Siguiente</a>
+            <a href="?page={{ context.insurances_page.paginator.num_pages }}">Última &raquo;</a>
+          {% endif %}
+        </span>
+    </div>
+</div>
+<script>
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block';}); });
+</script>
+<script src="{% static 'js/buscar.js' %}"></script>
+{% endblock %}

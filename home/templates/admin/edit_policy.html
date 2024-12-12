@@ -1,0 +1,72 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar póliza</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section class="column">
+            <label for="startDate">Fecha de inicio:</label>
+            <input value="{{ context.policy.fecha_inicio| date:'Y-m-d' }}" class="date" name="startDate" type="date"></input>
+        </section>
+        <section class="column">
+            <label for="expiryDate">Fecha de vencimiento:</label>
+            <input value="{{ context.policy.fecha_vencimiento| date:'Y-m-d'  }}" class="date" name="expiryDate" type="date"></input>
+        </section>
+        <section class="column">
+            <label for="typeFace">Tipo de prima:</label>
+            <select name="typeFace">
+                <option value="MENSUAL" {% if context.policy.prima == 'MENSUAL'%} selected {% endif %}>Mensual</option>
+                <option value="TRIMESTRAL" {% if context.policy.prima == 'TRIMESTRAL'%} selected {% endif %}>Trimestral</option>
+                <option value="SEMESTRAL" {% if context.policy.prima == 'SEMESTRAL'%} selected {% endif %}>Semestral</option>
+                <option value="ANUAL" {% if context.policy.prima == 'ANUAL'%} selected {% endif %}>Anual</option>
+            </select>
+        </section>
+        <section class="column">
+            <label for="valueFace">Valor prima:</label>
+            <input value="{{ context.policy.valor }}" name="valueFace"  type="number"></input>
+        </section>
+        <section class="column">
+            <label for="payMethod">Medio de pago:</label>
+            <select name="payMethod">
+                <option value="EFECTIVO" {% if context.policy.medio_pago == 'EFECTIVO' %} selected {% endif %}>Efectivo</option>
+                <option value="TARJETA" {% if context.policy.medio_pago == 'TARJETA' %} selected {% endif %}>Tarjeta</option>
+            </select>
+        </section>
+        <section class="column">
+            <label for="state">Estado póliza:</label>
+            <select  name="state">
+                <option value="True" {% if context.policy.estado == True %} selected {% endif %}>Activa</option>
+                <option value="False" {% if context.policy.estado == False %} selected {% endif %}>Inactiva</option>
+            </select>
+        </section>
+        <section class="contentButton">
+            {% url 'show_policys' as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_policys'%}"
+            }
+        })
+        </script>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+

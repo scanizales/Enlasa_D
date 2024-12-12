@@ -1,34 +1,67 @@
 {% extends 'layouts/baseCliente.html' %}
 {% load static %}
 {% block content %}
+{% if context.beneficiarys.count > 0 %}
 <section id="clientes">
     <h3>Listado de beneficiarios</h3>
 </section>
 <div id="general">
+    <form class="filtrar" method="post">
+        {% csrf_token %}
+        <section>
+            <h4>Filtrar beneficiarios</h4>
+        </section>
+        <div class="filtrar-items">                         
+            <label for="typeDocument">Tipo de docuento:</label>
+            <select name="typeDocument">
+                <option value="">Despliegue</option>
+                <option value="CC">CC</option>
+                <option value="CE">CE</option>
+                <option value="NIT">NIT</option>
+            </select>               
+        </div>
+        <section class="buttons">
+            <button type="submit"><strong>Filtrar</strong></button>
+            <button id="button-color-other"><strong>Limpiar</strong></button>
+        </section>   
+    </form>
     <section id="buscar">
-        <label for="buscar">Buscar:</label>
-        <input name="buscar" type="text"></input>
+        <section>
+            <p id="count">{{ context.beneficiarys.count }}</p>
+        </section>
+        <section>
+            <label for="buscar">Buscar:</label>
+            <input name="buscar" type="text" placeholder="Nombre..."></input>
+        </section>
     </section>
     <table>
-        <thead>
+        <thead class="polizas">
             <tr>
                 <th>Nombre</th>
                 <th>Tipo Documento</th>
                 <th class="space">Identificación</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="polizas">
+            {% for beneficiary in context.beneficiarys %}
             <tr id="datos">
-                <td>Sofía Canizales Lezama</td>
-                <td class="space">CC</td>
-                <td>1106773193</td>                   
+                <td>{{ beneficiary.beneficiary_id.nombre }}</td>
+                <td class="space">{{ beneficiary.beneficiary_id.tipo_documento }}</td>
+                <td>{{ beneficiary.beneficiary_id.num_documento }}</td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
 <script>
-    document.querySelector('.boton-menu').addEventListener('click', function () {
-        document.querySelector('.menu-desplegable').style.display = document.querySelector('.menu-desplegable').style.display === 'block' ? 'none' : 'block';
-    });
+    const botonesMenu = document.querySelectorAll('.boton');
+    botonesMenu.forEach(boton => {
+        boton.addEventListener('click', function () {
+            const menuDesplegable = boton.nextElementSibling;
+            menuDesplegable.style.display = menuDesplegable.style.display === 'block' ? 'none' : 'block'; }); });
 </script>
+<script src="{% static 'js/buscar.js' %}"></script>
+{% else %}
+<h2>Sin beneficiarios</h2>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        })
+        </script>
+        {% endfor %}
+{% endif %} 
+<section>
+    <h3 class="h3-forms">Registrar Siniestro</h3>
+</section>
+<form id="formGlobal" method="post">
+    {% csrf_token %}
+    <section class="column">
+        <label for="date">Fecha del siniestro:</label>
+        <input  class="date" name="date" type="date"  required></input>
+    </section>
+    <section class="column">
+        <label for="description">Descripción:</label>
+        <input name="description" type="text" placeholder="Escriba aquí" required></input>
+    </section>
+    <section class="column">
+        <label for="state">Estado:</label>
+        <select class="size"  name="state" required>
+            <option value="REPORTADO">Reportado</option>
+            <option value="EN_PROCESO">En proceso</option>
+            <option value="RECHAZADO">Rechazado</option>
+            <option value="PAGADO">Pagado</option>
+            <option value="RESUELTO">Resuelto</option>
+        </select>
+    </section>
+    <section class="contentButton">
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+    </section>
+</form>
+{% endblock %}

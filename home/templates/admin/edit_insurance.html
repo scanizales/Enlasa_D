@@ -1,0 +1,41 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% block content %}
+<section>
+    <h3 class="h3-forms">Editar seguro</h3>
+</section>
+    <form id="formGlobal" method="post">
+        {% csrf_token %}
+        <section>
+            <label for="name">Nombre:</label>
+            <input value="{{ context.insurance.nombre }}" id="name" name="name" type="text">
+        </section>
+        <section class="contentButton">
+            {% url 'show_insurances' as url_list %} 
+            <button id="botton-form" type="button" onclick="window.location.href='{{url_list}}'"><strong>Cancelar</strong></button>
+            <button id="botton-form" type="submit"><strong>Guardar cambios</strong></button>
+        </section>
+    </form>
+    {% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_insurances'%}"
+            }
+        })
+        </script>
+        {% endfor %}
+    {% endif %} 
+
+{% endblock %}
+
+
+
+
+
+
+

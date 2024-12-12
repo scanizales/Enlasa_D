@@ -1,0 +1,40 @@
+{% extends 'layouts/baseAdmin.html' %}
+{% load static %}
+{% block content %}
+{% if messages %}
+      {% for message in messages %}
+        <script> 
+            Swal.fire({
+            title:'{{ message }}',
+            icon: '{{ message.tags }}',
+            confirmButtonColor: '#0048B0',
+        }).then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "{% url 'show_insurers'%}"
+            }
+        })
+        </script>
+        {% endfor %}
+{% endif %} 
+<section>
+    <h3 class="h3-forms">Registrar Aseguradora</h3>
+</section>
+<form id="formGlobal" method="post">
+    {% csrf_token %}
+    <section>
+        <label for="name">Nombre:</label>
+        <input id="name" name="name" type="text" required>
+    </section>
+    <section>
+        <label for="phone">Teléfono:</label>
+        <input id="phone" name="phone" type="number" required>
+    </section>
+    <section>
+        <label for="address">Dirección:</label>
+        <input id="address" name="address" type="text" required>
+    </section>
+    <section class="contentButton">
+        <button id="botton-form" type="submit"><strong>Registrar</strong></button>
+    </section>
+</form>
+{% endblock %}
