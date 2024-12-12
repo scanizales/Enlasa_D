@@ -1,5 +1,5 @@
 # Enlasa_D: Aplicación Web para la Empresa Enlasa
-Proyecto Formativo - ADSI
+# Proyecto Formativo - ADSI
 Resumen Enlasa_D es una aplicación web diseñada para la empresa de seguros Enlasa. Esta plataforma ofrece funcionalidades para clientes, administradores y gerentes, permitiendo la gestión eficiente de pólizas, siniestros, beneficiarios y aseguradoras.
 
 Tecnologías Utilizadas
