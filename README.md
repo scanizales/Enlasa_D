@@ -27,3 +27,5 @@ Roles
 3.2. Agregar administradores
 3.3. Editar información de administradores y cambiar contraseñas4. Editar datos personales y reestablecer contraseña
 
+# NOTA 👁️
+Actualmente se encuentra en actualización...
